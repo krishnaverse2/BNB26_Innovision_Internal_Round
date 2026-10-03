@@ -22,12 +22,19 @@ export default defineConfig({
     {
       name: 'api-server-middleware',
       configureServer(server) {
-        server.middlewares.use(apiApp);
+        server.middlewares.use((req, res, next) => {
+          if (req.url && (req.url.startsWith('/api/') || req.url === '/api')) {
+            apiApp(req, res, next);
+          } else {
+            next();
+          }
+        });
       },
     },
   ],
   server: {
     port: 5173,
     host: true,
+    open: true,
   },
 })

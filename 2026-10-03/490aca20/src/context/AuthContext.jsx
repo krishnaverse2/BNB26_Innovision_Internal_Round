@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
       return null;
     }
   });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   // Verify session on initial mount if token exists
   useEffect(() => {

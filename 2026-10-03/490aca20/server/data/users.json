@@ -41,5 +41,13 @@
     "password": "password123",
     "role": "student",
     "createdAt": "2026-10-03T19:11:23.285Z"
+  },
+  {
+    "id": "usr_student_1791056963228",
+    "name": "Krishna Sonawane",
+    "email": "krishnasonawane4649@gmail.com",
+    "password": "krishna@1",
+    "role": "student",
+    "createdAt": "2026-10-03T19:49:23.228Z"
   }
 ]

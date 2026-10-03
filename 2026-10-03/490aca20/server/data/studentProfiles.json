@@ -118,5 +118,32 @@
     "predictAccuracy": 100,
     "recentActivity": "Predicted output for 'Range Boundary Execution' (Correct)",
     "lastActive": "2026-10-03T19:11:23.382Z"
+  },
+  {
+    "userId": "usr_student_1791056963228",
+    "fullName": "Krishna Sonawane",
+    "email": "krishnasonawane4649@gmail.com",
+    "mobile": "9158343342",
+    "college": "IIT Bombay",
+    "course": "B.Tech / B.E.",
+    "branch": "Computer Science & Engineering",
+    "yearSemester": "3rd Year / 5th Semester",
+    "skills": [
+      "C",
+      "C++",
+      "python",
+      "PHP and all"
+    ],
+    "problemsAttempted": 0,
+    "problemsSolved": 0,
+    "submissionsCount": 0,
+    "acceptedSubmissions": 0,
+    "accuracy": 0,
+    "languageUsage": {},
+    "predictOutputAttempted": 0,
+    "predictOutputCorrect": 0,
+    "predictAccuracy": 0,
+    "recentActivity": "Account registered",
+    "lastActive": "2026-10-03T19:49:23.228Z"
   }
 ]
