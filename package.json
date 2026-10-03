@@ -1,0 +1,9 @@
+{
+  "name": "bnb26-innovision-root",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix 2026-10-03/490aca20 run dev",
+    "build": "npm --prefix 2026-10-03/490aca20 run build",
+    "server": "npm --prefix 2026-10-03/490aca20 run server"
+  }
+}

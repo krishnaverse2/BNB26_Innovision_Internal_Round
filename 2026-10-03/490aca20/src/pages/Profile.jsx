@@ -18,13 +18,27 @@ import {
   StatCard,
 } from '../components/ui'
 import { useDemo } from '../context/DemoContext'
+import { useAuth } from '../context/AuthContext'
 import { getMisconception, PRIMARY_MISCONCEPTION_ID } from '../data/misconceptions'
 import { recurringPatterns } from '../data/responses'
 import { learningTimeline, studentMisconceptions } from '../data/students'
+import { School, BookOpen, Phone, Mail, LogOut } from 'lucide-react'
 
 export default function Profile() {
   const navigate = useNavigate()
   const { student, summary, fingerprint, isResolved, state, resetDemo } = useDemo()
+  const { user, profile, logout } = useAuth()
+
+  const displayName = profile?.fullName || user?.name || student.fullName
+  const displayEmail = profile?.email || user?.email || 'student@gmail.com'
+  const displayCollege = profile?.college || 'Stanford School of Engineering'
+  const displayBranch = profile?.branch || 'Computer Science & Engineering'
+  const displaySemester = profile?.yearSemester || '3rd Year / 6th Semester'
+
+  async function handleLogout() {
+    await logout()
+    navigate('/login', { replace: true })
+  }
 
   const tracked = studentMisconceptions.map((entry) => {
     const resolvedNow =
@@ -43,32 +57,39 @@ export default function Profile() {
   return (
     <div className="stack gap-lg">
       <PageHead
-        title="Profile"
-        subtitle="The learner record Re:Learn updates as each diagnosis cycle completes."
+        title="Student Profile"
+        subtitle="Your authenticated learner profile, academic background, and learning diagnostics record."
         actions={
-          isResolved ? (
-            <Pill tone="stable">🟢 Updated after resolution</Pill>
-          ) : (
-            <Pill tone="neutral">Demo learner</Pill>
-          )
+          <button
+            type="button"
+            className="btn btn-secondary btn-sm"
+            onClick={handleLogout}
+            style={{ color: '#ef4444', borderColor: '#fca5a5' }}
+          >
+            <LogOut size={14} style={{ marginRight: 4 }} />
+            Sign Out
+          </button>
         }
       />
 
       <Card dark>
         <div className="row between wrap" style={{ gap: 18 }}>
           <div className="row" style={{ gap: 16 }}>
-            <div className="avatar" style={{ width: 56, height: 56, fontSize: 18, borderRadius: 16 }}>
-              {student.avatarInitials}
+            <div className="avatar" style={{ width: 60, height: 60, fontSize: 20, borderRadius: 16 }}>
+              {displayName.slice(0, 2).toUpperCase()}
             </div>
             <div>
-              <div style={{ fontSize: 21, fontWeight: 700 }}>{student.fullName}</div>
-              <div className="small" style={{ color: '#b9c4dc', marginTop: 3 }}>
-                {student.cohort}
+              <div style={{ fontSize: 22, fontWeight: 700, color: '#ffffff' }}>{displayName}</div>
+              <div className="small" style={{ color: '#93c5fd', marginTop: 2 }}>
+                {displayCollege} • {displayBranch}
+              </div>
+              <div className="tiny" style={{ color: '#94a3b8', marginTop: 2 }}>
+                {displayEmail} {profile?.mobile ? `• ${profile.mobile}` : ''} • {displaySemester}
               </div>
               <div className="row wrap" style={{ gap: 8, marginTop: 12 }}>
                 <Pill tone="dark">
                   <User size={13} />
-                  <span className="mono">{student.id}</span>
+                  <span className="mono">{user?.id || student.id}</span>
                 </Pill>
                 <Pill tone="dark">
                   <Flame size={13} />
@@ -90,7 +111,7 @@ export default function Profile() {
             <div className="tiny" style={{ color: '#93a1bd', marginTop: 6 }}>
               {state.completedAt
                 ? `Cycle completed ${new Date(state.completedAt).toLocaleString()}`
-                : 'Cycle not completed yet'}
+                : 'Cycle in progress'}
             </div>
           </div>
         </div>

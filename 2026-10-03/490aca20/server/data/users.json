@@ -1,0 +1,45 @@
+[
+  {
+    "id": "usr_teacher_01",
+    "name": "Dr. Sarah Jenkins",
+    "email": "teacher@gmail.com",
+    "password": "teacher@1",
+    "role": "teacher",
+    "title": "Professor & Head of CS",
+    "department": "Computer Science & Engineering",
+    "institution": "National Institute of Technology",
+    "createdAt": "2026-01-10T08:00:00.000Z"
+  },
+  {
+    "id": "usr_student_01",
+    "name": "Alex Rivera",
+    "email": "student@gmail.com",
+    "password": "student@1",
+    "role": "student",
+    "createdAt": "2026-02-01T10:00:00.000Z"
+  },
+  {
+    "id": "usr_student_02",
+    "name": "Priya Patel",
+    "email": "priya.patel@college.edu",
+    "password": "student@1",
+    "role": "student",
+    "createdAt": "2026-02-03T11:30:00.000Z"
+  },
+  {
+    "id": "usr_student_03",
+    "name": "Marcus Vance",
+    "email": "marcus.v@tech.edu",
+    "password": "student@1",
+    "role": "student",
+    "createdAt": "2026-02-05T09:15:00.000Z"
+  },
+  {
+    "id": "usr_student_1791054683285",
+    "name": "Jordan Lee",
+    "email": "test_student_1791054683194@example.com",
+    "password": "password123",
+    "role": "student",
+    "createdAt": "2026-10-03T19:11:23.285Z"
+  }
+]

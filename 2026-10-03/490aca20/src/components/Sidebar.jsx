@@ -16,6 +16,7 @@ import {
   Trophy,
 } from 'lucide-react'
 import { useDemo } from '../context/DemoContext'
+import { useAuth } from '../context/AuthContext'
 
 const NAV = [
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -24,7 +25,6 @@ const NAV = [
   { to: '/interventions', label: 'Interventions', icon: Lightbulb },
   { to: '/assessments', label: 'Assessments', icon: ClipboardCheck },
   { to: '/timeline', label: 'Learning Timeline', icon: History },
-  { to: '/teacher', label: 'Teacher Analytics', icon: BarChart3 },
 ]
 
 const FOOTER_NAV = [
@@ -54,7 +54,6 @@ export const ROUTE_TITLES = {
   '/interventions': ['Intervention Library', 'Teaching moves by misconception'],
   '/assessments': ['Assessments', 'Question bank by evidence type'],
   '/timeline': ['Learning Timeline', 'Progress over time'],
-  '/teacher': ['Teacher Analytics', 'Class-level insights'],
   '/settings': ['Settings', 'Prototype preferences'],
   '/profile': ['Profile', 'Learner details'],
 }
@@ -72,7 +71,11 @@ function reachedIndex(state) {
 
 export default function Sidebar() {
   const { state, student } = useDemo()
+  const { user, profile } = useAuth()
   const reached = reachedIndex(state)
+
+  const studentName = profile?.fullName || user?.name || student.fullName
+  const initials = studentName.slice(0, 2).toUpperCase()
 
   return (
     <aside className="sidebar">
@@ -118,9 +121,9 @@ export default function Sidebar() {
 
       <div className="sidebar-footer">
         <div className="sidebar-profile">
-          <div className="avatar">{student.avatarInitials}</div>
+          <div className="avatar">{initials}</div>
           <div className="sidebar-profile-text">
-            <div style={{ fontSize: 13.5, fontWeight: 600 }}>{student.fullName}</div>
+            <div style={{ fontSize: 13.5, fontWeight: 600 }}>{studentName}</div>
             <div style={{ fontSize: 11.5, color: '#93a1bd' }}>
               {state.resolutionStatus === 'stable' ? 'Concept stable' : 'Learning in progress'}
             </div>

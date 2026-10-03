@@ -1,0 +1,122 @@
+[
+  {
+    "userId": "usr_student_01",
+    "fullName": "Alex Rivera",
+    "email": "student@gmail.com",
+    "mobile": "+1 (555) 321-9876",
+    "college": "Stanford School of Engineering",
+    "course": "B.Tech Computer Science",
+    "branch": "Computer Science & Engineering",
+    "yearSemester": "3rd Year / 6th Semester",
+    "skills": [
+      "Python",
+      "Algorithms",
+      "Data Structures",
+      "JavaScript"
+    ],
+    "problemsAttempted": 8,
+    "problemsSolved": 7,
+    "submissionsCount": 16,
+    "acceptedSubmissions": 14,
+    "accuracy": 87.5,
+    "languageUsage": {
+      "python": 10,
+      "javascript": 4,
+      "cpp": 2
+    },
+    "predictOutputAttempted": 6,
+    "predictOutputCorrect": 5,
+    "predictAccuracy": 83.3,
+    "recentActivity": "Solved 'Two Sum' in Python (Accepted, 12ms)",
+    "lastActive": "2026-10-03T18:30:00.000Z"
+  },
+  {
+    "userId": "usr_student_02",
+    "fullName": "Priya Patel",
+    "email": "priya.patel@college.edu",
+    "mobile": "+1 (555) 789-4321",
+    "college": "MIT Dept of EECS",
+    "course": "B.S. Computer Engineering",
+    "branch": "Computer Science & Engineering",
+    "yearSemester": "4th Year / 7th Semester",
+    "skills": [
+      "C++",
+      "Java",
+      "Dynamic Programming",
+      "System Design"
+    ],
+    "problemsAttempted": 12,
+    "problemsSolved": 11,
+    "submissionsCount": 24,
+    "acceptedSubmissions": 21,
+    "accuracy": 87.5,
+    "languageUsage": {
+      "cpp": 15,
+      "java": 7,
+      "python": 2
+    },
+    "predictOutputAttempted": 8,
+    "predictOutputCorrect": 8,
+    "predictAccuracy": 100,
+    "recentActivity": "Solved 'Valid Parentheses' in C++ (Accepted, 8ms)",
+    "lastActive": "2026-10-03T17:15:00.000Z"
+  },
+  {
+    "userId": "usr_student_03",
+    "fullName": "Marcus Vance",
+    "email": "marcus.v@tech.edu",
+    "mobile": "+1 (555) 456-1122",
+    "college": "Berkeley College of Engineering",
+    "course": "B.Tech Information Technology",
+    "branch": "Information Technology",
+    "yearSemester": "2nd Year / 4th Semester",
+    "skills": [
+      "Java",
+      "SQL",
+      "OOP",
+      "Python"
+    ],
+    "problemsAttempted": 6,
+    "problemsSolved": 4,
+    "submissionsCount": 15,
+    "acceptedSubmissions": 9,
+    "accuracy": 60,
+    "languageUsage": {
+      "java": 11,
+      "python": 4
+    },
+    "predictOutputAttempted": 5,
+    "predictOutputCorrect": 3,
+    "predictAccuracy": 60,
+    "recentActivity": "Attempted 'Maximum Subarray' in Java (Runtime Error)",
+    "lastActive": "2026-10-02T14:40:00.000Z"
+  },
+  {
+    "userId": "usr_student_1791054683285",
+    "fullName": "Jordan Lee",
+    "email": "test_student_1791054683194@example.com",
+    "mobile": "+1 (555) 999-8888",
+    "college": "Georgia Tech",
+    "course": "B.Tech / B.E.",
+    "branch": "Computer Science & Engineering",
+    "yearSemester": "3rd Year / 5th Semester",
+    "skills": [
+      "Python",
+      "C++",
+      "Machine Learning"
+    ],
+    "problemsAttempted": 0,
+    "problemsSolved": 0,
+    "submissionsCount": 1,
+    "acceptedSubmissions": 1,
+    "accuracy": 100,
+    "languageUsage": {
+      "javascript": 1
+    },
+    "predictOutputAttempted": 1,
+    "predictOutputCorrect": 1,
+    "predictAccuracy": 100,
+    "recentActivity": "Predicted output for 'Range Boundary Execution' (Correct)",
+    "lastActive": "2026-10-03T19:11:23.382Z"
+  }
+]

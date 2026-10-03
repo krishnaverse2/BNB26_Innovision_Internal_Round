@@ -5,8 +5,16 @@
     "title": "Two Sum",
     "difficulty": "Easy",
     "acceptanceRate": "53.6%",
-    "topics": ["Array", "Hash Table"],
-    "companies": ["Google", "Amazon", "Apple", "Meta"],
+    "topics": [
+      "Array",
+      "Hash Table"
+    ],
+    "companies": [
+      "Google",
+      "Amazon",
+      "Apple",
+      "Meta"
+    ],
     "description": "Given an array of integers `nums` and an integer `target`, return *indices of the two numbers such that they add up to `target`*.\n\nYou may assume that each input would have **exactly one solution**, and you may not use the *same* element twice.\n\nYou can return the answer in any order.",
     "inputFormat": "First line contains the integer array `nums` formatted as comma-separated or JSON bracketed numbers. Second line contains the integer `target`.",
     "outputFormat": "Two space-separated or bracketed indices `[i, j]` representing the 0-indexed positions.",
@@ -80,7 +88,8 @@
       "php": "<?php\n\nclass Solution {\n    /**\n     * @param Integer[] $nums\n     * @param Integer $target\n     * @return Integer[]\n     */\n    function twoSum($nums, $target) {\n        $map = [];\n        foreach ($nums as $i => $n) {\n            $diff = $target - $n;\n            if (isset($map[$diff])) {\n                return [$map[$diff], $i];\n            }\n            $map[$n] = $i;\n        }\n        return [];\n    }\n}\n",
       "rust": "use std::collections::HashMap;\n\nimpl Solution {\n    pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {\n        let mut map = HashMap::new();\n        for (i, &num) in nums.iter().enumerate() {\n            let diff = target - num;\n            if let Some(&prev_idx) = map.get(&diff) {\n                return vec![prev_idx as i32, i as i32];\n            }\n            map.insert(num, i);\n        }\n        vec![]\n    }\n}\n",
       "ruby": "def two_sum(nums, target)\n  map = {}\n  nums.each_with_index do |num, i|\n    diff = target - num\n    return [map[diff], i] if map.key?(diff)\n    map[num] = i\n  end\n  []\nend\n"
-    }
+    },
+    "isPublished": true
   },
   {
     "id": "palindrome-number",
@@ -88,8 +97,14 @@
     "title": "Palindrome Number",
     "difficulty": "Easy",
     "acceptanceRate": "56.8%",
-    "topics": ["Math"],
-    "companies": ["Microsoft", "Google", "Amazon"],
+    "topics": [
+      "Math"
+    ],
+    "companies": [
+      "Microsoft",
+      "Google",
+      "Amazon"
+    ],
     "description": "Given an integer `x`, return `true` if `x` is a **palindrome**, and `false` otherwise.\n\nAn integer is a palindrome when it reads the same forward and backward.\n\nFor example, `121` is a palindrome while `123` is not.",
     "inputFormat": "A single line containing the integer `x`.",
     "outputFormat": "Boolean `true` or `false`.",
@@ -158,7 +173,8 @@
       "kotlin": "class Solution {\n    fun isPalindrome(x: Int): Boolean {\n        if (x < 0 || (x % 10 == 0 && x != 0)) return false\n        var rev = 0\n        var num = x\n        while (num > rev) {\n            rev = rev * 10 + num % 10\n            num /= 10\n        }\n        return num == rev || num == rev / 10\n    }\n}\n",
       "php": "<?php\nclass Solution {\n    function isPalindrome($x) {\n        if ($x < 0) return false;\n        $s = (string)$x;\n        return $s === strrev($s);\n    }\n}\n",
       "rust": "impl Solution {\n    pub fn is_palindrome(x: i32) -> bool {\n        if x < 0 || (x % 10 == 0 && x != 0) {\n            return false;\n        }\n        let mut rev = 0;\n        let mut num = x;\n        while num > rev {\n            rev = rev * 10 + num % 10;\n            num /= 10;\n        }\n        num == rev || num == rev / 10\n    }\n}\n"
-    }
+    },
+    "isPublished": true
   },
   {
     "id": "valid-parentheses",
@@ -166,8 +182,16 @@
     "title": "Valid Parentheses",
     "difficulty": "Easy",
     "acceptanceRate": "41.2%",
-    "topics": ["String", "Stack"],
-    "companies": ["Amazon", "Meta", "Google", "Bloomberg"],
+    "topics": [
+      "String",
+      "Stack"
+    ],
+    "companies": [
+      "Amazon",
+      "Meta",
+      "Google",
+      "Bloomberg"
+    ],
     "description": "Given a string `s` containing just the characters `'('`, `')'`, `'{'`, `'}'`, `'['` and `']'`, determine if the input string is valid.\n\nAn input string is valid if:\n1. Open brackets must be closed by the same type of brackets.\n2. Open brackets must be closed in the correct order.\n3. Every close bracket has a corresponding open bracket of the same type.",
     "inputFormat": "A single string `s` enclosed in quotes or plain string.",
     "outputFormat": "Boolean `true` or `false`.",
@@ -236,7 +260,8 @@
       "go": "package main\n\nfunc isValid(s string) bool {\n    var stack []rune\n    for _, c := range s {\n        if c == '(' { stack = append(stack, ')') }\n        else if c == '{' { stack = append(stack, '}') }\n        else if c == '[' { stack = append(stack, ']') }\n        else if len(stack) == 0 || stack[len(stack)-1] != c { return false }\n        else { stack = stack[:len(stack)-1] }\n    }\n    return len(stack) == 0\n}\n",
       "kotlin": "import java.util.ArrayDeque\n\nclass Solution {\n    fun isValid(s: String): Boolean {\n        val stack = ArrayDeque<Char>()\n        for (c in s) {\n            when (c) {\n                '(' -> stack.push(')')\n                '{' -> stack.push('}')\n                '[' -> stack.push(']')\n                else -> if (stack.isEmpty() || stack.pop() != c) return false\n            }\n        }\n        return stack.isEmpty()\n    }\n}\n",
       "php": "<?php\nclass Solution {\n    function isValid($s) {\n        $stack = [];\n        $map = [')' => '(', '}' => '{', ']' => '['];\n        for ($i = 0; $i < strlen($s); $i++) {\n            $c = $s[$i];\n            if (isset($map[$c])) {\n                if (empty($stack) || array_pop($stack) !== $map[$c]) return false;\n            } else {\n                $stack[] = $c;\n            }\n        }\n        return empty($stack);\n    }\n}\n"
-    }
+    },
+    "isPublished": true
   },
   {
     "id": "reverse-string",
@@ -244,8 +269,15 @@
     "title": "Reverse String",
     "difficulty": "Easy",
     "acceptanceRate": "78.4%",
-    "topics": ["Two Pointers", "String"],
-    "companies": ["Amazon", "Microsoft", "Adobe"],
+    "topics": [
+      "Two Pointers",
+      "String"
+    ],
+    "companies": [
+      "Amazon",
+      "Microsoft",
+      "Adobe"
+    ],
     "description": "Write a function that reverses a string. The input string is given as an array of characters `s`.\n\nYou must do this by modifying the input array in-place with `O(1)` extra memory.",
     "inputFormat": "A character array or string `[\"h\",\"e\",\"l\",\"l\",\"o\"]`.",
     "outputFormat": "Reversed array `[\"o\",\"l\",\"l\",\"e\",\"h\"]`.",
@@ -299,7 +331,8 @@
       "go": "package main\n\nfunc reverseString(s []byte) {\n    for l, r := 0, len(s)-1; l < r; l, r = l+1, r-1 {\n        s[l], s[r] = s[r], s[l]\n    }\n}\n",
       "kotlin": "class Solution {\n    fun reverseString(s: CharArray): Unit {\n        var l = 0\n        var r = s.size - 1\n        while (l < r) {\n            val t = s[l]\n            s[l++] = s[r]\n            s[r--] = t\n        }\n    }\n}\n",
       "php": "<?php\nclass Solution {\n    function reverseString(&$s) {\n        $l = 0;\n        $r = count($s) - 1;\n        while ($l < $r) {\n            $t = $s[$l];\n            $s[$l++] = $s[$r];\n            $s[$r--] = $t;\n        }\n    }\n}\n"
-    }
+    },
+    "isPublished": true
   },
   {
     "id": "maximum-subarray",
@@ -307,8 +340,17 @@
     "title": "Maximum Subarray",
     "difficulty": "Medium",
     "acceptanceRate": "50.4%",
-    "topics": ["Array", "Divide and Conquer", "Dynamic Programming"],
-    "companies": ["Amazon", "Microsoft", "Apple", "Google"],
+    "topics": [
+      "Array",
+      "Divide and Conquer",
+      "Dynamic Programming"
+    ],
+    "companies": [
+      "Amazon",
+      "Microsoft",
+      "Apple",
+      "Google"
+    ],
     "description": "Given an integer array `nums`, find the subarray with the largest sum, and return *its sum*.\n\nA **subarray** is a contiguous non-empty sequence of elements within an array.",
     "inputFormat": "An array of integers `nums`.",
     "outputFormat": "Integer maximum subarray sum.",
@@ -377,7 +419,8 @@
       "go": "package main\n\nfunc maxSubArray(nums []int) int {\n    cur, max := nums[0], nums[0]\n    for i := 1; i < len(nums); i++ {\n        if nums[i] > cur+nums[i] {\n            cur = nums[i]\n        } else {\n            cur += nums[i]\n        }\n        if cur > max {\n            max = cur\n        }\n    }\n    return max\n}\n",
       "kotlin": "class Solution {\n    fun maxSubArray(nums: IntArray): Int {\n        var cur = nums[0]\n        var max = nums[0]\n        for (i in 1 until nums.size) {\n            cur = Math.max(nums[i], cur + nums[i])\n            max = Math.max(max, cur)\n        }\n        return max\n    }\n}\n",
       "php": "<?php\nclass Solution {\n    function maxSubArray($nums) {\n        $cur = $nums[0];\n        $max = $nums[0];\n        for ($i = 1; $i < count($nums); $i++) {\n            $cur = max($nums[$i], $cur + $nums[$i]);\n            $max = max($max, $cur);\n        }\n        return $max;\n    }\n}\n"
-    }
+    },
+    "isPublished": true
   },
   {
     "id": "fizz-buzz",
@@ -385,8 +428,16 @@
     "title": "Fizz Buzz",
     "difficulty": "Easy",
     "acceptanceRate": "72.1%",
-    "topics": ["Math", "String", "Simulation"],
-    "companies": ["Amazon", "Bloomberg", "Apple"],
+    "topics": [
+      "Math",
+      "String",
+      "Simulation"
+    ],
+    "companies": [
+      "Amazon",
+      "Bloomberg",
+      "Apple"
+    ],
     "description": "Given an integer `n`, return a string array `answer` (1-indexed) where:\n- `answer[i] == \"FizzBuzz\"` if `i` is divisible by `3` and `5`.\n- `answer[i] == \"Fizz\"` if `i` is divisible by `3`.\n- `answer[i] == \"Buzz\"` if `i` is divisible by `5`.\n- `answer[i] == i` (as a string) if none of the above conditions are true.",
     "inputFormat": "A single integer `n`.",
     "outputFormat": "An array of strings `answer`.",
@@ -444,7 +495,8 @@
       "go": "package main\n\nimport \"strconv\"\n\nfunc fizzBuzz(n int) []string {\n    res := make([]string, n)\n    for i := 1; i <= n; i++ {\n        if i%15 == 0 {\n            res[i-1] = \"FizzBuzz\"\n        } else if i%3 == 0 {\n            res[i-1] = \"Fizz\"\n        } else if i%5 == 0 {\n            res[i-1] = \"Buzz\"\n        } else {\n            res[i-1] = strconv.Itoa(i)\n        }\n    }\n    return res\n}\n",
       "kotlin": "class Solution {\n    fun fizzBuzz(n: Int): List<String> {\n        val res = ArrayList<String>(n)\n        for (i in 1..n) {\n            when {\n                i % 15 == 0 -> res.add(\"FizzBuzz\")\n                i % 3 == 0 -> res.add(\"Fizz\")\n                i % 5 == 0 -> res.add(\"Buzz\")\n                else -> res.add(i.toString())\n            }\n        }\n        return res\n    }\n}\n",
       "php": "<?php\nclass Solution {\n    function fizzBuzz($n) {\n        $res = [];\n        for ($i = 1; $i <= $n; $i++) {\n            if ($i % 15 === 0) $res[] = \"FizzBuzz\";\n            elseif ($i % 3 === 0) $res[] = \"Fizz\";\n            elseif ($i % 5 === 0) $res[] = \"Buzz\";\n            else $res[] = (string)$i;\n        }\n        return $res;\n    }\n}\n"
-    }
+    },
+    "isPublished": true
   },
   {
     "id": "best-time-to-buy-and-sell-stock",
@@ -452,8 +504,16 @@
     "title": "Best Time to Buy and Sell Stock",
     "difficulty": "Easy",
     "acceptanceRate": "54.8%",
-    "topics": ["Array", "Dynamic Programming"],
-    "companies": ["Amazon", "Microsoft", "Facebook", "Goldman Sachs"],
+    "topics": [
+      "Array",
+      "Dynamic Programming"
+    ],
+    "companies": [
+      "Amazon",
+      "Microsoft",
+      "Facebook",
+      "Goldman Sachs"
+    ],
     "description": "You are given an array `prices` where `prices[i]` is the price of a given stock on the `i-th` day.\n\nYou want to maximize your profit by choosing a **single day** to buy one stock and choosing a **different day in the future** to sell that stock.\n\nReturn *the maximum profit you can achieve from this transaction*. If you cannot achieve any profit, return `0`.",
     "inputFormat": "An array of integer `prices`.",
     "outputFormat": "Single integer maximum profit.",
@@ -507,7 +567,8 @@
       "go": "package main\n\nfunc maxProfit(prices []int) int {\n    minP, maxP := int(1e9), 0\n    for _, p := range prices {\n        if p < minP {\n            minP = p\n        } else if p-minP > maxP {\n            maxP = p - minP\n        }\n    }\n    return maxP\n}\n",
       "kotlin": "class Solution {\n    fun maxProfit(prices: IntArray): Int {\n        var min = Int.MAX_VALUE\n        var max = 0\n        for (p in prices) {\n            if (p < min) min = p\n            else if (p - min > max) max = p - min\n        }\n        return max\n    }\n}\n",
       "php": "<?php\nclass Solution {\n    function maxProfit($prices) {\n        $min = PHP_INT_MAX;\n        $max = 0;\n        foreach ($prices as $p) {\n            if ($p < $min) $min = $p;\n            elseif ($p - $min > $max) $max = $p - $min;\n        }\n        return $max;\n    }\n}\n"
-    }
+    },
+    "isPublished": true
   },
   {
     "id": "climbing-stairs",
@@ -515,8 +576,17 @@
     "title": "Climbing Stairs",
     "difficulty": "Easy",
     "acceptanceRate": "52.9%",
-    "topics": ["Math", "Dynamic Programming", "Memoization"],
-    "companies": ["Amazon", "Uber", "Adobe", "Google"],
+    "topics": [
+      "Math",
+      "Dynamic Programming",
+      "Memoization"
+    ],
+    "companies": [
+      "Amazon",
+      "Uber",
+      "Adobe",
+      "Google"
+    ],
     "description": "You are climbing a staircase. It takes `n` steps to reach the top.\n\nEach time you can either climb `1` or `2` steps. In how many distinct ways can you climb to the top?",
     "inputFormat": "A single integer `n`.",
     "outputFormat": "Integer count of distinct ways.",
@@ -574,6 +644,47 @@
       "go": "package main\n\nfunc climbStairs(n int) int {\n    if n <= 2 { return n }\n    a, b := 1, 2\n    for i := 3; i <= n; i++ {\n        a, b = b, a+b\n    }\n    return b\n}\n",
       "kotlin": "class Solution {\n    fun climbStairs(n: Int): Int {\n        if (n <= 2) return n\n        var a = 1\n        var b = 2\n        for (i in 3..n) {\n            val next = a + b\n            a = b\n            b = next\n        }\n        return b\n    }\n}\n",
       "php": "<?php\nclass Solution {\n    function climbStairs($n) {\n        if ($n <= 2) return $n;\n        $a = 1; $b = 2;\n        for ($i = 3; $i <= $n; $i++) {\n            $next = $a + $b;\n            $a = $b;\n            $b = $next;\n        }\n        return $b;\n    }\n}\n"
-    }
+    },
+    "isPublished": true
+  },
+  {
+    "id": "two-sum-advanced-1791054683318",
+    "slug": "two-sum-advanced-1791054683318",
+    "title": "Two Sum Advanced 1791054683318",
+    "difficulty": "Medium",
+    "acceptanceRate": "0.0%",
+    "topics": [
+      "Array",
+      "Hash Table"
+    ],
+    "companies": [],
+    "description": "Given an array of integers, return the matching pair indices.",
+    "inputFormat": "Array and target",
+    "outputFormat": "Pair of indices",
+    "constraints": [
+      "1 <= nums.length <= 10^5"
+    ],
+    "examples": [],
+    "sampleTestCases": [
+      {
+        "id": "tc-1",
+        "input": "[1,2,3]\n5",
+        "expectedOutput": "[1,2]"
+      }
+    ],
+    "hiddenTestCases": [
+      {
+        "id": "htc-1",
+        "input": "[10,20,30]\n50",
+        "expectedOutput": "[1,2]"
+      }
+    ],
+    "starterCode": {
+      "python": "class Solution:\n    def solve(self, nums, target):\n        return [1, 2]",
+      "javascript": "function solve(nums, target) { return [1, 2]; }"
+    },
+    "isPublished": true,
+    "createdAt": "2026-10-03T19:11:23.327Z",
+    "author": "Dr. Sarah Jenkins"
   }
 ]

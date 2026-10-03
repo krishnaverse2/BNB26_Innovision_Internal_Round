@@ -15,6 +15,8 @@ import { useDemo } from '../context/DemoContext'
 import { getMisconception, PRIMARY_MISCONCEPTION_ID } from '../data/misconceptions'
 import { FLOW_STEPS } from '../components/Sidebar'
 
+import { useAuth } from '../context/AuthContext'
+
 function greeting() {
   const hour = new Date().getHours()
   if (hour < 12) return 'Good morning'
@@ -36,6 +38,9 @@ export default function Dashboard() {
   const navigate = useNavigate()
   const { student, summary, fingerprint, state, activeMisconceptions, isResolved } =
     useDemo()
+  const { user, profile } = useAuth()
+
+  const firstName = profile?.fullName?.split(' ')[0] || user?.name?.split(' ')[0] || student.name
 
   const primary = getMisconception(PRIMARY_MISCONCEPTION_ID)
   const confidence = state.diagnosisConfidence ?? 87
@@ -52,7 +57,7 @@ export default function Dashboard() {
     <div className="stack gap-lg">
       <div className="page-head">
         <h1>
-          {greeting()}, {student.name} 👋
+          {greeting()}, {firstName} 👋
         </h1>
         <p className="subtitle">Understand concepts, not just answers.</p>
       </div>

@@ -34,7 +34,6 @@ const JUMP_LINKS = [
   ...FLOW_STEPS.map(({ to, label }) => ({ to, label })),
   { to: '/misconceptions', label: 'Misconceptions' },
   { to: '/timeline', label: 'Learning Timeline' },
-  { to: '/teacher', label: 'Teacher Analytics' },
 ]
 
 const DATA_SETS = [

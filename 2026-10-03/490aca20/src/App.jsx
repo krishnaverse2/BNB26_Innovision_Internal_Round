@@ -11,14 +11,38 @@ import Misconceptions from './pages/Misconceptions'
 import InterventionLibrary from './pages/InterventionLibrary'
 import Assessments from './pages/Assessments'
 import Timeline from './pages/Timeline'
-import TeacherAnalytics from './pages/TeacherAnalytics'
 import Settings from './pages/Settings'
 import Profile from './pages/Profile'
+import AuthPage from './pages/Auth/AuthPage'
+import TeacherDashboard from './pages/Teacher/TeacherDashboard'
+import ProtectedRoute from './components/ProtectedRoute'
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      {/* Public Authentication Routes */}
+      <Route path="/login" element={<AuthPage />} />
+      <Route path="/register" element={<AuthPage />} />
+
+      {/* Protected Teacher Portal Route */}
+      <Route
+        path="/teacher-dashboard/*"
+        element={
+          <ProtectedRoute role="teacher">
+            <TeacherDashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Protected Student Portal Routes */}
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute role="student">
+            <Layout />
+          </ProtectedRoute>
+        }
+      >
         <Route index element={<Navigate to="/dashboard" replace />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="coding-lab" element={<CodingLab />} />
@@ -31,11 +55,16 @@ export default function App() {
         <Route path="interventions" element={<InterventionLibrary />} />
         <Route path="assessments" element={<Assessments />} />
         <Route path="timeline" element={<Timeline />} />
-        <Route path="teacher" element={<TeacherAnalytics />} />
         <Route path="settings" element={<Settings />} />
         <Route path="profile" element={<Profile />} />
+
+        {/* Removed Teacher Analytics from Student routes - redirect any direct access attempts */}
+        <Route path="teacher" element={<Navigate to="/dashboard" replace />} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Route>
+
+      {/* Fallback */}
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   )
 }
