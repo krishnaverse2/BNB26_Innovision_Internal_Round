@@ -1,0 +1,1238 @@
+[
+  {
+    "id": "dsa",
+    "title": "Data Structures & Algorithms",
+    "slug": "dsa",
+    "category": "DSA",
+    "difficulty": "Intermediate",
+    "instructor": "Dr. Aris Vance",
+    "instructorRole": "Associate Professor, Cognitive Computing & Algorithms",
+    "duration": "18h 40m",
+    "totalModules": 12,
+    "totalLessons": 86,
+    "totalPracticeQuestions": 120,
+    "progress": 78,
+    "currentTopic": "Binary Search",
+    "currentModuleId": "mod-05",
+    "rating": 4.9,
+    "reviews": 1420,
+    "enrolled": true,
+    "description": "Master fundamental arrays, strings, two-pointers, binary search, recursion, trees, graphs, and dynamic programming step-by-step through interactive concepts, visual simulations, code practice, and AI-powered diagnostic assessments.",
+    "learningObjectives": [
+      "Analyze time and space complexity using Big-O notation with mathematical rigor",
+      "Master divide-and-conquer algorithms and pointer mechanics in Binary Search",
+      "Implement balanced trees, graphs, and dynamic programming memoization",
+      "Diagnose cognitive edge-case bugs and off-by-one pointer misconceptions"
+    ],
+    "topicMastery": [
+      { "topic": "Arrays", "mastery": 92, "status": "Strong" },
+      { "topic": "Strings", "mastery": 87, "status": "Strong" },
+      { "topic": "Searching", "mastery": 42, "status": "Needs Improvement" },
+      { "topic": "Sorting", "mastery": 86, "status": "Strong" },
+      { "topic": "Linked Lists", "mastery": 70, "status": "Moderate" },
+      { "topic": "Trees", "mastery": 34, "status": "Needs Improvement" }
+    ],
+    "modules": [
+      {
+        "id": "mod-01",
+        "order": 1,
+        "title": "Introduction to DSA",
+        "topic": "Fundamentals",
+        "concept": "Abstract Data Types & Memory Organization",
+        "status": "completed",
+        "lessonsCount": 6,
+        "questionsCount": 8,
+        "duration": "1h 15m",
+        "content": {
+          "concept": "Data structures are specialized formats for organizing, processing, retrieving, and storing data. An Abstract Data Type (ADT) defines the logical properties of data and valid operations without specifying their underlying implementation.",
+          "keyPoints": [
+            "Primitive types (int, float, char) occupy fixed hardware word sizes.",
+            "Linear data structures (Arrays, Linked Lists) enforce sequential adjacency.",
+            "Non-linear structures (Trees, Graphs) represent hierarchical and relational data.",
+            "Choice of data structure directly dictates algorithmic runtime and memory efficiency."
+          ],
+          "example": "// Example: ADT concept vs Concrete Array in Memory\n// Logical ADT: Sequence of integers\n// Physical layout: Contiguous memory blocks indexed by offset\nint arr[5] = {10, 20, 30, 40, 50};\n// Memory address of arr[i] = Base_Address + i * sizeof(int)\n// Constant O(1) random access guaranteed by hardware memory bus.",
+          "visualExplanation": {
+            "type": "memory-layout",
+            "title": "Contiguous Memory vs Reference Pointers",
+            "items": [
+              { "address": "0x1000", "label": "arr[0]", "val": 10, "state": "active" },
+              { "address": "0x1004", "label": "arr[1]", "val": 20, "state": "active" },
+              { "address": "0x1008", "label": "arr[2]", "val": 30, "state": "active" },
+              { "address": "0x100C", "label": "arr[3]", "val": 40, "state": "active" }
+            ]
+          }
+        },
+        "practiceQuestions": [
+          {
+            "questionId": "DSA-INTRO-001",
+            "course": "Data Structures & Algorithms",
+            "module": "Introduction to DSA",
+            "topic": "Fundamentals",
+            "concept": "Memory Adjacency",
+            "difficulty": "Easy",
+            "type": "mcq",
+            "question": "Why does an array provide O(1) constant-time access to any element by its index?",
+            "options": [
+              "Because the CPU caches the entire array in registers",
+              "Because elements are stored in contiguous memory addresses computed via Base + index * size",
+              "Because it uses binary search internally on index values",
+              "Because arrays are stored as linked references in heap memory"
+            ],
+            "correctAnswer": "Because elements are stored in contiguous memory addresses computed via Base + index * size",
+            "explanation": "Contiguous memory layout allows the CPU to calculate the exact physical memory address of any element in a single arithmetic operation: Base_Address + (index * element_size)."
+          }
+        ]
+      },
+      {
+        "id": "mod-02",
+        "order": 2,
+        "title": "Time & Space Complexity",
+        "topic": "Complexity",
+        "concept": "Asymptotic Analysis & Big-O Notation",
+        "status": "completed",
+        "lessonsCount": 8,
+        "questionsCount": 10,
+        "duration": "1h 45m",
+        "content": {
+          "concept": "Asymptotic analysis evaluates algorithmic growth rate as input size N grows towards infinity. Big-O describes the tight upper bound of worst-case runtime or auxiliary space.",
+          "keyPoints": [
+            "O(1) < O(log N) < O(N) < O(N log N) < O(N²) < O(2ᴺ) < O(N!).",
+            "Drop constant multipliers: O(3N + 15) simplifies to O(N).",
+            "Auxiliary space measures only temporary memory allocated during execution, excluding input storage.",
+            "Recursive call stack frames contribute directly to auxiliary space complexity."
+          ],
+          "example": "// Nested loops with logarithmic stepping\nint count = 0;\nfor (int i = 1; i <= n; i++) {\n    for (int j = 1; j <= n; j *= 2) {\n        count++; // Outer runs n times, inner runs log2(n) times\n    }\n}\n// Total Time Complexity: O(n * log n)",
+          "visualExplanation": {
+            "type": "complexity-curves",
+            "title": "Growth Rate Comparison",
+            "items": [
+              { "name": "O(1)", "complexity": "Constant", "scale": 1, "color": "#22c55e" },
+              { "name": "O(log N)", "complexity": "Logarithmic", "scale": 3, "color": "#3b82f6" },
+              { "name": "O(N)", "complexity": "Linear", "scale": 10, "color": "#60a5fa" },
+              { "name": "O(N log N)", "complexity": "Linearithmic", "scale": 25, "color": "#f59e0b" },
+              { "name": "O(N²)", "complexity": "Quadratic", "scale": 80, "color": "#ef4444" }
+            ]
+          }
+        },
+        "practiceQuestions": [
+          {
+            "questionId": "DSA-COMP-002",
+            "course": "Data Structures & Algorithms",
+            "module": "Time & Space Complexity",
+            "topic": "Complexity",
+            "concept": "Loop Analysis",
+            "difficulty": "Medium",
+            "type": "predict_output",
+            "question": "What is the time complexity of a loop where the index variable doubles in each iteration: for(int i=1; i<N; i*=2)?",
+            "options": [
+              "O(N)",
+              "O(log N)",
+              "O(N log N)",
+              "O(1)"
+            ],
+            "correctAnswer": "O(log N)",
+            "explanation": "Since i doubles each time (1, 2, 4, 8, ... 2^k), the loop terminates when 2^k >= N, which means k = log2(N) iterations."
+          }
+        ]
+      },
+      {
+        "id": "mod-03",
+        "order": 3,
+        "title": "Arrays & In-Place Operations",
+        "topic": "Arrays",
+        "concept": "Two-Pointers & Sliding Invariants",
+        "status": "completed",
+        "lessonsCount": 9,
+        "questionsCount": 12,
+        "duration": "2h 10m",
+        "content": {
+          "concept": "Arrays require O(N) linear shifting for insertions and deletions. The Two-Pointer technique optimizes pairwise and prefix-sum searches by traversing inward from both ends or forward at varying speeds.",
+          "keyPoints": [
+            "In-place modifications mutate the original array in O(1) auxiliary space.",
+            "Opposite-directional pointers (left and right) are ideal for sorted target sum pairs.",
+            "Same-directional fast-slow pointers eliminate duplicates and partition elements in O(N)."
+          ],
+          "example": "// In-place remove duplicates from sorted array\nfunction removeDuplicates(nums) {\n    if (nums.length === 0) return 0;\n    let slow = 0;\n    for (let fast = 1; fast < nums.length; fast++) {\n        if (nums[fast] !== nums[slow]) {\n            slow++;\n            nums[slow] = nums[fast]; // Overwrite next distinct position\n        }\n    }\n    return slow + 1;\n}",
+          "visualExplanation": {
+            "type": "array-pointers",
+            "title": "Two-Pointer Swap Mechanics",
+            "items": [
+              { "index": 0, "val": 1, "pointer": "slow" },
+              { "index": 1, "val": 1, "pointer": "fast" },
+              { "index": 2, "val": 2, "pointer": "" },
+              { "index": 3, "val": 3, "pointer": "" }
+            ]
+          }
+        },
+        "practiceQuestions": [
+          {
+            "questionId": "DSA-ARR-003",
+            "course": "Data Structures & Algorithms",
+            "module": "Arrays",
+            "topic": "Arrays",
+            "concept": "Two Pointers",
+            "difficulty": "Medium",
+            "type": "mcq",
+            "question": "When reversing an array in-place using two pointers (left=0, right=n-1), what is the optimal termination condition?",
+            "options": [
+              "left == right",
+              "left >= right",
+              "right == 0",
+              "left == n / 2"
+            ],
+            "correctAnswer": "left >= right",
+            "explanation": "Pointers stop when left crosses right (left >= right). If left < right continues, elements would swap back into their original order."
+          }
+        ]
+      },
+      {
+        "id": "mod-04",
+        "order": 4,
+        "title": "Strings & Pattern Matching",
+        "topic": "Strings",
+        "concept": "Sliding Window & Hash Frequency",
+        "status": "completed",
+        "lessonsCount": 7,
+        "questionsCount": 11,
+        "duration": "1h 50m",
+        "content": {
+          "concept": "Strings are immutable sequences in modern high-level runtimes. The Sliding Window technique maintains a dynamically expandable and contractible window boundary [left, right] to evaluate substring invariants.",
+          "keyPoints": [
+            "Fixed-size sliding windows slide right by adding right element and evicting left element.",
+            "Dynamic-size windows expand right to satisfy constraints and contract left to optimize cost.",
+            "Character frequency frequency arrays of size 26 or 128 (ASCII) provide O(1) constraint verification."
+          ],
+          "example": "// Longest Substring Without Repeating Characters\nfunction lengthOfLongestSubstring(s) {\n    let seen = new Map();\n    let maxLen = 0, left = 0;\n    for (let right = 0; right < s.length; right++) {\n        if (seen.has(s[right])) {\n            left = Math.max(left, seen.get(s[right]) + 1);\n        }\n        seen.set(s[right], right);\n        maxLen = Math.max(maxLen, right - left + 1);\n    }\n    return maxLen;\n}",
+          "visualExplanation": {
+            "type": "sliding-window",
+            "title": "Sliding Window Substring Expansion",
+            "items": [
+              { "char": "a", "window": true },
+              { "char": "b", "window": true },
+              { "char": "c", "window": true },
+              { "char": "a", "window": false },
+              { "char": "b", "window": false }
+            ]
+          }
+        },
+        "practiceQuestions": [
+          {
+            "questionId": "DSA-STR-004",
+            "course": "Data Structures & Algorithms",
+            "module": "Strings",
+            "topic": "Strings",
+            "concept": "Sliding Window",
+            "difficulty": "Medium",
+            "type": "predict_output",
+            "question": "What is the maximum window size in 'abcabcbb' containing strictly unique characters?",
+            "options": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "correctAnswer": "3",
+            "explanation": "The substring 'abc' has length 3. Any window of size 4 contains at least one duplicate character."
+          }
+        ]
+      },
+      {
+        "id": "mod-05",
+        "order": 5,
+        "title": "Searching Algorithms & Binary Search",
+        "topic": "Searching",
+        "concept": "Pointer Movement & Search Space Reduction",
+        "status": "current",
+        "lessonsCount": 9,
+        "questionsCount": 15,
+        "duration": "2h 30m",
+        "content": {
+          "concept": "Binary search divides a sorted search space in half with every comparison, achieving O(log N) time. The algorithm hinges strictly on three pointer variables: low, mid, and high.",
+          "keyPoints": [
+            "Prerequisite: The array MUST be sorted monotonically (or monotonic predicate function).",
+            "Midpoint calculation: mid = low + Math.floor((high - low) / 2) prevents integer 32-bit overflow.",
+            "Pointer updates: If arr[mid] < target, then target is strictly in right half -> low = mid + 1.",
+            "Pointer updates: If arr[mid] > target, then target is strictly in left half -> high = mid - 1.",
+            "Critical misconception: Writing low = mid or high = mid leads to an infinite loop when (high - low == 1)."
+          ],
+          "example": "// Canonical Binary Search Implementation\nfunction binarySearch(arr, target) {\n    let low = 0;\n    let high = arr.length - 1;\n    \n    while (low <= high) {\n        // Avoid (low + high) / 2 overflow\n        let mid = low + Math.floor((high - low) / 2);\n        \n        if (arr[mid] === target) {\n            return mid; // Target found at index mid\n        }\n        \n        if (arr[mid] < target) {\n            // Target is in the right subarray -> discard mid and left\n            low = mid + 1;\n        } else {\n            // Target is in the left subarray -> discard mid and right\n            high = mid - 1;\n        }\n    }\n    \n    return -1; // Target not found\n}",
+          "visualExplanation": {
+            "type": "binary-search-simulation",
+            "title": "Dynamic Binary Search Pointer Stepper",
+            "array": [2, 5, 8, 12, 16, 23, 38, 56, 72, 91],
+            "target": 23,
+            "steps": [
+              {
+                "step": 1,
+                "low": 0,
+                "high": 9,
+                "mid": 4,
+                "midVal": 16,
+                "explanation": "arr[mid]=16 < target=23. Search right half! low becomes mid + 1 (5)."
+              },
+              {
+                "step": 2,
+                "low": 5,
+                "high": 9,
+                "mid": 7,
+                "midVal": 56,
+                "explanation": "arr[mid]=56 > target=23. Search left half! high becomes mid - 1 (6)."
+              },
+              {
+                "step": 3,
+                "low": 5,
+                "high": 6,
+                "mid": 5,
+                "midVal": 23,
+                "explanation": "arr[mid]=23 === target=23! Target located at index 5 in 3 steps."
+              }
+            ]
+          }
+        },
+        "practiceQuestions": [
+          {
+            "questionId": "DSA-BS-014",
+            "course": "Data Structures & Algorithms",
+            "module": "Searching",
+            "topic": "Binary Search",
+            "concept": "Pointer Movement",
+            "difficulty": "Medium",
+            "type": "mcq",
+            "question": "In a standard Binary Search, if arr[mid] < target, what is the exact pointer movement required?",
+            "options": [
+              "low = mid + 1",
+              "low = mid",
+              "high = mid - 1",
+              "high = mid"
+            ],
+            "correctAnswer": "low = mid + 1",
+            "explanation": "Since arr[mid] is strictly smaller than the target and the array is sorted, the target must reside in the right partition. Therefore, low must advance past mid to mid + 1."
+          },
+          {
+            "questionId": "DSA-BS-015",
+            "course": "Data Structures & Algorithms",
+            "module": "Searching",
+            "topic": "Binary Search",
+            "concept": "Termination Condition",
+            "difficulty": "Easy",
+            "type": "mcq",
+            "question": "What is the standard while loop condition in Binary Search that guarantees single-element search spaces are evaluated?",
+            "options": [
+              "while (low < high)",
+              "while (low <= high)",
+              "while (low != high)",
+              "while (low < high - 1)"
+            ],
+            "correctAnswer": "while (low <= high)",
+            "explanation": "Using while (low <= high) ensures that when low == high (a single remaining candidate element), that element is compared against the target."
+          },
+          {
+            "questionId": "DSA-BS-016",
+            "course": "Data Structures & Algorithms",
+            "module": "Searching",
+            "topic": "Binary Search",
+            "concept": "Integer Overflow",
+            "difficulty": "Medium",
+            "type": "debug_code",
+            "question": "Why is 'mid = low + (high - low) / 2' preferred over 'mid = (low + high) / 2' in compiled languages like C++ and Java?",
+            "options": [
+              "It runs in fewer CPU clock cycles",
+              "It prevents integer overflow when low + high exceeds the maximum 32-bit signed integer value (2,147,483,647)",
+              "It guarantees rounding down to the nearest even number",
+              "It allows searching negative indices"
+            ],
+            "correctAnswer": "It prevents integer overflow when low + high exceeds the maximum 32-bit signed integer value (2,147,483,647)",
+            "explanation": "If low and high are large (e.g. 1.5 billion each), low + high overflows signed 32-bit integer limits into negative values, causing an invalid index crash."
+          },
+          {
+            "questionId": "DSA-BS-017",
+            "course": "Data Structures & Algorithms",
+            "module": "Searching",
+            "topic": "Binary Search",
+            "concept": "Infinite Loop Avoidance",
+            "difficulty": "Hard",
+            "type": "scenario",
+            "question": "Consider arr = [4, 7] and target = 9. If a developer mistakenly writes 'low = mid' instead of 'low = mid + 1', what happens?",
+            "options": [
+              "The search returns index 0 immediately",
+              "The code enters an infinite loop because low=0, high=1 produces mid=0 repeatedly",
+              "The code throws an ArrayIndexOutOfBoundsException",
+              "The search correctly finds the target in 2 iterations"
+            ],
+            "correctAnswer": "The code enters an infinite loop because low=0, high=1 produces mid=0 repeatedly",
+            "explanation": "When low=0 and high=1, mid=(0+1)/2=0. If arr[0] < target and we execute low = mid, low remains 0! In the next iteration, mid is calculated as 0 again, freezing the loop forever."
+          }
+        ]
+      },
+      {
+        "id": "mod-06",
+        "order": 6,
+        "title": "Sorting Algorithms",
+        "topic": "Sorting",
+        "concept": "Divide and Conquer (MergeSort & QuickSort)",
+        "status": "locked",
+        "lessonsCount": 8,
+        "questionsCount": 14,
+        "duration": "2h 15m",
+        "content": {
+          "concept": "Comparison-based sorting has a mathematical lower bound of Ω(N log N). MergeSort guarantees O(N log N) stability with O(N) space, while QuickSort achieves in-place O(N log N) average runtime via partitioning.",
+          "keyPoints": [
+            "MergeSort recursively splits into halves, then merges sorted arrays.",
+            "QuickSort selects a pivot and partitions smaller elements to the left, larger to the right.",
+            "Stability means identical keys preserve their relative initial order."
+          ],
+          "example": "// Lomuto Partition Scheme\nfunction partition(arr, low, high) {\n    let pivot = arr[high];\n    let i = low - 1;\n    for (let j = low; j < high; j++) {\n        if (arr[j] <= pivot) {\n            i++;\n            [arr[i], arr[j]] = [arr[j], arr[i]];\n        }\n    }\n    [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];\n    return i + 1;\n}",
+          "visualExplanation": {
+            "type": "sort-partition",
+            "title": "QuickSort Pivot Partitioning",
+            "items": [
+              { "val": 3, "zone": "left" },
+              { "val": 2, "zone": "left" },
+              { "val": 5, "zone": "pivot" },
+              { "val": 8, "zone": "right" },
+              { "val": 7, "zone": "right" }
+            ]
+          }
+        },
+        "practiceQuestions": [
+          {
+            "questionId": "DSA-SORT-005",
+            "course": "Data Structures & Algorithms",
+            "module": "Sorting",
+            "topic": "Sorting",
+            "concept": "Stability",
+            "difficulty": "Medium",
+            "type": "mcq",
+            "question": "Which of the following sorting algorithms is guaranteed to be stable and run in O(N log N) worst-case time?",
+            "options": [
+              "QuickSort",
+              "HeapSort",
+              "MergeSort",
+              "SelectionSort"
+            ],
+            "correctAnswer": "MergeSort",
+            "explanation": "MergeSort is stable because the merge step compares <= and keeps elements from the left subarray first. Its worst-case time is always O(N log N)."
+          }
+        ]
+      },
+      {
+        "id": "mod-07",
+        "order": 7,
+        "title": "Linked Lists & Pointer Dynamics",
+        "topic": "Linked Lists",
+        "concept": "Node Pointer Manipulation & Cycle Detection",
+        "status": "locked",
+        "lessonsCount": 7,
+        "questionsCount": 12,
+        "duration": "2h 00m",
+        "content": {
+          "concept": "Linked lists allocate dynamic heap nodes linked by pointer references. They allow O(1) head insertion/deletion without shifting, but require O(N) sequential traversal.",
+          "keyPoints": [
+            "Dummy Head Node eliminates edge-cases when deleting or inserting at the head.",
+            "Floyd's Cycle Finding (Tortoise and Hare) detects cycles in O(N) time and O(1) space.",
+            "Pointer reversal requires tracking prev, curr, and next simultaneously."
+          ],
+          "example": "// Reverse Singly Linked List In-Place\nfunction reverseList(head) {\n    let prev = null;\n    let curr = head;\n    while (curr !== null) {\n        let nextTemp = curr.next; // Save next node\n        curr.next = prev;         // Reverse pointer\n        prev = curr;              // Advance prev\n        curr = nextTemp;          // Advance curr\n    }\n    return prev; // New head\n}",
+          "visualExplanation": {
+            "type": "linked-list",
+            "title": "Pointer Inversion Diagram",
+            "items": [
+              { "node": "A", "next": "B" },
+              { "node": "B", "next": "C" },
+              { "node": "C", "next": "NULL" }
+            ]
+          }
+        },
+        "practiceQuestions": [
+          {
+            "questionId": "DSA-LL-006",
+            "course": "Data Structures & Algorithms",
+            "module": "Linked Lists",
+            "topic": "Linked Lists",
+            "concept": "Cycle Detection",
+            "difficulty": "Medium",
+            "type": "mcq",
+            "question": "In Floyd's Cycle-Finding Algorithm, if slow advances 1 step and fast advances 2 steps, what guarantees they meet if a cycle exists?",
+            "options": [
+              "Fast jumps out of the cycle to reset",
+              "The distance between fast and slow decreases by exactly 1 in each step once both are in the cycle",
+              "Slow reverses direction upon encountering null",
+              "They always meet at node 0"
+            ],
+            "correctAnswer": "The distance between fast and slow decreases by exactly 1 in each step once both are in the cycle",
+            "explanation": "Relative speed is (2 - 1) = 1 node per iteration. In a loop of length L, the gap between them strictly decrements by 1 each step until it hits 0."
+          }
+        ]
+      },
+      {
+        "id": "mod-08",
+        "order": 8,
+        "title": "Stacks & Monotonic Queues",
+        "topic": "Stacks",
+        "concept": "LIFO & Next Greater Element",
+        "status": "locked",
+        "lessonsCount": 6,
+        "questionsCount": 10,
+        "duration": "1h 40m",
+        "content": {
+          "concept": "Stacks enforce Last-In, First-Out (LIFO). Monotonic Stacks maintain strictly increasing or decreasing elements to solve Next Greater Element and histogram problems in linear O(N) amortized time.",
+          "keyPoints": [
+            "Call stack execution relies internally on stack data structures.",
+            "Monotonic stack pushes indices and pops when encountering a larger/smaller threshold.",
+            "Each element is pushed and popped at most once -> O(N) total runtime."
+          ],
+          "example": "// Next Greater Element using Monotonic Decreasing Stack\nfunction nextGreaterElements(nums) {\n    let res = new Array(nums.length).fill(-1);\n    let stack = []; // store indices\n    for (let i = 0; i < nums.length; i++) {\n        while (stack.length && nums[stack[stack.length - 1]] < nums[i]) {\n            let idx = stack.pop();\n            res[idx] = nums[i];\n        }\n        stack.push(i);\n    }\n    return res;\n}",
+          "visualExplanation": {
+            "type": "stack-frame",
+            "title": "Monotonic Stack Eviction Process",
+            "items": [
+              { "val": 5, "status": "retained" },
+              { "val": 3, "status": "popped" },
+              { "val": 8, "status": "incoming" }
+            ]
+          }
+        },
+        "practiceQuestions": [
+          {
+            "questionId": "DSA-STK-007",
+            "course": "Data Structures & Algorithms",
+            "module": "Stacks",
+            "topic": "Stacks",
+            "concept": "Monotonic Stack",
+            "difficulty": "Medium",
+            "type": "mcq",
+            "question": "What is the overall time complexity of finding the Next Greater Element for all N elements using a Monotonic Stack?",
+            "options": [
+              "O(N²)",
+              "O(N log N)",
+              "O(N)",
+              "O(1)"
+            ],
+            "correctAnswer": "O(N)",
+            "explanation": "Even though there is a nested while loop, each index is pushed onto the stack exactly once and popped at most once across the entire traversal, yielding O(2N) = O(N)."
+          }
+        ]
+      },
+      {
+        "id": "mod-09",
+        "order": 9,
+        "title": "Queues & Priority Queues",
+        "topic": "Queues",
+        "concept": "FIFO & Binary Heaps",
+        "status": "locked",
+        "lessonsCount": 6,
+        "questionsCount": 10,
+        "duration": "1h 45m",
+        "content": {
+          "concept": "Queues enforce First-In, First-Out (FIFO). Priority Queues (Binary Heaps) allow constant-time O(1) minimum/maximum inspection and logarithmic O(log N) insertion and extraction.",
+          "keyPoints": [
+            "BFS graph traversals rely strictly on FIFO queues.",
+            "Complete binary tree representation in an array: parent=(i-1)/2, left=2i+1, right=2i+2.",
+            "Heapify-down restores heap property after deleting root in O(log N)."
+          ],
+          "example": "// Binary Heap Parent-Child Mapping\n// arr = [10, 15, 20, 17, 25]\n// Parent of index 3 (val 17) is index Math.floor((3-1)/2) = 1 (val 15)",
+          "visualExplanation": {
+            "type": "heap-tree",
+            "title": "Min-Heap Binary Structure",
+            "items": [
+              { "val": 4, "level": 1 },
+              { "val": 10, "level": 2 },
+              { "val": 7, "level": 2 },
+              { "val": 15, "level": 3 },
+              { "val": 12, "level": 3 }
+            ]
+          }
+        },
+        "practiceQuestions": [
+          {
+            "questionId": "DSA-QUE-008",
+            "course": "Data Structures & Algorithms",
+            "module": "Queues",
+            "topic": "Queues",
+            "concept": "Binary Heap",
+            "difficulty": "Easy",
+            "type": "mcq",
+            "question": "In a 0-indexed binary heap array, what is the index of the left child of the node at index i?",
+            "options": [
+              "2 * i",
+              "2 * i + 1",
+              "2 * i + 2",
+              "i / 2"
+            ],
+            "correctAnswer": "2 * i + 1",
+            "explanation": "In 0-based indexing: Left Child = 2i + 1, Right Child = 2i + 2, Parent = Math.floor((i - 1) / 2)."
+          }
+        ]
+      },
+      {
+        "id": "mod-10",
+        "order": 10,
+        "title": "Trees & Binary Search Trees",
+        "topic": "Trees",
+        "concept": "Hierarchical Traversal & BST Invariants",
+        "status": "locked",
+        "lessonsCount": 9,
+        "questionsCount": 14,
+        "duration": "2h 30m",
+        "content": {
+          "concept": "Binary Search Trees (BST) guarantee that all nodes in a node's left subtree have values strictly less than the node, and all nodes in the right subtree have values strictly greater. In-order traversal yields sorted elements.",
+          "keyPoints": [
+            "In-order: Left -> Root -> Right (Produces strictly ascending order in valid BST).",
+            "Pre-order: Root -> Left -> Right (Useful for serialization and cloning).",
+            "Post-order: Left -> Right -> Root (Essential for bottom-up computation like tree height and deletion).",
+            "Height of balanced BST is O(log N); degenerated BST degrades to O(N)."
+          ],
+          "example": "// Validate Binary Search Tree using Recursion Range Invariant\nfunction isValidBST(root, min = -Infinity, max = Infinity) {\n    if (!root) return true;\n    if (root.val <= min || root.val >= max) return false;\n    // Left subtree must be < root.val, Right subtree must be > root.val\n    return isValidBST(root.left, min, root.val) && isValidBST(root.right, root.val, max);\n}",
+          "visualExplanation": {
+            "type": "bst-tree",
+            "title": "BST Invariant Range Validation",
+            "items": [
+              { "val": 15, "range": "(-∞, +∞)", "role": "root" },
+              { "val": 10, "range": "(-∞, 15)", "role": "left" },
+              { "val": 20, "range": "(15, +∞)", "role": "right" }
+            ]
+          }
+        },
+        "practiceQuestions": [
+          {
+            "questionId": "DSA-TREE-009",
+            "course": "Data Structures & Algorithms",
+            "module": "Trees",
+            "topic": "Trees",
+            "concept": "Tree Traversal",
+            "difficulty": "Medium",
+            "type": "mcq",
+            "question": "Which tree traversal order visits a Binary Search Tree in strictly ascending sorted order?",
+            "options": [
+              "Pre-order traversal",
+              "In-order traversal",
+              "Post-order traversal",
+              "Level-order traversal"
+            ],
+            "correctAnswer": "In-order traversal",
+            "explanation": "In-order traversal (Left, Root, Right) processes all smaller elements in the left subtree, then the root, then larger elements in the right subtree."
+          }
+        ]
+      },
+      {
+        "id": "mod-11",
+        "order": 11,
+        "title": "Graphs & Pathfinding Algorithms",
+        "topic": "Graphs",
+        "concept": "Adjacency Matrix/List, BFS, DFS & Dijkstra",
+        "status": "locked",
+        "lessonsCount": 9,
+        "questionsCount": 13,
+        "duration": "2h 45m",
+        "content": {
+          "concept": "Graphs model networks of vertices (V) and edges (E). Breadth-First Search (BFS) finds shortest paths in unweighted graphs, while Dijkstra's algorithm uses priority queues to find shortest paths in non-negative weighted graphs in O((V + E) log V).",
+          "keyPoints": [
+            "BFS uses a Queue and visited set to explore concentric frontiers.",
+            "DFS uses recursion/stack to explore paths to maximum depth before backtracking.",
+            "Topological sorting on Directed Acyclic Graphs (DAG) orders dependencies."
+          ],
+          "example": "// Dijkstra Algorithm Outline\n// dist[start] = 0; minHeap.push([0, start]);\n// while(minHeap.length) { [d, u] = minHeap.pop(); if (d > dist[u]) continue; ... }",
+          "visualExplanation": {
+            "type": "graph-frontier",
+            "title": "BFS Level-by-Level Frontier Expansion",
+            "items": [
+              { "node": "0", "level": 0 },
+              { "node": "1", "level": 1 },
+              { "node": "2", "level": 1 },
+              { "node": "3", "level": 2 }
+            ]
+          }
+        },
+        "practiceQuestions": [
+          {
+            "questionId": "DSA-GRP-010",
+            "course": "Data Structures & Algorithms",
+            "module": "Graphs",
+            "topic": "Graphs",
+            "concept": "BFS Shortest Path",
+            "difficulty": "Medium",
+            "type": "mcq",
+            "question": "Why does BFS guarantee the shortest path in an unweighted graph, whereas DFS does not?",
+            "options": [
+              "Because BFS visits nodes level-by-level in order of their edge distance from the root",
+              "Because BFS stores visited nodes in a sorted array",
+              "Because BFS explores recursive paths to full depth first",
+              "Because BFS avoids cycles automatically without a visited set"
+            ],
+            "correctAnswer": "Because BFS visits nodes level-by-level in order of their edge distance from the root",
+            "explanation": "BFS uses a FIFO queue to visit all nodes at distance k before any node at distance k + 1, guaranteeing the first time a target node is reached, the shortest path was traversed."
+          }
+        ]
+      },
+      {
+        "id": "mod-12",
+        "order": 12,
+        "title": "Dynamic Programming & Memoization",
+        "topic": "Dynamic Programming",
+        "concept": "Overlapping Subproblems & Optimal Substructure",
+        "status": "locked",
+        "lessonsCount": 9,
+        "questionsCount": 14,
+        "duration": "3h 00m",
+        "content": {
+          "concept": "Dynamic Programming solves complex problems by breaking them into overlapping subproblems and caching intermediate solutions. Optimal substructure means the optimal solution of a problem contains optimal solutions to its subproblems.",
+          "keyPoints": [
+            "Top-down Memoization: Recursion + lookup table cache.",
+            "Bottom-up Tabulation: Iterative loop filling a DP state table.",
+            "State transition equation (recurrence relation) defines DP logic."
+          ],
+          "example": "// 0/1 Knapsack Tabulation Recurrence\n// dp[i][w] = Math.max(dp[i-1][w], val[i-1] + dp[i-1][w - wt[i-1]])",
+          "visualExplanation": {
+            "type": "dp-grid",
+            "title": "Tabulation Matrix Computation",
+            "items": [
+              { "row": 0, "col": 0, "val": 0 },
+              { "row": 1, "col": 1, "val": 1 },
+              { "row": 2, "col": 2, "val": 2 }
+            ]
+          }
+        },
+        "practiceQuestions": [
+          {
+            "questionId": "DSA-DP-011",
+            "course": "Data Structures & Algorithms",
+            "module": "Dynamic Programming",
+            "topic": "Dynamic Programming",
+            "concept": "Overlapping Subproblems",
+            "difficulty": "Medium",
+            "type": "mcq",
+            "question": "What two properties must a computational problem exhibit to be solvable with Dynamic Programming?",
+            "options": [
+              "Greedy choice property and polynomial bounds",
+              "Optimal substructure and overlapping subproblems",
+              "Divide and conquer with independent subproblems",
+              "Sorted input and logarithmic search space"
+            ],
+            "correctAnswer": "Optimal substructure and overlapping subproblems",
+            "explanation": "Optimal substructure ensures the global optimum is built from local sub-optima, and overlapping subproblems ensure caching previously computed values saves exponential recomputation."
+          }
+        ]
+      }
+    ],
+    "finalAssessment": {
+      "id": "dsa-final-assessment",
+      "title": "DSA Comprehensive Mastery Assessment",
+      "durationMinutes": 30,
+      "totalQuestions": 15,
+      "passingScore": 70,
+      "instructions": "This final assessment evaluates your holistic conceptual mastery across all modules: Arrays, Searching, Sorting, Linked Lists, Trees, and Graphs. Each question includes structured cognitive diagnostic telemetry. Answer carefully.",
+      "questions": [
+        {
+          "questionId": "FINAL-DSA-001",
+          "course": "Data Structures & Algorithms",
+          "module": "Searching",
+          "topic": "Binary Search",
+          "concept": "Pointer Movement",
+          "difficulty": "Medium",
+          "question": "In Binary Search on a sorted array, when arr[mid] is strictly less than target (arr[mid] < target), which pointer must be updated and how?",
+          "options": [
+            "low = mid + 1",
+            "low = mid",
+            "high = mid - 1",
+            "high = mid"
+          ],
+          "correctAnswer": "low = mid + 1",
+          "explanation": "Because the array is sorted, all elements at index <= mid are strictly smaller than the target. Therefore, the search space must discard mid by setting low = mid + 1."
+        },
+        {
+          "questionId": "FINAL-DSA-002",
+          "course": "Data Structures & Algorithms",
+          "module": "Searching",
+          "topic": "Binary Search",
+          "concept": "Pointer Movement",
+          "difficulty": "Medium",
+          "question": "If arr = [10, 20, 30, 40, 50, 60] and target = 25, mid index is 2 (arr[2]=30). Since arr[mid] > target, what is the next pointer update?",
+          "options": [
+            "high = mid - 1",
+            "high = mid",
+            "low = mid + 1",
+            "low = mid"
+          ],
+          "correctAnswer": "high = mid - 1",
+          "explanation": "Target is strictly smaller than arr[mid], so it can only exist in the left partition. High must be moved to mid - 1 (index 1)."
+        },
+        {
+          "questionId": "FINAL-DSA-003",
+          "course": "Data Structures & Algorithms",
+          "module": "Searching",
+          "topic": "Binary Search",
+          "concept": "Pointer Movement",
+          "difficulty": "Hard",
+          "question": "Why does setting 'high = mid' instead of 'high = mid - 1' risk an infinite loop in a while(low <= high) binary search when target is missing?",
+          "options": [
+            "Because high will never decrease below low when low equals mid",
+            "Because mid becomes negative",
+            "Because low will exceed array bounds",
+            "Because the array will be mutated"
+          ],
+          "correctAnswer": "Because high will never decrease below low when low equals mid",
+          "explanation": "When low equals high, if arr[mid] > target and we set high = mid, high never decrements below low. The loop condition low <= high remains true indefinitely."
+        },
+        {
+          "questionId": "FINAL-DSA-004",
+          "course": "Data Structures & Algorithms",
+          "module": "Searching",
+          "topic": "Binary Search",
+          "concept": "Midpoint Calculation",
+          "difficulty": "Easy",
+          "question": "What is the recommended formula to calculate the midpoint index in Binary Search to prevent signed 32-bit integer overflow?",
+          "options": [
+            "mid = low + (high - low) / 2",
+            "mid = (low + high) / 2",
+            "mid = (low + high) >> 2",
+            "mid = high - (low / 2)"
+          ],
+          "correctAnswer": "mid = low + (high - low) / 2",
+          "explanation": "low + (high - low) / 2 is mathematically identical to (low + high)/2 but never computes the sum of low and high, avoiding 32-bit integer overflow."
+        },
+        {
+          "questionId": "FINAL-DSA-005",
+          "course": "Data Structures & Algorithms",
+          "module": "Arrays",
+          "topic": "Arrays",
+          "concept": "In-Place Modification",
+          "difficulty": "Easy",
+          "question": "What is the auxiliary space complexity of reversing an array of size N in-place using two pointers?",
+          "options": [
+            "O(1)",
+            "O(N)",
+            "O(log N)",
+            "O(N²)"
+          ],
+          "correctAnswer": "O(1)",
+          "explanation": "In-place modification only uses two integer index variables (left and right) and a temp swap variable, requiring constant O(1) extra space."
+        },
+        {
+          "questionId": "FINAL-DSA-006",
+          "course": "Data Structures & Algorithms",
+          "module": "Arrays",
+          "topic": "Arrays",
+          "concept": "Prefix Sums",
+          "difficulty": "Medium",
+          "question": "Given an array of size N, what is the time complexity to answer Q range-sum queries sum(L, R) after building a prefix sum array?",
+          "options": [
+            "O(Q)",
+            "O(Q * N)",
+            "O(N log N)",
+            "O(Q log N)"
+          ],
+          "correctAnswer": "O(Q)",
+          "explanation": "Each range sum is calculated in O(1) time as prefix[R] - prefix[L - 1]. Answering Q queries takes O(Q) total time."
+        },
+        {
+          "questionId": "FINAL-DSA-007",
+          "course": "Data Structures & Algorithms",
+          "module": "Sorting",
+          "topic": "Sorting",
+          "concept": "MergeSort Mechanics",
+          "difficulty": "Medium",
+          "question": "What is the worst-case auxiliary memory space required by standard MergeSort on an array of N elements?",
+          "options": [
+            "O(N)",
+            "O(1)",
+            "O(log N)",
+            "O(N²)"
+          ],
+          "correctAnswer": "O(N)",
+          "explanation": "MergeSort allocates temporary auxiliary arrays during the merge step to hold and combine sorted halves, requiring O(N) additional memory."
+        },
+        {
+          "questionId": "FINAL-DSA-008",
+          "course": "Data Structures & Algorithms",
+          "module": "Sorting",
+          "topic": "Sorting",
+          "concept": "QuickSort Pivot Selection",
+          "difficulty": "Medium",
+          "question": "When does QuickSort degrade to its worst-case O(N²) time complexity?",
+          "options": [
+            "When the chosen pivot is always the minimum or maximum element (e.g. sorted array with first element as pivot)",
+            "When all elements in the array are distinct and randomly shuffled",
+            "When using 3-way partitioning",
+            "When the array size is an exact power of 2"
+          ],
+          "correctAnswer": "When the chosen pivot is always the minimum or maximum element (e.g. sorted array with first element as pivot)",
+          "explanation": "If the pivot repeatedly divides the array into subproblems of size 0 and N - 1, the recurrence becomes T(N) = T(N - 1) + O(N), resulting in O(N²) operations."
+        },
+        {
+          "questionId": "FINAL-DSA-009",
+          "course": "Data Structures & Algorithms",
+          "module": "Linked Lists",
+          "topic": "Linked Lists",
+          "concept": "Fast and Slow Pointers",
+          "difficulty": "Medium",
+          "question": "How can you find the exact middle node of a singly linked list in a single pass?",
+          "options": [
+            "Move slow pointer 1 step and fast pointer 2 steps; when fast reaches the end, slow is at the middle",
+            "Traverse with one pointer and divide total by 2",
+            "Reverse the list from the tail",
+            "Convert to a doubly linked list"
+          ],
+          "correctAnswer": "Move slow pointer 1 step and fast pointer 2 steps; when fast reaches the end, slow is at the middle",
+          "explanation": "Since fast travels at twice the speed of slow (2:1 ratio), when fast reaches the tail, slow has traveled exactly half the distance."
+        },
+        {
+          "questionId": "FINAL-DSA-010",
+          "course": "Data Structures & Algorithms",
+          "module": "Linked Lists",
+          "topic": "Linked Lists",
+          "concept": "Pointer Reversal",
+          "difficulty": "Hard",
+          "question": "When reversing a singly linked list iteratively, what temporary variable must be stored before executing 'curr.next = prev'?",
+          "options": [
+            "curr.next must be stored in nextNode to prevent losing the remainder of the list",
+            "prev.next must be stored in head",
+            "curr.val must be cached in memory",
+            "The list length must be stored"
+          ],
+          "correctAnswer": "curr.next must be stored in nextNode to prevent losing the remainder of the list",
+          "explanation": "Overwriting curr.next breaks the forward reference to the rest of the list. Caching nextNode = curr.next before modifying curr.next preserves the traversal chain."
+        },
+        {
+          "questionId": "FINAL-DSA-011",
+          "course": "Data Structures & Algorithms",
+          "module": "Trees",
+          "topic": "Trees",
+          "concept": "BST Validation",
+          "difficulty": "Hard",
+          "question": "Why is it insufficient to merely check 'node.left.val < node.val' and 'node.right.val > node.val' locally when validating a BST?",
+          "options": [
+            "Because an element in the right subtree could be smaller than an ancestor node higher in the tree",
+            "Because leaf nodes do not have children",
+            "Because balanced trees allow duplicate keys anywhere",
+            "Because recursion cannot return boolean flags"
+          ],
+          "correctAnswer": "Because an element in the right subtree could be smaller than an ancestor node higher in the tree",
+          "explanation": "The BST invariant requires EVERY node in the right subtree to be strictly greater than all ancestors above it. Local checks miss cases where a node in root.left's right subtree exceeds root.val."
+        },
+        {
+          "questionId": "FINAL-DSA-012",
+          "course": "Data Structures & Algorithms",
+          "module": "Trees",
+          "topic": "Trees",
+          "concept": "Tree Depth & Height",
+          "difficulty": "Medium",
+          "question": "What is the maximum number of nodes in a binary tree of height H (where a single root node has height 0)?",
+          "options": [
+            "2^(H + 1) - 1",
+            "2^H",
+            "2^(H - 1)",
+            "H² + 1"
+          ],
+          "correctAnswer": "2^(H + 1) - 1",
+          "explanation": "A full binary tree has 1 + 2 + 4 + ... + 2^H = 2^(H+1) - 1 nodes."
+        },
+        {
+          "questionId": "FINAL-DSA-013",
+          "course": "Data Structures & Algorithms",
+          "module": "Graphs",
+          "topic": "Graphs",
+          "concept": "Dijkstra Priority Queue",
+          "difficulty": "Hard",
+          "question": "Why does Dijkstra's algorithm fail or yield incorrect shortest paths when a graph contains edges with negative weights?",
+          "options": [
+            "Because it greedily assumes once a vertex is finalized, no shorter path to it can ever be discovered",
+            "Because priority queues cannot store negative numbers",
+            "Because cycles are forbidden in weighted graphs",
+            "Because the adjacency list becomes undefined"
+          ],
+          "correctAnswer": "Because it greedily assumes once a vertex is finalized, no shorter path to it can ever be discovered",
+          "explanation": "Dijkstra is a greedy algorithm that finalizes distances assuming edge weights only accumulate positively. A negative edge encountered later could lower a previously finalized distance."
+        },
+        {
+          "questionId": "FINAL-DSA-014",
+          "course": "Data Structures & Algorithms",
+          "module": "Graphs",
+          "topic": "Graphs",
+          "concept": "Cycle Detection in Directed Graphs",
+          "difficulty": "Medium",
+          "question": "In a directed graph, which state in a 3-color DFS traversal (White, Gray, Black) indicates the presence of a back-edge and hence a cycle?",
+          "options": [
+            "Encountering a node currently marked Gray (in active recursion stack)",
+            "Encountering a node marked Black (completely explored)",
+            "Encountering a node marked White (unvisited)",
+            "Encountering an isolated vertex"
+          ],
+          "correctAnswer": "Encountering a node currently marked Gray (in active recursion stack)",
+          "explanation": "A Gray node is an ancestor on the current DFS call stack. Reaching an active ancestor signifies a directed cycle (back-edge)."
+        },
+        {
+          "questionId": "FINAL-DSA-015",
+          "course": "Data Structures & Algorithms",
+          "module": "Searching",
+          "topic": "Binary Search",
+          "concept": "Rotated Array Search",
+          "difficulty": "Hard",
+          "question": "In Search in Rotated Sorted Array [4, 5, 6, 7, 0, 1, 2], how do we decide which half is sorted in each step?",
+          "options": [
+            "If arr[low] <= arr[mid], the left half [low...mid] is guaranteed to be monotonically sorted",
+            "Check if arr[0] is positive",
+            "The left half is always sorted regardless of values",
+            "Compare mid with the target only"
+          ],
+          "correctAnswer": "If arr[low] <= arr[mid], the left half [low...mid] is guaranteed to be monotonically sorted",
+          "explanation": "In any rotated sorted array without duplicates, dividing at mid leaves at least one half strictly sorted. If arr[low] <= arr[mid], the left half is monotonic; otherwise the right half is monotonic."
+        }
+      ]
+    }
+  },
+  {
+    "id": "web-dev",
+    "title": "Full-Stack Modern Web Engineering",
+    "slug": "web-dev",
+    "category": "Web Development",
+    "difficulty": "Intermediate",
+    "instructor": "Marcus Chen",
+    "instructorRole": "Staff Software Engineer, Cloud Architect",
+    "duration": "26h 00m",
+    "totalModules": 10,
+    "totalLessons": 74,
+    "totalPracticeQuestions": 105,
+    "progress": 40,
+    "currentTopic": "RESTful Microservices & Auth",
+    "currentModuleId": "web-04",
+    "rating": 4.9,
+    "reviews": 2150,
+    "enrolled": true,
+    "description": "Build production-grade web applications with modern React 18, Node.js, Express, PostgreSQL relational pipelines, JWT authentication, and Docker microservices.",
+    "topicMastery": [
+      { "topic": "Frontend Core", "mastery": 88, "status": "Strong" },
+      { "topic": "React State", "mastery": 75, "status": "Moderate" },
+      { "topic": "RESTful APIs", "mastery": 45, "status": "Needs Improvement" },
+      { "topic": "Database SQL", "mastery": 60, "status": "Moderate" }
+    ],
+    "modules": [
+      {
+        "id": "web-01",
+        "order": 1,
+        "title": "Modern JavaScript & DOM Internals",
+        "topic": "JavaScript",
+        "status": "completed",
+        "lessonsCount": 8,
+        "questionsCount": 10,
+        "duration": "2h 30m"
+      },
+      {
+        "id": "web-02",
+        "order": 2,
+        "title": "React Architecture & Virtual DOM",
+        "topic": "React",
+        "status": "completed",
+        "lessonsCount": 10,
+        "questionsCount": 12,
+        "duration": "3h 15m"
+      },
+      {
+        "id": "web-03",
+        "order": 3,
+        "title": "Component Lifecycle & Custom Hooks",
+        "topic": "React Hooks",
+        "status": "completed",
+        "lessonsCount": 9,
+        "questionsCount": 12,
+        "duration": "2h 45m"
+      },
+      {
+        "id": "web-04",
+        "order": 4,
+        "title": "RESTful Microservices & Auth",
+        "topic": "Backend APIs",
+        "status": "current",
+        "lessonsCount": 8,
+        "questionsCount": 10,
+        "duration": "2h 30m"
+      },
+      {
+        "id": "web-05",
+        "order": 5,
+        "title": "Relational Data Modeling with SQL",
+        "topic": "Databases",
+        "status": "available",
+        "lessonsCount": 8,
+        "questionsCount": 10,
+        "duration": "2h 40m"
+      }
+    ]
+  },
+  {
+    "id": "python",
+    "title": "Python for Systems & Algorithms",
+    "slug": "python",
+    "category": "Programming",
+    "difficulty": "Beginner",
+    "instructor": "Elena Rostova",
+    "instructorRole": "Senior Systems Engineer",
+    "duration": "14h 15m",
+    "totalModules": 8,
+    "totalLessons": 58,
+    "totalPracticeQuestions": 80,
+    "progress": 92,
+    "currentTopic": "Generators & Memory Profiles",
+    "currentModuleId": "py-07",
+    "rating": 4.8,
+    "reviews": 980,
+    "enrolled": true,
+    "description": "Deep dive into Pythonic internals, loop boundary invariants, memory allocations, decorators, iterators, and asymptotic runtime optimization.",
+    "topicMastery": [
+      { "topic": "Syntax & Control", "mastery": 98, "status": "Strong" },
+      { "topic": "Data Structures", "mastery": 94, "status": "Strong" },
+      { "topic": "OOP & Modules", "mastery": 88, "status": "Strong" },
+      { "topic": "Generators", "mastery": 85, "status": "Strong" }
+    ],
+    "modules": [
+      { "id": "py-01", "order": 1, "title": "Variables, Types & Memory", "status": "completed" },
+      { "id": "py-02", "order": 2, "title": "Control Structures & Comprehensions", "status": "completed" },
+      { "id": "py-03", "order": 3, "title": "Functions & Scope Invariants", "status": "completed" },
+      { "id": "py-04", "order": 4, "title": "Object Oriented Python", "status": "completed" }
+    ]
+  },
+  {
+    "id": "java",
+    "title": "Java Programming & OOP Mastery",
+    "slug": "java",
+    "category": "Programming",
+    "difficulty": "Intermediate",
+    "instructor": "Dr. Ronald Evans",
+    "instructorRole": "Professor of Software Engineering",
+    "duration": "20h 30m",
+    "totalModules": 10,
+    "totalLessons": 68,
+    "totalPracticeQuestions": 95,
+    "progress": 0,
+    "currentTopic": "JVM Memory & ClassLoaders",
+    "currentModuleId": "java-01",
+    "rating": 4.8,
+    "reviews": 1120,
+    "enrolled": false,
+    "description": "Comprehensive enterprise Java engineering covering JVM garbage collection internals, generics, multithreading, and Spring Boot architecture.",
+    "topicMastery": [
+      { "topic": "Core Java", "mastery": 0, "status": "Not Started" },
+      { "topic": "OOP Design", "mastery": 0, "status": "Not Started" },
+      { "topic": "Collections", "mastery": 0, "status": "Not Started" }
+    ],
+    "modules": [
+      { "id": "java-01", "order": 1, "title": "JVM Architecture & Memory", "status": "available" },
+      { "id": "java-02", "order": 2, "title": "OOP & Polymorphism", "status": "locked" }
+    ]
+  },
+  {
+    "id": "cpp",
+    "title": "C++ Programming & Systems Engineering",
+    "slug": "cpp",
+    "category": "Programming",
+    "difficulty": "Advanced",
+    "instructor": "Alexander Fischer",
+    "instructorRole": "High-Frequency Trading Systems Architect",
+    "duration": "24h 00m",
+    "totalModules": 11,
+    "totalLessons": 82,
+    "totalPracticeQuestions": 110,
+    "progress": 0,
+    "currentTopic": "Pointers & Memory Allocation",
+    "currentModuleId": "cpp-01",
+    "rating": 4.9,
+    "reviews": 780,
+    "enrolled": false,
+    "description": "Low-level C++ systems programming: RAII memory safety, smart pointers, templates, cache lines, and multi-core thread concurrency.",
+    "topicMastery": [
+      { "topic": "Pointers & RAII", "mastery": 0, "status": "Not Started" },
+      { "topic": "Templates", "mastery": 0, "status": "Not Started" },
+      { "topic": "Concurrency", "mastery": 0, "status": "Not Started" }
+    ],
+    "modules": [
+      { "id": "cpp-01", "order": 1, "title": "Memory Models & Raw Pointers", "status": "available" },
+      { "id": "cpp-02", "order": 2, "title": "RAII & Smart Pointers", "status": "locked" }
+    ]
+  },
+  {
+    "id": "dbms",
+    "title": "Database Management & SQL Systems",
+    "slug": "dbms",
+    "category": "Database",
+    "difficulty": "Intermediate",
+    "instructor": "Priya Sundaram",
+    "instructorRole": "Principal Database Architect",
+    "duration": "16h 00m",
+    "totalModules": 9,
+    "totalLessons": 62,
+    "totalPracticeQuestions": 88,
+    "progress": 0,
+    "currentTopic": "Relational Algebra & Normalization",
+    "currentModuleId": "db-01",
+    "rating": 4.7,
+    "reviews": 630,
+    "enrolled": false,
+    "description": "Relational database engines, B-Tree indices, transaction isolation levels, query optimizer cost models, and distributed replication.",
+    "topicMastery": [
+      { "topic": "SQL & Algebra", "mastery": 0, "status": "Not Started" },
+      { "topic": "Indexing", "mastery": 0, "status": "Not Started" },
+      { "topic": "Transactions", "mastery": 0, "status": "Not Started" }
+    ],
+    "modules": [
+      { "id": "db-01", "order": 1, "title": "Relational Data Model", "status": "available" },
+      { "id": "db-02", "order": 2, "title": "Normalization (1NF to BCNF)", "status": "locked" }
+    ]
+  },
+  {
+    "id": "cn",
+    "title": "Computer Networks & Internet Protocols",
+    "slug": "cn",
+    "category": "Computer Science",
+    "difficulty": "Intermediate",
+    "instructor": "Prof. David Thorne",
+    "instructorRole": "Chair of Network Systems",
+    "duration": "18h 20m",
+    "totalModules": 9,
+    "totalLessons": 58,
+    "totalPracticeQuestions": 75,
+    "progress": 0,
+    "currentTopic": "OSI 7-Layer & TCP/IP Model",
+    "currentModuleId": "cn-01",
+    "rating": 4.8,
+    "reviews": 540,
+    "enrolled": false,
+    "description": "From physical bits to HTTP/3: routing algorithms, TCP sliding windows, congestion control, TLS 1.3 cryptography, and DNS protocols.",
+    "topicMastery": [
+      { "topic": "Transport Layer", "mastery": 0, "status": "Not Started" },
+      { "topic": "Routing Protocols", "mastery": 0, "status": "Not Started" }
+    ],
+    "modules": [
+      { "id": "cn-01", "order": 1, "title": "Network Architecture & OSI", "status": "available" },
+      { "id": "cn-02", "order": 2, "title": "TCP Congestion & Flow Control", "status": "locked" }
+    ]
+  },
+  {
+    "id": "os",
+    "title": "Operating Systems & Concurrency",
+    "slug": "os",
+    "category": "Computer Science",
+    "difficulty": "Intermediate",
+    "instructor": "Dr. Sarah Lin",
+    "instructorRole": "Kernel Architect & Systems Researcher",
+    "duration": "19h 40m",
+    "totalModules": 10,
+    "totalLessons": 66,
+    "totalPracticeQuestions": 92,
+    "progress": 0,
+    "currentTopic": "Process Lifecycle & Context Switching",
+    "currentModuleId": "os-01",
+    "rating": 4.9,
+    "reviews": 810,
+    "enrolled": false,
+    "description": "Kernel architecture, process scheduling, virtual memory paging and TLB translation, synchronization primitives, deadlocks, and disk I/O.",
+    "topicMastery": [
+      { "topic": "Processes & Threads", "mastery": 0, "status": "Not Started" },
+      { "topic": "Virtual Memory", "mastery": 0, "status": "Not Started" },
+      { "topic": "Synchronization", "mastery": 0, "status": "Not Started" }
+    ],
+    "modules": [
+      { "id": "os-01", "order": 1, "title": "Processes, Threads & Scheduling", "status": "available" },
+      { "id": "os-02", "order": 2, "title": "Virtual Memory & Page Replacement", "status": "locked" }
+    ]
+  }
+]

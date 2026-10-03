@@ -5,6 +5,7 @@ import cors from 'cors'
 import { authRouter } from './server/routes/authRoutes.js'
 import { codingLabRouter } from './server/routes/codingLabRoutes.js'
 import { teacherRouter } from './server/routes/teacherRoutes.js'
+import { coursesRouter } from './server/routes/coursesRoutes.js'
 
 const apiApp = express();
 apiApp.use(cors());
@@ -15,6 +16,7 @@ apiApp.use(express.urlencoded({ extended: true }));
 apiApp.use('/api/auth', authRouter);
 apiApp.use('/api/coding-lab', codingLabRouter);
 apiApp.use('/api/teacher', teacherRouter);
+apiApp.use('/api/courses', coursesRouter);
 
 export default defineConfig({
   plugins: [

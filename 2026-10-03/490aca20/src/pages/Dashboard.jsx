@@ -63,29 +63,29 @@ const MONTHLY_ANALYTICS_DATA = [
 
 const CONTINUE_COURSES = [
   {
-    id: 'dsa-fundamentals',
-    title: 'DSA Fundamentals',
-    category: 'Coding',
-    duration: '6h 20m',
-    lessonsCompleted: '24/32',
-    progress: 75,
+    id: 'dsa',
+    title: 'Data Structures & Algorithms',
+    category: 'DSA',
+    duration: '18h 40m',
+    lessonsCompleted: '24/86',
+    progress: 78,
     icon: Code2,
   },
   {
-    id: 'python-internals',
+    id: 'python',
     title: 'Python for Systems & Algorithms',
     category: 'Programming',
-    duration: '4h 10m',
-    lessonsCompleted: '26/28',
+    duration: '14h 15m',
+    lessonsCompleted: '26/58',
     progress: 92,
     icon: Terminal,
   },
   {
-    id: 'web-engineering',
+    id: 'web-dev',
     title: 'Full-Stack Web Engineering',
     category: 'Web Dev',
-    duration: '10h 45m',
-    lessonsCompleted: '19/48',
+    duration: '26h 00m',
+    lessonsCompleted: '19/74',
     progress: 40,
     icon: BookOpen,
   },
@@ -687,9 +687,9 @@ export default function Dashboard() {
                     type="button"
                     className="btn btn-secondary btn-block btn-sm"
                     style={{ marginTop: 12 }}
-                    onClick={() => navigate('/coding-lab')}
+                    onClick={() => navigate(`/courses/${course.id}`)}
                   >
-                    <span>Continue</span>
+                    <span>Continue Learning</span>
                     <ArrowRight size={14} />
                   </button>
                 </div>

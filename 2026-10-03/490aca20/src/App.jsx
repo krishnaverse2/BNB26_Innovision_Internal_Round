@@ -2,6 +2,12 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 import Dashboard from './pages/Dashboard'
 import Courses from './pages/Courses'
+import CourseDetail from './pages/CourseDetail'
+import CourseLearn from './pages/CourseLearn'
+import CourseAssessment from './pages/CourseAssessment'
+import CourseTestResult from './pages/CourseTestResult'
+import PersonalizedVideoLesson from './pages/PersonalizedVideoLesson'
+import CoursePracticeAgain from './pages/CoursePracticeAgain'
 import CodingLab from './pages/CodingLab'
 import Diagnosis from './pages/Diagnosis'
 import DiagnosticTest from './pages/DiagnosticTest'
@@ -48,6 +54,13 @@ export default function App() {
       >
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/courses" element={<Courses />} />
+        <Route path="/courses/:courseId" element={<CourseDetail />} />
+        <Route path="/courses/:courseId/learn" element={<CourseLearn />} />
+        <Route path="/courses/:courseId/practice" element={<CourseLearn />} />
+        <Route path="/courses/:courseId/assessment" element={<CourseAssessment />} />
+        <Route path="/courses/:courseId/result/:assessmentId" element={<CourseTestResult />} />
+        <Route path="/courses/:courseId/video/:lessonId" element={<PersonalizedVideoLesson />} />
+        <Route path="/courses/:courseId/practice-again/:gapId" element={<CoursePracticeAgain />} />
         <Route path="/coding-lab" element={<CodingLab />} />
         <Route path="/diagnosis" element={<Diagnosis />} />
         <Route path="/diagnostic-test" element={<DiagnosticTest />} />

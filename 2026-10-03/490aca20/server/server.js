@@ -3,6 +3,7 @@ import cors from 'cors';
 import { authRouter } from './routes/authRoutes.js';
 import { codingLabRouter } from './routes/codingLabRoutes.js';
 import { teacherRouter } from './routes/teacherRoutes.js';
+import { coursesRouter } from './routes/coursesRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', authRouter);
 app.use('/api/coding-lab', codingLabRouter);
 app.use('/api/teacher', teacherRouter);
+app.use('/api/courses', coursesRouter);
 
 app.get('/api/health', (req, res) => {
   res.json({ ok: true, timestamp: new Date().toISOString(), status: 'Re:Learn & Coding Lab API Operational' });

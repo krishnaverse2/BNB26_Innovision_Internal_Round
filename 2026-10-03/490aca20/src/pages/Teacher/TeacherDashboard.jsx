@@ -939,6 +939,136 @@ export default function TeacherDashboard() {
                 </div>
               </div>
             </div>
+
+            {/* Course Progression & AI Cognitive Remediation Telemetry */}
+            <div
+              className="card"
+              style={{
+                background: '#131b2e',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: 14,
+                padding: '22px 26px',
+                marginTop: 20,
+              }}
+            >
+              <div className="row between wrap" style={{ alignItems: 'center', marginBottom: 16, gap: 10 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <div
+                    style={{
+                      width: 36,
+                      height: 36,
+                      borderRadius: 10,
+                      background: 'rgba(37,99,235,0.25)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#60a5fa',
+                    }}
+                  >
+                    <Sparkles size={18} />
+                  </div>
+                  <div>
+                    <div style={{ fontWeight: 800, fontSize: 16, color: '#ffffff' }}>
+                      Courses Progression & AI Cognitive Remediation Telemetry
+                    </div>
+                    <div style={{ fontSize: 12, color: '#94a3b8' }}>
+                      Adaptive curriculum tracking, student final assessments, and AI-generated video lessons
+                    </div>
+                  </div>
+                </div>
+
+                <span
+                  style={{
+                    background: 'rgba(16, 185, 129, 0.15)',
+                    color: '#34d399',
+                    border: '1px solid rgba(16, 185, 129, 0.3)',
+                    borderRadius: 9999,
+                    padding: '4px 12px',
+                    fontSize: 12,
+                    fontWeight: 700,
+                  }}
+                >
+                  AI Diagnostic Active
+                </span>
+              </div>
+
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                  gap: 16,
+                }}
+              >
+                {/* Cohort Course Progress */}
+                <div
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.03)',
+                    borderRadius: 12,
+                    padding: '16px 18px',
+                    border: '1px solid rgba(255, 255, 255, 0.06)',
+                  }}
+                >
+                  <div style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600, marginBottom: 6 }}>
+                    Active Course Track
+                  </div>
+                  <div style={{ fontSize: 16, fontWeight: 700, color: '#ffffff', marginBottom: 4 }}>
+                    Data Structures & Algorithms
+                  </div>
+                  <div style={{ fontSize: 12, color: '#cbd5e1', marginBottom: 10 }}>
+                    Cohort Average: <strong>78%</strong> • Current Module: <strong>Binary Search</strong>
+                  </div>
+                  <div style={{ height: 6, background: '#1e293b', borderRadius: 4, overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: '78%', background: '#2563eb' }} />
+                  </div>
+                </div>
+
+                {/* Detected Learning Gaps */}
+                <div
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.03)',
+                    borderRadius: 12,
+                    padding: '16px 18px',
+                    border: '1px solid rgba(255, 255, 255, 0.06)',
+                  }}
+                >
+                  <div style={{ fontSize: 12, color: '#f87171', fontWeight: 600, marginBottom: 6 }}>
+                    Top Cognitive Learning Gap
+                  </div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: '#ffffff', marginBottom: 2 }}>
+                    Binary Search — Pointer Movement
+                  </div>
+                  <div style={{ fontSize: 12, color: '#94a3b8', lineHeight: 1.4 }}>
+                    Confusion between low = mid + 1 and low = mid causing boundary infinite loops.
+                  </div>
+                  <div style={{ fontSize: 11.5, color: '#60a5fa', marginTop: 6, fontWeight: 600 }}>
+                    AI Confidence: 94% • 3 questions flagged
+                  </div>
+                </div>
+
+                {/* AI Lessons Generated */}
+                <div
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.03)',
+                    borderRadius: 12,
+                    padding: '16px 18px',
+                    border: '1px solid rgba(255, 255, 255, 0.06)',
+                  }}
+                >
+                  <div style={{ fontSize: 12, color: '#a78bfa', fontWeight: 600, marginBottom: 6 }}>
+                    Personalized AI Lessons
+                  </div>
+                  <div style={{ fontSize: 22, fontWeight: 800, color: '#ffffff', marginBottom: 2 }}>
+                    1 Active Lesson
+                  </div>
+                  <div style={{ fontSize: 12, color: '#cbd5e1' }}>
+                    10-scene animated remedial video delivered to Alex Rivera
+                  </div>
+                  <div style={{ fontSize: 11.5, color: '#10b981', marginTop: 6, fontWeight: 600 }}>
+                    Re-evaluation: +45% accuracy gain
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
