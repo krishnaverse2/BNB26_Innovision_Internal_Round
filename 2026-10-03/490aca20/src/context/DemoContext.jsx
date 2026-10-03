@@ -12,19 +12,33 @@ import {
   studentMisconceptions,
   studentStatus,
 } from '../data/students'
-import { concepts } from '../data/misconceptions'
+import { concepts, getMisconception, PRIMARY_MISCONCEPTION_ID } from '../data/misconceptions'
 
-const STORAGE_KEY = 'relearn.demo.v1'
+const STORAGE_KEY = 'relearn.demo.v2'
 
-// One field per step of the journey, so a refresh resumes exactly where
-// the learner left off.
+// Default fallback active diagnosis for instant interactivity on any diagnostic page
+const defaultDiagnosis = diagnoseMisconception({
+  targetMisconceptionId: PRIMARY_MISCONCEPTION_ID,
+  studentAnswer: '1 2 3 4 5',
+  expectedOutput: '1 2 3 4',
+  code: 'for i in range(1, 5):\n    print(i)',
+})
+
 export const initialState = {
   studentId: currentStudent.id,
-  stage: 'not-started',
-  submitted: null,
-  diagnosis: null,
-  diagnosisConfidence: null,
-  confidenceBaseline: null,
+  stage: 'diagnosed',
+  submitted: {
+    questionId: 'q-range-bounds',
+    answer: '1 2 3 4 5',
+    runOutput: '1 2 3 4',
+    isCorrect: false,
+    expectedOutput: '1 2 3 4',
+    code: 'for i in range(1, 5):\n    print(i)',
+    submittedAt: new Date().toISOString(),
+  },
+  diagnosis: defaultDiagnosis,
+  diagnosisConfidence: defaultDiagnosis.confidence || 87,
+  confidenceBaseline: defaultDiagnosis.confidence || 87,
   diagnosticResult: null,
   interventionMode: 'visual',
   interventionCompleted: false,
@@ -65,6 +79,24 @@ function reducer(state, action) {
         breakdown: null,
         completedAt: null,
       }
+    case 'INITIATE_DIAGNOSIS': {
+      const { diagnosis, submitted } = action.payload
+      return {
+        ...state,
+        stage: 'diagnosed',
+        submitted,
+        diagnosis,
+        diagnosisConfidence: diagnosis.confidence,
+        confidenceBaseline: diagnosis.confidence,
+        diagnosticResult: null,
+        interventionCompleted: false,
+        stressTestProgress: 0,
+        stressTestResults: {},
+        resolution: null,
+        resolutionStatus: null,
+        breakdown: null,
+      }
+    }
     case 'DIAGNOSE':
       return {
         ...state,
@@ -135,6 +167,9 @@ function loadState() {
     const raw = window.localStorage.getItem(STORAGE_KEY)
     if (!raw) return initialState
     const parsed = JSON.parse(raw)
+    // Guarantee active diagnosis and submission are present
+    if (!parsed.diagnosis) parsed.diagnosis = defaultDiagnosis
+    if (!parsed.submitted) parsed.submitted = initialState.submitted
     return { ...initialState, ...parsed }
   } catch {
     return initialState
@@ -150,8 +185,7 @@ export function DemoProvider({ children }) {
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(reducerState))
     } catch {
-      // Storage can be unavailable in private mode; the demo still works
-      // in-memory for the current session.
+      // Storage fallback
     }
   }, [reducerState])
 
@@ -190,14 +224,77 @@ export function DemoProvider({ children }) {
         streakDays: currentStudent.streakDays,
       },
 
-      submitAnswer({ questionId, answer, runOutput }) {
-        const analysis = analyzeResponse({ questionId, studentAnswer: answer })
+      /**
+       * Seamless 1-click bridge from Coding Lab into Diagnosis Flow
+       */
+      initiateDiagnosis({
+        questionId = 'custom-flow',
+        studentAnswer = '',
+        expectedOutput = '',
+        code = '',
+        misconceptionId = null,
+        language = 'python',
+        title = 'Submitted Code',
+      }) {
+        const submitted = {
+          questionId,
+          title,
+          answer: studentAnswer,
+          expectedOutput,
+          code,
+          language,
+          submittedAt: new Date().toISOString(),
+        }
+
+        const diagnosis = diagnoseMisconception({
+          questionId,
+          studentAnswer,
+          expectedOutput,
+          code,
+          targetMisconceptionId: misconceptionId,
+        })
+
+        dispatch({
+          type: 'INITIATE_DIAGNOSIS',
+          payload: { diagnosis, submitted },
+        })
+
+        return diagnosis
+      },
+
+      /**
+       * Switch diagnosed misconception on the fly to inspect any cognitive pattern
+       */
+      switchDiagnosedMisconception(targetMisconceptionId) {
+        const diag = diagnoseMisconception({
+          targetMisconceptionId,
+          studentAnswer: 'student error pattern',
+        })
+        const misconception = getMisconception(targetMisconceptionId)
+        const submitted = {
+          questionId: `probe-${targetMisconceptionId}`,
+          title: misconception?.name || 'Selected Misconception',
+          answer: misconception?.diagnostic?.options?.find(o => !o.correct)?.text || 'mistaken output',
+          expectedOutput: misconception?.diagnostic?.options?.find(o => o.correct)?.text || 'correct output',
+          code: misconception?.diagnostic?.code || '# Code under diagnostic observation',
+          submittedAt: new Date().toISOString(),
+        }
+        dispatch({
+          type: 'INITIATE_DIAGNOSIS',
+          payload: { diagnosis: diag, submitted },
+        })
+        return diag
+      },
+
+      submitAnswer({ questionId, answer, runOutput, code, expectedOutput }) {
+        const analysis = analyzeResponse({ questionId, studentAnswer: answer, code, expectedOutput })
         dispatch({
           type: 'SUBMIT_ANSWER',
           payload: {
             questionId,
             answer,
             runOutput,
+            code,
             isCorrect: analysis.isCorrect,
             expectedOutput: analysis.expectedOutput,
             signals: analysis.signals,
@@ -212,6 +309,9 @@ export function DemoProvider({ children }) {
           questionId: reducerState.submitted?.questionId,
           studentAnswer: reducerState.submitted?.answer,
           studentId: reducerState.studentId,
+          code: reducerState.submitted?.code,
+          expectedOutput: reducerState.submitted?.expectedOutput,
+          targetMisconceptionId: reducerState.diagnosis?.misconceptionId,
         })
         dispatch({
           type: 'DIAGNOSE',
@@ -221,22 +321,19 @@ export function DemoProvider({ children }) {
       },
 
       recordDiagnosticAnswer(selectedKey) {
-        // Always measured against the confidence the diagnosis produced, so
-        // re-answering does not compound the change.
         const before =
-          reducerState.confidenceBaseline ?? reducerState.diagnosisConfidence ?? 0
+          reducerState.confidenceBaseline ?? reducerState.diagnosisConfidence ?? 87
         const result = evaluateDiagnosticAnswer(
-          reducerState.diagnosis?.misconceptionId,
+          reducerState.diagnosis?.misconceptionId || PRIMARY_MISCONCEPTION_ID,
           selectedKey,
         )
         const payload = {
           selectedKey,
           supported: result.supported,
           message: result.message,
+          selectedDetail: result.selectedDetail,
           confidenceBefore: before,
-          // A supported hypothesis raises confidence; an unsupported one
-          // leaves it unchanged rather than inventing a new number.
-          confidenceAfter: result.supported ? Math.min(before + 7, 99) : before,
+          confidenceAfter: result.supported ? Math.min(before + 8, 99) : before,
         }
         dispatch({ type: 'RECORD_DIAGNOSTIC', payload })
         return payload

@@ -24,7 +24,7 @@ import { studentMastery, studentMisconceptions } from '../data/students'
 
 export default function Misconceptions() {
   const navigate = useNavigate()
-  const { fingerprint, isResolved } = useDemo()
+  const { fingerprint, isResolved, switchDiagnosedMisconception } = useDemo()
 
   const radarData = fingerprint.map((entry) => ({
     concept: entry.name.replace(' and Indexing', ''),
@@ -194,18 +194,30 @@ export default function Misconceptions() {
         />
         <div className="data-list">
           {tracked.map((entry) => (
-            <div className="data-row" key={entry.misconceptionId}>
+            <div className="data-row" key={entry.misconceptionId} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14 }}>
               <div style={{ flex: 1 }}>
                 <div className="data-row-title">{entry.misconception?.name}</div>
                 <div className="data-row-sub">
                   {entry.misconception?.description}
                 </div>
               </div>
-              <Pill tone="neutral">{entry.attempts} attempts</Pill>
-              <Pill tone="violet">{entry.confidence}% confidence</Pill>
-              <Pill tone={entry.status === 'resolved' ? 'stable' : 'attention'}>
-                {entry.status === 'resolved' ? '🟢 Resolved' : '🔴 Active'}
-              </Pill>
+              <div className="row wrap" style={{ gap: 8, alignItems: 'center' }}>
+                <Pill tone="neutral">{entry.attempts} attempts</Pill>
+                <Pill tone="violet">{entry.confidence}% confidence</Pill>
+                <Pill tone={entry.status === 'resolved' ? 'stable' : 'attention'}>
+                  {entry.status === 'resolved' ? '🟢 Resolved' : '🔴 Active'}
+                </Pill>
+                <button
+                  type="button"
+                  className="btn btn-primary btn-sm"
+                  onClick={() => {
+                    switchDiagnosedMisconception(entry.misconceptionId)
+                    navigate('/diagnosis')
+                  }}
+                >
+                  Run Diagnosis →
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -214,20 +226,33 @@ export default function Misconceptions() {
       <Card className="flat">
         <CardHeader
           title="Pattern catalogue"
-          subtitle={`${misconceptions.length} misconception patterns the prototype engine can match, across 5 concepts`}
+          subtitle={`${misconceptions.length} misconception patterns the AI neuro-symbolic engine can match, across 5 concepts`}
         />
-        <div className="grid cols-3">
+        <div className="grid cols-3" style={{ gap: 14 }}>
           {misconceptions.map((entry) => (
             <div
               key={entry.id}
               className="callout"
-              style={{ background: 'var(--surface)' }}
+              style={{ background: 'var(--surface)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
             >
-              <div className="row between" style={{ gap: 8, marginBottom: 4 }}>
-                <span className="strong small">{entry.name}</span>
-                <Pill tone="neutral">{entry.concept}</Pill>
+              <div>
+                <div className="row between" style={{ gap: 8, marginBottom: 4 }}>
+                  <span className="strong small">{entry.name}</span>
+                  <Pill tone="neutral">{entry.concept}</Pill>
+                </div>
+                <p className="tiny muted" style={{ margin: '6px 0 12px' }}>{entry.description}</p>
               </div>
-              <span className="tiny muted">{entry.description}</span>
+              <button
+                type="button"
+                className="btn btn-secondary btn-sm"
+                style={{ alignSelf: 'flex-start' }}
+                onClick={() => {
+                  switchDiagnosedMisconception(entry.id)
+                  navigate('/diagnosis')
+                }}
+              >
+                Diagnose This Pattern →
+              </button>
             </div>
           ))}
         </div>

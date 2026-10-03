@@ -68,11 +68,8 @@ export default function StressTest() {
     firstMissing === -1 ? stressTestStages.length - 1 : firstMissing,
   )
   const [answers, setAnswers] = useState({})
-
-  if (!state.diagnosis) return <Navigate to="/coding-lab" replace />
-
-  const stage = stressTestStages[activeIndex]
-  const stageResult = results[stage.id]
+  const stage = stressTestStages[activeIndex] || stressTestStages[0]
+  const stageResult = results[stage?.id]
   const currentAnswer = answers[stage.id] ?? (stageResult ? stageResult.answer : '')
   const completedCount = stressTestStages.filter((item) => results[item.id]).length
   const allDone = completedCount === stressTestStages.length

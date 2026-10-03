@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
-import { ClipboardCheck } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { ClipboardCheck, Sparkles, ArrowRight } from 'lucide-react'
 import { Card, CardHeader, CodeBlock, PageHead, Pill } from '../components/ui'
 import {
   assessmentLabel,
@@ -9,8 +10,11 @@ import {
 import { getMisconception } from '../data/misconceptions'
 import { questions } from '../data/questions'
 import { responses } from '../data/responses'
+import { useDemo } from '../context/DemoContext'
 
 export default function Assessments() {
+  const navigate = useNavigate()
+  const { switchDiagnosedMisconception, initiateDiagnosis } = useDemo()
   const [typeFilter, setTypeFilter] = useState('all')
   const [conceptFilter, setConceptFilter] = useState('all')
 
@@ -140,9 +144,40 @@ export default function Assessments() {
                 <CodeBlock code={item.code} title="assessment" />
               ) : null}
 
-              <div className="row wrap" style={{ gap: 8, marginTop: 10 }}>
-                <span className="tiny muted strong">Expected answer:</span>
-                <span className="mono small">{item.expectedAnswer}</span>
+              <div className="row wrap between" style={{ gap: 8, marginTop: 12, alignItems: 'center' }}>
+                <div className="row wrap" style={{ gap: 6, alignItems: 'center' }}>
+                  <span className="tiny muted strong">Expected answer:</span>
+                  <span className="mono small">{item.expectedAnswer}</span>
+                </div>
+                {item.misconceptionId ? (
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-sm"
+                    onClick={() => {
+                      switchDiagnosedMisconception(item.misconceptionId)
+                      navigate('/diagnosis')
+                    }}
+                  >
+                    Diagnose This Concept →
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="btn btn-ghost btn-sm"
+                    onClick={() => {
+                      initiateDiagnosis({
+                        questionId: item.id,
+                        code: item.code || '# Assessment probe',
+                        studentAnswer: item.expectedAnswer,
+                        expectedOutput: item.expectedAnswer,
+                        title: item.question,
+                      })
+                      navigate('/diagnosis')
+                    }}
+                  >
+                    Open in Diagnosis →
+                  </button>
+                )}
               </div>
             </div>
           ))}

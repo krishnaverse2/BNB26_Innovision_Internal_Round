@@ -26,7 +26,7 @@ export default function PredictOutputWorkspace({
   onChangeMode,
 }) {
   const navigate = useNavigate();
-  const { submitAnswer } = useDemo();
+  const { submitAnswer, initiateDiagnosis } = useDemo();
 
   const [questions, setQuestions] = useState([]);
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -426,9 +426,22 @@ export default function PredictOutputWorkspace({
                       <button
                         type="button"
                         className="btn btn-primary btn-block"
-                        onClick={() => navigate('/diagnosis')}
+                        onClick={() => {
+                          if (currentQ) {
+                            initiateDiagnosis({
+                              questionId: currentQ.id,
+                              studentAnswer: prediction,
+                              expectedOutput: evalResult.expectedOutput,
+                              code: currentQ.code,
+                              misconceptionId: evalResult.relatedMisconceptionId || 'm-range-endpoint',
+                              language: language?.id || 'python',
+                              title: currentQ.title,
+                            });
+                          }
+                          navigate('/diagnosis');
+                        }}
                       >
-                        Explain My Thinking
+                        Explain My Thinking & Diagnose
                         <ArrowRight size={16} />
                       </button>
                     </div>

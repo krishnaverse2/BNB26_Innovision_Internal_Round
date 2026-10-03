@@ -200,14 +200,23 @@ export default function Dashboard() {
                   &ldquo;You may be treating the ending value of Python range() as
                   included.&rdquo;
                 </p>
-                <button
-                  type="button"
-                  className="btn btn-primary btn-block btn-lg"
-                  onClick={() => navigate('/coding-lab')}
-                >
-                  Start Diagnosis
-                  <ArrowRight size={17} />
-                </button>
+                <div className="stack" style={{ gap: 8 }}>
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-block btn-lg"
+                    onClick={() => navigate('/diagnosis')}
+                  >
+                    Start AI Cognitive Diagnosis
+                    <ArrowRight size={17} />
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-block btn-sm"
+                    onClick={() => navigate('/coding-lab')}
+                  >
+                    Practice in Coding Lab
+                  </button>
+                </div>
               </div>
             )}
           </Card>

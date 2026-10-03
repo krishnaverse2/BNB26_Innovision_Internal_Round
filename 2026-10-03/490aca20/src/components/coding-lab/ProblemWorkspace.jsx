@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   ArrowLeft,
   Play,
@@ -15,10 +16,12 @@ import {
   RotateCcw,
   Sparkles,
   Search,
+  Brain,
 } from 'lucide-react';
 import CodeEditor from './CodeEditor';
 import { Pill } from '../ui';
 import { runCode, submitCode } from '../../services/codingLabApi';
+import { useDemo } from '../../context/DemoContext';
 
 export default function ProblemWorkspace({
   problem,
@@ -27,8 +30,10 @@ export default function ProblemWorkspace({
   languages = [],
   onSelectProblem,
   onSelectLanguage,
-  onChangeMode,
 }) {
+  const navigate = useNavigate();
+  const { initiateDiagnosis } = useDemo();
+
   // Current language ID
   const currentLangId = selectedLanguage?.id || 'python';
 
@@ -874,6 +879,52 @@ export default function ProblemWorkspace({
                             )}
                           </div>
                         )}
+                      </div>
+                    )}
+                    {/* Re:Learn Cognitive Diagnosis Bridge on error or failed test case */}
+                    {activeResult && activeResult.status !== 'Accepted' && (
+                      <div
+                        style={{
+                          marginTop: 14,
+                          padding: '12px 16px',
+                          background: 'rgba(124, 58, 237, 0.08)',
+                          borderRadius: 10,
+                          border: '1px solid rgba(124, 58, 237, 0.25)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: 12,
+                          flexWrap: 'wrap',
+                        }}
+                      >
+                        <div>
+                          <div style={{ fontWeight: 600, color: 'var(--violet-600)', fontSize: 13.5, display: 'flex', alignItems: 'center', gap: 6 }}>
+                            <Brain size={16} />
+                            Re:Learn AI Cognitive Diagnosis Available
+                          </div>
+                          <div className="small soft" style={{ marginTop: 2 }}>
+                            Test case failed. Run live Bayesian diagnosis to detect underlying misconception.
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          className="btn btn-primary btn-sm"
+                          style={{ whiteSpace: 'nowrap' }}
+                          onClick={() => {
+                            const failCase = activeResult.firstFailure || activeResult.results?.find((r) => !r.passed) || activeResult.results?.[0];
+                            initiateDiagnosis({
+                              questionId: problem.id,
+                              studentAnswer: failCase?.actualOutput || 'Compilation/Runtime Error',
+                              expectedOutput: failCase?.expectedOutput || '',
+                              code: code,
+                              language: currentLangId,
+                              title: problem.title,
+                            });
+                            navigate('/diagnosis');
+                          }}
+                        >
+                          Run AI Diagnosis →
+                        </button>
                       </div>
                     )}
                   </div>

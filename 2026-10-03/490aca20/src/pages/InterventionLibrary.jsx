@@ -15,7 +15,7 @@ const MODE_TONE = {
 
 export default function InterventionLibrary() {
   const navigate = useNavigate()
-  const { state } = useDemo()
+  const { state, switchDiagnosedMisconception } = useDemo()
   const [conceptFilter, setConceptFilter] = useState('all')
   const [selectedId, setSelectedId] = useState(
     state.diagnosis?.misconceptionId || misconceptions[0].id,
@@ -116,7 +116,16 @@ export default function InterventionLibrary() {
                   <ArrowRight size={15} />
                 </button>
               ) : (
-                <Pill tone="neutral">Not your current focus</Pill>
+                <button
+                  type="button"
+                  className="btn btn-secondary btn-sm"
+                  onClick={() => {
+                    switchDiagnosedMisconception(selected.id)
+                    navigate('/intervention')
+                  }}
+                >
+                  Practice This Intervention →
+                </button>
               )
             }
           />

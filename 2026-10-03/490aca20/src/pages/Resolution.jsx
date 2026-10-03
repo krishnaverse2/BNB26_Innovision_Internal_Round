@@ -1,5 +1,5 @@
-import { Navigate, useNavigate } from 'react-router-dom'
-import { ArrowRight, CheckCircle2, MoveRight, RotateCcw, Trophy } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { ArrowRight, CheckCircle2, MoveRight, RotateCcw, Trophy, Award, Sparkles } from 'lucide-react'
 import {
   Card,
   CardHeader,
@@ -11,17 +11,16 @@ import {
 import { useDemo } from '../context/DemoContext'
 import { getMisconception } from '../data/misconceptions'
 import { stressTestStages } from '../data/questions'
+import { evaluateResolution, understandingBreakdown } from '../services/aiService'
 
 export default function Resolution() {
   const navigate = useNavigate()
   const { state } = useDemo()
 
-  if (!state.resolution) return <Navigate to="/stress-test" replace />
-
-  const resolution = state.resolution
-  const breakdown = state.breakdown || []
-  const misconception = getMisconception(state.diagnosis?.misconceptionId)
   const results = state.stressTestResults || {}
+  const resolution = state.resolution || evaluateResolution(results)
+  const breakdown = state.breakdown?.length ? state.breakdown : understandingBreakdown(results)
+  const misconception = getMisconception(state.diagnosis?.misconceptionId || 'm-range-endpoint')
 
   return (
     <div className="stack gap-lg">
