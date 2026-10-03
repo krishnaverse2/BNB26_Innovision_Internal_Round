@@ -1,62 +1,74 @@
-import { NavLink } from 'react-router-dom'
+import { useState } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard,
+  BookOpen,
   TerminalSquare,
-  Fingerprint,
-  Lightbulb,
-  ClipboardCheck,
-  History,
-  BarChart3,
+  Code2,
+  Zap,
+  TrendingUp,
+  Trophy,
+  Users,
   Settings,
   User,
   Stethoscope,
   FlaskConical,
   GraduationCap,
   ShieldCheck,
-  Trophy,
+  Fingerprint,
+  History,
+  ClipboardCheck,
+  ChevronLeft,
+  ChevronRight,
+  LogOut,
+  Sparkles,
 } from 'lucide-react'
 import { useDemo } from '../context/DemoContext'
 import { useAuth } from '../context/AuthContext'
 
-const NAV = [
+export const ROUTE_TITLES = {
+  '/dashboard': ['Dashboard', 'Student Overview'],
+  '/courses': ['Courses', 'Explore & Continue'],
+  '/coding-lab': ['Coding Lab', 'Interactive Practice'],
+  '/diagnosis': ['AI Diagnosis', 'Cognitive Analysis'],
+  '/diagnostic-test': ['Hypothesis Test', 'Confirm Misconception'],
+  '/intervention': ['Adaptive Intervention', 'Personalized Teaching'],
+  '/stress-test': ['Learning Stability Check', 'Proof of Concept Stability'],
+  '/resolution': ['Resolution & Proof', 'Cognitive Shift Analysis'],
+  '/misconceptions': ['Misconception Fingerprint', 'Concept Mastery Matrix'],
+  '/interventions': ['Intervention Library', 'Evidence-Based Moves'],
+  '/assessments': ['Assessments Bank', 'Cognitive Validation Items'],
+  '/timeline': ['Learning Timeline', 'Progress Over Time'],
+  '/settings': ['Settings', 'Platform Preferences'],
+  '/profile': ['Student Profile', 'Academic & Skill Details'],
+}
+
+const MAIN_NAV = [
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { to: '/coding-lab', label: 'Coding Lab', icon: TerminalSquare },
-  { to: '/misconceptions', label: 'Misconceptions', icon: Fingerprint },
-  { to: '/interventions', label: 'Interventions', icon: Lightbulb },
-  { to: '/assessments', label: 'Assessments', icon: ClipboardCheck },
-  { to: '/timeline', label: 'Learning Timeline', icon: History },
+  { to: '/courses', label: 'Courses', icon: BookOpen },
+  { to: '/coding-lab', label: 'Coding Practice', icon: TerminalSquare },
+  { to: '/coding-lab?tab=dsa', label: 'DSA', icon: Code2 },
+  { to: '/coding-lab?tab=challenges', label: 'Challenges', icon: Zap },
+  { to: '/dashboard#growth', label: 'Progress & Growth', icon: TrendingUp },
+  { to: '/dashboard#achievements', label: 'Achievements', icon: Trophy },
+  { to: '/dashboard#community', label: 'Community', icon: Users },
 ]
 
-const FOOTER_NAV = [
-  { to: '/settings', label: 'Settings', icon: Settings },
-  { to: '/profile', label: 'Profile', icon: User },
-]
-
-// The diagnosis journey. Kept visible in the sidebar so every route in the
-// demo is reachable and the presenter can jump to any step.
 export const FLOW_STEPS = [
   { to: '/diagnosis', label: 'AI Diagnosis', icon: Stethoscope },
   { to: '/diagnostic-test', label: 'Hypothesis Test', icon: FlaskConical },
   { to: '/intervention', label: 'Intervention', icon: GraduationCap },
   { to: '/stress-test', label: 'Stability Check', icon: ShieldCheck },
   { to: '/resolution', label: 'Resolution', icon: Trophy },
+  { to: '/misconceptions', label: 'Misconceptions', icon: Fingerprint },
+  { to: '/timeline', label: 'Timeline', icon: History },
+  { to: '/assessments', label: 'Assessments', icon: ClipboardCheck },
 ]
 
-export const ROUTE_TITLES = {
-  '/dashboard': ['Dashboard', 'Student overview'],
-  '/coding-lab': ['Coding Lab', 'Attempt a challenge'],
-  '/diagnosis': ['AI Diagnosis', 'Why the answer differed'],
-  '/diagnostic-test': ['Hypothesis Test', 'Confirm the misconception'],
-  '/intervention': ['Adaptive Intervention', 'Personalized teaching'],
-  '/stress-test': ['Learning Stability Check', 'Prove the concept is stable'],
-  '/resolution': ['Resolution', 'Before and after'],
-  '/misconceptions': ['Misconception Fingerprint', 'Concept analytics'],
-  '/interventions': ['Intervention Library', 'Teaching moves by misconception'],
-  '/assessments': ['Assessments', 'Question bank by evidence type'],
-  '/timeline': ['Learning Timeline', 'Progress over time'],
-  '/settings': ['Settings', 'Prototype preferences'],
-  '/profile': ['Profile', 'Learner details'],
-}
+const FOOTER_NAV = [
+  { to: '/settings', label: 'Settings', icon: Settings },
+  { to: '/profile', label: 'Profile', icon: User },
+]
 
 function reachedIndex(state) {
   if (state.resolutionStatus) return 5
@@ -69,77 +81,166 @@ function reachedIndex(state) {
   return -1
 }
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onClose }) {
+  const navigate = useNavigate()
   const { state, student } = useDemo()
-  const { user, profile } = useAuth()
+  const { user, profile, logout } = useAuth()
+  const [collapsed, setCollapsed] = useState(false)
   const reached = reachedIndex(state)
 
-  const studentName = profile?.fullName || user?.name || student.fullName
-  const initials = studentName.slice(0, 2).toUpperCase()
+  const studentName = profile?.fullName || user?.name || student?.fullName || 'Student'
+  const initials = studentName
+    .split(' ')
+    .map((n) => n[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase()
 
   return (
-    <aside className="sidebar">
-      <div className="sidebar-logo">
-        <div className="sidebar-logo-mark">🧠</div>
-        <div>
-          <div className="sidebar-logo-text">Re:Learn</div>
-          <div className="sidebar-logo-sub">Adaptive Learning</div>
-        </div>
-      </div>
+    <>
+      {/* Mobile Backdrop */}
+      {isOpen && <div className="sidebar-overlay" onClick={onClose} />}
 
-      <nav className="sidebar-nav">
-        <div className="sidebar-section-label">Learn</div>
-        {NAV.map(({ to, label, icon: Icon }) => (
-          <NavLink
-            key={to}
-            to={to}
-            className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
+      <aside
+        className={`sidebar ${isOpen ? 'open' : ''} ${collapsed ? 'collapsed' : ''}`}
+        style={collapsed ? { width: 80 } : {}}
+      >
+        {/* Brand Header */}
+        <div className="sidebar-header">
+          <div
+            className="brand-badge"
+            onClick={() => navigate('/dashboard')}
+            style={{ cursor: 'pointer', overflow: 'hidden' }}
           >
-            <Icon className="icon" strokeWidth={1.9} />
-            <span className="label">{label}</span>
-          </NavLink>
-        ))}
+            <div className="brand-icon-box">
+              <span style={{ fontSize: 17, letterSpacing: -1 }}>RE</span>
+            </div>
+            {!collapsed && (
+              <div>
+                <div className="brand-title">RE:LEARN</div>
+                <div className="brand-tagline">Learn. Practice. Grow.</div>
+              </div>
+            )}
+          </div>
 
-        <div className="sidebar-section-label">Diagnosis flow</div>
-        {FLOW_STEPS.map(({ to, label, icon: Icon }, index) => {
-          const done = index < reached
-          return (
+          <button
+            type="button"
+            className="icon-btn hide-mobile"
+            onClick={() => setCollapsed(!collapsed)}
+            title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            style={{ color: '#94a3b8', width: 28, height: 28 }}
+          >
+            {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+          </button>
+        </div>
+
+        {/* Scrollable Navigation */}
+        <div className="sidebar-scroll">
+          <div className="sidebar-section-title">
+            {!collapsed ? 'Main Navigation' : '•••'}
+          </div>
+
+          {MAIN_NAV.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}
+              onClick={onClose}
               className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
+              title={collapsed ? label : undefined}
             >
-              <Icon className="icon" strokeWidth={1.9} />
-              <span className="label">{label}</span>
-              <span className={`sidebar-step-badge ${done ? 'done' : ''}`}>
-                {done ? '✓' : index + 1}
-              </span>
+              <Icon className="link-icon" size={18} strokeWidth={2} />
+              {!collapsed && <span className="label">{label}</span>}
             </NavLink>
-          )
-        })}
-      </nav>
+          ))}
 
-      <div className="sidebar-footer">
-        <div className="sidebar-profile">
-          <div className="avatar">{initials}</div>
-          <div className="sidebar-profile-text">
-            <div style={{ fontSize: 13.5, fontWeight: 600 }}>{studentName}</div>
-            <div style={{ fontSize: 11.5, color: '#93a1bd' }}>
-              {state.resolutionStatus === 'stable' ? 'Concept stable' : 'Learning in progress'}
-            </div>
+          <div className="sidebar-section-title" style={{ marginTop: 12 }}>
+            {!collapsed ? 'Cognitive AI Engine' : 'AI'}
+          </div>
+
+          {FLOW_STEPS.map(({ to, label, icon: Icon }, index) => {
+            const done = index < reached
+            return (
+              <NavLink
+                key={to}
+                to={to}
+                onClick={onClose}
+                className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
+                title={collapsed ? label : undefined}
+              >
+                <Icon className="link-icon" size={18} strokeWidth={1.9} />
+                {!collapsed && (
+                  <>
+                    <span className="label" style={{ flex: 1 }}>
+                      {label}
+                    </span>
+                    {index < 5 && (
+                      <span className={`sidebar-step-badge ${done ? 'done' : ''}`}>
+                        {done ? '✓' : index + 1}
+                      </span>
+                    )}
+                  </>
+                )}
+              </NavLink>
+            )
+          })}
+        </div>
+
+        {/* Footer: User & Settings */}
+        <div className="sidebar-footer">
+          {FOOTER_NAV.map(({ to, label, icon: Icon }) => (
+            <NavLink
+              key={to}
+              to={to}
+              onClick={onClose}
+              className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
+              title={collapsed ? label : undefined}
+              style={{ marginBottom: 4 }}
+            >
+              <Icon className="link-icon" size={17} />
+              {!collapsed && <span className="label">{label}</span>}
+            </NavLink>
+          ))}
+
+          <div className="divider" style={{ background: 'rgba(255,255,255,0.08)', margin: '10px 0' }} />
+
+          <div className="user-mini-card">
+            <div className="user-avatar-sm">{initials}</div>
+            {!collapsed && (
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 700,
+                    color: '#ffffff',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  {studentName}
+                </div>
+                <div style={{ fontSize: 11, color: '#94a3b8' }}>
+                  {state.resolutionStatus === 'stable' ? '🟢 Concept Stable' : 'Active Student'}
+                </div>
+              </div>
+            )}
+            {!collapsed && (
+              <button
+                type="button"
+                className="icon-btn"
+                onClick={() => {
+                  logout()
+                  navigate('/login')
+                }}
+                title="Log out"
+                style={{ width: 30, height: 30, color: '#94a3b8' }}
+              >
+                <LogOut size={15} />
+              </button>
+            )}
           </div>
         </div>
-        {FOOTER_NAV.map(({ to, label, icon: Icon }) => (
-          <NavLink
-            key={to}
-            to={to}
-            className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
-          >
-            <Icon className="icon" strokeWidth={1.9} />
-            <span className="label">{label}</span>
-          </NavLink>
-        ))}
-      </div>
-    </aside>
+      </aside>
+    </>
   )
 }

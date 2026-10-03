@@ -1,10 +1,9 @@
-import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 import {
   GraduationCap,
   Briefcase,
   ArrowRight,
-  ArrowLeft,
   Eye,
   EyeOff,
   CheckCircle2,
@@ -17,41 +16,45 @@ import {
   Code2,
   ShieldCheck,
   AlertCircle,
-} from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
-import { Pill } from '../../components/ui';
+  Brain,
+  Sparkles,
+  Zap,
+} from 'lucide-react'
+import { useAuth } from '../../context/AuthContext'
+import RealCodingUI from '../../components/auth/RealCodingUI'
+import MagicalCoderCartoon from '../../components/auth/MagicalCoderCartoon'
 
 export default function AuthPage() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { loginStudent, registerStudent, loginTeacher, isAuthenticated, isTeacher } = useAuth();
+  const navigate = useNavigate()
+  const { loginStudent, registerStudent, loginTeacher, isAuthenticated, isTeacher, user } = useAuth()
 
-  // Redirect if already authenticated
-  if (isAuthenticated) {
-    return <Navigate to={isTeacher ? '/teacher-dashboard' : '/dashboard'} replace />
-  }
+  // Active Role: 'student' | 'teacher'
+  const [role, setRole] = useState('student')
+  // Active Student Mode: 'login' | 'register'
+  const [studentMode, setStudentMode] = useState('login')
 
-  // Views: 'select-role' | 'student-login' | 'student-register' | 'teacher-login'
-  const [view, setView] = useState('select-role');
+  // Magical Cartoon Mascot reaction state
+  const [mascotState, setMascotState] = useState('idle')
 
   // Form states
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [successMsg, setSuccessMsg] = useState('');
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [rememberMe, setRememberMe] = useState(true)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [successMsg, setSuccessMsg] = useState('')
 
   // Student Login Form
   const [studentLoginForm, setStudentLoginForm] = useState({
-    email: '',
-    password: '',
-  });
+    email: 'student@gmail.com',
+    password: 'student@1',
+  })
 
   // Teacher Login Form
   const [teacherLoginForm, setTeacherLoginForm] = useState({
-    email: '',
-    password: '',
-  });
+    email: 'teacher@gmail.com',
+    password: 'teacher@1',
+  })
 
   // Student Register Form
   const [registerForm, setRegisterForm] = useState({
@@ -64,577 +67,491 @@ export default function AuthPage() {
     course: 'B.Tech / B.E.',
     branch: 'Computer Science & Engineering',
     yearSemester: '3rd Year / 5th Semester',
-    skills: '',
-  });
+    skills: 'DSA, Python, React',
+  })
 
   // Handle Student Login
   async function handleStudentLoginSubmit(e) {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
+    e.preventDefault()
+    setError('')
+    setLoading(true)
 
     try {
       if (!studentLoginForm.email || !studentLoginForm.password) {
-        throw new Error('Please fill in both email and password.');
+        throw new Error('Please fill in both email and password.')
       }
-      await loginStudent(studentLoginForm);
-      navigate('/dashboard', { replace: true });
+      await loginStudent(studentLoginForm)
+      setSuccessMsg("Welcome back to RE:LEARN! Loading your student dashboard...")
+      setTimeout(() => {
+        navigate('/dashboard', { replace: true })
+      }, 600)
     } catch (err) {
-      setError(err.message || 'Login failed. Please check your credentials.');
+      setError(err.message || 'Login failed. Please check your credentials.')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
   // Handle Teacher Login
   async function handleTeacherLoginSubmit(e) {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
+    e.preventDefault()
+    setError('')
+    setLoading(true)
 
     try {
       if (!teacherLoginForm.email || !teacherLoginForm.password) {
-        throw new Error('Please enter your faculty email and password.');
+        throw new Error('Please enter your faculty email and password.')
       }
-      await loginTeacher(teacherLoginForm);
-      navigate('/teacher-dashboard', { replace: true });
+      await loginTeacher(teacherLoginForm)
+      setSuccessMsg('Welcome Professor! Accessing Faculty Telemetry Portal...')
+      setTimeout(() => {
+        navigate('/teacher-dashboard', { replace: true })
+      }, 600)
     } catch (err) {
-      setError(err.message || 'Invalid teacher credentials.');
+      setError(err.message || 'Invalid teacher credentials.')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
   // Handle Student Registration
   async function handleStudentRegisterSubmit(e) {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
+    e.preventDefault()
+    setError('')
+    setLoading(true)
 
     try {
-      // Basic validations
-      if (!registerForm.fullName.trim()) throw new Error('Full name is required.');
-      if (!registerForm.email.trim()) throw new Error('Email address is required.');
-      if (!registerForm.password) throw new Error('Password is required.');
-      if (registerForm.password.length < 6) throw new Error('Password must be at least 6 characters.');
+      if (!registerForm.fullName.trim()) throw new Error('Full name is required.')
+      if (!registerForm.email.trim()) throw new Error('Email address is required.')
+      if (!registerForm.password) throw new Error('Password is required.')
+      if (registerForm.password.length < 6)
+        throw new Error('Password must be at least 6 characters.')
       if (registerForm.password !== registerForm.confirmPassword) {
-        throw new Error('Passwords do not match.');
+        throw new Error('Passwords do not match.')
       }
-      if (!registerForm.mobile.trim()) throw new Error('Mobile number is required.');
-      if (!registerForm.college.trim()) throw new Error('College / Institute name is required.');
+      if (!registerForm.mobile.trim()) throw new Error('Mobile number is required.')
+      if (!registerForm.college.trim()) throw new Error('College / Institute name is required.')
 
-      await registerStudent(registerForm);
-      setSuccessMsg('Account created successfully! Redirecting to Student Dashboard...');
+      await registerStudent(registerForm)
+      setSuccessMsg('Account created successfully! Loading your dashboard...')
       setTimeout(() => {
-        navigate('/dashboard', { replace: true });
-      }, 700);
+        navigate('/dashboard', { replace: true })
+      }, 600)
     } catch (err) {
-      setError(err.message || 'Registration failed. Please check the inputs.');
+      setError(err.message || 'Registration failed. Please check the inputs.')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
   return (
     <div
       style={{
-        minHeight: '100vh',
-        background: 'radial-gradient(ellipse at top, #1e293b 0%, #0b1426 100%)',
+        height: '100vh',
+        maxHeight: '100vh',
+        width: '100vw',
+        maxWidth: '100%',
+        overflow: 'hidden',
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '30px 16px',
-        color: '#f8fafc',
+        background: '#f8fafc',
+        position: 'relative',
+        boxSizing: 'border-box',
       }}
     >
-      {/* Brand Header */}
-      <div style={{ textAlign: 'center', marginBottom: 28 }}>
+      {/* Background subtle geometric code decoration */}
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          pointerEvents: 'none',
+          backgroundImage:
+            'radial-gradient(#e2e8f0 1px, transparent 1px), radial-gradient(#eff6ff 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+          backgroundPosition: '0 0, 14px 14px',
+          opacity: 0.55,
+          zIndex: 0,
+        }}
+      />
+
+      {/* LEFT COLUMN: Real Developer IDE & Terminal Workspace (Desktop) */}
+      <div
+        className="hide-mobile"
+        style={{
+          flex: '1 1 52%',
+          height: '100vh',
+          maxHeight: '100vh',
+          overflow: 'hidden',
+          background: 'linear-gradient(145deg, #070c18 0%, #0f172a 45%, #1e293b 100%)',
+          color: '#ffffff',
+          padding: 'clamp(18px, 2.8vh, 30px) clamp(22px, 3vw, 40px)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          position: 'relative',
+          borderRight: '1px solid rgba(255,255,255,0.08)',
+          zIndex: 1,
+          boxSizing: 'border-box',
+        }}
+      >
+        {/* Glow backdrop */}
         <div
           style={{
-            display: 'inline-flex',
+            position: 'absolute',
+            top: '-15%',
+            left: '-15%',
+            width: '460px',
+            height: '460px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(37,99,235,0.2) 0%, transparent 70%)',
+            filter: 'blur(50px)',
+            pointerEvents: 'none',
+          }}
+        />
+
+        {/* Brand Top Header */}
+        <div style={{ position: 'relative', zIndex: 2 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div
+              style={{
+                width: 38,
+                height: 38,
+                borderRadius: 10,
+                background: 'linear-gradient(135deg, #2563eb 0%, #60a5fa 100%)',
+                color: '#ffffff',
+                fontWeight: 800,
+                fontSize: 18,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 4px 12px rgba(37, 99, 235, 0.35)',
+              }}
+            >
+              RE
+            </div>
+            <div>
+              <div style={{ fontSize: 20, fontWeight: 800, letterSpacing: '-0.03em', color: '#ffffff' }}>
+                RE:LEARN
+              </div>
+              <div style={{ fontSize: 12, color: '#93c5fd', fontWeight: 500, letterSpacing: '0.04em' }}>
+                Learn. Practice. Grow.
+              </div>
+            </div>
+          </div>
+
+          <div style={{ marginTop: 'clamp(8px, 1.6vh, 16px)' }}>
+            <span
+              className="pill blue"
+              style={{
+                background: 'rgba(37,99,235,0.22)',
+                color: '#93c5fd',
+                border: '1px solid rgba(147,197,253,0.3)',
+                fontSize: 11.5,
+                padding: '3px 8px',
+              }}
+            >
+              <Sparkles size={12} />
+              AI Cognitive Diagnostics & Coding Environment
+            </span>
+
+            <h1
+              style={{
+                fontSize: 'clamp(20px, 2.2vw, 26px)',
+                fontWeight: 800,
+                lineHeight: 1.25,
+                color: '#ffffff',
+                letterSpacing: '-0.03em',
+                marginTop: 8,
+                marginBottom: 4,
+              }}
+            >
+              Understand Concepts, <br />
+              <span style={{ color: '#60a5fa' }}>Not Just Answers.</span>
+            </h1>
+
+            <p style={{ fontSize: 12.5, color: '#94a3b8', lineHeight: 1.45, maxWidth: 500 }}>
+              Live interactive developer platform with Bayesian Knowledge Tracing, real-time AST
+              boundary telemetry, and automated test execution.
+            </p>
+          </div>
+        </div>
+
+        {/* Center: Animated Magical Cartoon & Real Developer IDE Workspace */}
+        <div
+          style={{
+            position: 'relative',
+            zIndex: 2,
+            padding: '2px 0',
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
             alignItems: 'center',
-            gap: 10,
-            background: 'rgba(255, 255, 255, 0.08)',
-            padding: '8px 18px',
-            borderRadius: 30,
-            backdropFilter: 'blur(8px)',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
-            marginBottom: 12,
+            gap: 4,
+            minHeight: 0,
           }}
         >
-          <span style={{ fontSize: 22 }}>🧠</span>
-          <span style={{ fontWeight: 800, fontSize: 18, letterSpacing: '-0.02em' }}>
-            Re:Learn
-          </span>
-          <span style={{ color: '#94a3b8', fontSize: 13 }}>|</span>
-          <span style={{ color: '#93c5fd', fontSize: 13, fontWeight: 600 }}>
-            Coding Lab & Adaptive Learning
-          </span>
+          <MagicalCoderCartoon state={mascotState} />
+          <RealCodingUI />
         </div>
-        <h1 style={{ fontSize: 30, fontWeight: 800, color: '#ffffff', letterSpacing: '-0.03em' }}>
-          {view === 'select-role' && 'Welcome to Re:Learn Platform'}
-          {view === 'student-login' && 'Student Login'}
-          {view === 'student-register' && 'Student Registration'}
-          {view === 'teacher-login' && 'Teacher Portal Login'}
-        </h1>
-        <p style={{ color: '#94a3b8', fontSize: 14.5, marginTop: 4, maxWidth: 540 }}>
-          {view === 'select-role' && 'Select your role to access your personalized learning environment or faculty dashboard.'}
-          {view === 'student-login' && 'Enter your student credentials to continue your coding journey and diagnosis.'}
-          {view === 'student-register' && 'Create your student account to access Coding Lab, practice LeetCode challenges, and track mastery.'}
-          {view === 'teacher-login' && 'Secure access for authorized educators to manage curriculum, questions, and view student progress.'}
-        </p>
+
+        {/* Bottom Feature Badges */}
+        <div
+          style={{
+            position: 'relative',
+            zIndex: 2,
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+            gap: 10,
+            background: 'rgba(255,255,255,0.04)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: 12,
+            padding: '8px 14px',
+          }}
+        >
+          <div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#ffffff' }}>⚡ BKT Prior Engine</div>
+            <div style={{ fontSize: 10.5, color: '#94a3b8', marginTop: 1 }}>Calibrated BF₁₀ = 18.4</div>
+          </div>
+          <div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#ffffff' }}>💻 Multi-Language AST</div>
+            <div style={{ fontSize: 10.5, color: '#94a3b8', marginTop: 1 }}>Python, C++, Java, JS, Go</div>
+          </div>
+          <div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#ffffff' }}>🎯 Stability Proof</div>
+            <div style={{ fontSize: 10.5, color: '#94a3b8', marginTop: 1 }}>Near & far transfer checks</div>
+          </div>
+        </div>
       </div>
 
-      {/* VIEW 1: ROLE SELECTION SCREEN */}
-      {view === 'select-role' && (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: 22,
-            width: '100%',
-            maxWidth: 780,
-          }}
-        >
-          {/* Option A: Student Portal */}
+      {/* RIGHT COLUMN: Medium-Sized, Balanced Authentication Card */}
+      <div
+        style={{
+          flex: '1 1 48%',
+          height: '100vh',
+          maxHeight: '100vh',
+          overflowY: role === 'student' && studentMode === 'register' ? 'auto' : 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 'clamp(14px, 2.5vh, 28px) clamp(20px, 3vw, 40px)',
+          boxSizing: 'border-box',
+          width: '100%',
+          zIndex: 1,
+        }}
+      >
+        <div style={{ width: '100%', maxWidth: 480 }}>
+          {/* Mobile Brand Banner */}
           <div
-            className="card"
-            style={{
-              padding: '32px 28px',
-              borderRadius: 20,
-              background: '#0f172a',
-              border: '1.5px solid rgba(59, 130, 246, 0.3)',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              transition: 'all 0.2s ease',
-            }}
+            className="show-mobile-only"
+            style={{ textAlign: 'center', marginBottom: 16, display: 'none' }}
           >
-            <div>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
               <div
                 style={{
-                  width: 56,
-                  height: 56,
-                  borderRadius: 16,
-                  background: 'rgba(59, 130, 246, 0.15)',
-                  color: '#60a5fa',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: 20,
-                }}
-              >
-                <GraduationCap size={32} />
-              </div>
-
-              <div className="row between" style={{ alignItems: 'center', marginBottom: 8 }}>
-                <h2 style={{ fontSize: 24, color: '#ffffff' }}>Student</h2>
-                <span
-                  style={{
-                    fontSize: 11,
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    padding: '3px 10px',
-                    borderRadius: 20,
-                    background: 'rgba(59, 130, 246, 0.2)',
-                    color: '#93c5fd',
-                  }}
-                >
-                  Learning Portal
-                </span>
-              </div>
-
-              <p style={{ color: '#94a3b8', fontSize: 14, lineHeight: 1.6, marginBottom: 22 }}>
-                Solve LeetCode-style algorithmic challenges in 12 languages, predict code outputs,
-                run test cases, track your mastery, and receive personalized diagnosis.
-              </p>
-
-              <div className="stack" style={{ gap: 8, marginBottom: 26, fontSize: 13, color: '#cbd5e1' }}>
-                <div className="row" style={{ gap: 8, alignItems: 'center' }}>
-                  <CheckCircle2 size={16} color="#60a5fa" />
-                  <span>Interactive Coding Lab & Output Prediction</span>
-                </div>
-                <div className="row" style={{ gap: 8, alignItems: 'center' }}>
-                  <CheckCircle2 size={16} color="#60a5fa" />
-                  <span>Real-time code execution with test suites</span>
-                </div>
-                <div className="row" style={{ gap: 8, alignItems: 'center' }}>
-                  <CheckCircle2 size={16} color="#60a5fa" />
-                  <span>Cognitive misconception diagnosis & stability checks</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="stack" style={{ gap: 10 }}>
-              <button
-                type="button"
-                className="btn btn-primary btn-block btn-lg"
-                onClick={() => {
-                  setError('');
-                  setView('student-login');
-                }}
-                style={{
-                  borderRadius: 12,
-                  fontWeight: 600,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: 8,
-                }}
-              >
-                Student Login
-                <ArrowRight size={16} />
-              </button>
-              <button
-                type="button"
-                className="btn btn-secondary btn-block"
-                onClick={() => {
-                  setError('');
-                  setView('student-register');
-                }}
-                style={{
-                  borderRadius: 12,
-                  fontWeight: 600,
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  color: '#f8fafc',
-                  borderColor: 'rgba(255, 255, 255, 0.15)',
-                }}
-              >
-                Register New Student
-              </button>
-            </div>
-          </div>
-
-          {/* Option B: Teacher Portal */}
-          <div
-            className="card"
-            style={{
-              padding: '32px 28px',
-              borderRadius: 20,
-              background: '#0f172a',
-              border: '1.5px solid rgba(139, 92, 246, 0.3)',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            <div>
-              <div
-                style={{
-                  width: 56,
-                  height: 56,
-                  borderRadius: 16,
-                  background: 'rgba(139, 92, 246, 0.15)',
-                  color: '#a78bfa',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: 20,
-                }}
-              >
-                <Briefcase size={30} />
-              </div>
-
-              <div className="row between" style={{ alignItems: 'center', marginBottom: 8 }}>
-                <h2 style={{ fontSize: 24, color: '#ffffff' }}>Teacher</h2>
-                <span
-                  style={{
-                    fontSize: 11,
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    padding: '3px 10px',
-                    borderRadius: 20,
-                    background: 'rgba(139, 92, 246, 0.2)',
-                    color: '#c4b5fd',
-                  }}
-                >
-                  Faculty Only
-                </span>
-              </div>
-
-              <p style={{ color: '#94a3b8', fontSize: 14, lineHeight: 1.6, marginBottom: 22 }}>
-                Full administrative access to manage Coding Lab questions, author test cases,
-                publish challenges, inspect class submissions, and analyze misconception heatmaps.
-              </p>
-
-              <div className="stack" style={{ gap: 8, marginBottom: 26, fontSize: 13, color: '#cbd5e1' }}>
-                <div className="row" style={{ gap: 8, alignItems: 'center' }}>
-                  <CheckCircle2 size={16} color="#a78bfa" />
-                  <span>Author & edit Coding Lab problems & testcases</span>
-                </div>
-                <div className="row" style={{ gap: 8, alignItems: 'center' }}>
-                  <CheckCircle2 size={16} color="#a78bfa" />
-                  <span>Student roster monitoring & submission history</span>
-                </div>
-                <div className="row" style={{ gap: 8, alignItems: 'center' }}>
-                  <CheckCircle2 size={16} color="#a78bfa" />
-                  <span>Predefined faculty login • No public registration</span>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div
-                style={{
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  padding: '10px 14px',
-                  borderRadius: 10,
-                  fontSize: 12,
-                  color: '#94a3b8',
-                  marginBottom: 14,
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                }}
-              >
-                🔒 Teacher accounts are provisioned by institution administration. Public registration is disabled.
-              </div>
-
-              <button
-                type="button"
-                className="btn btn-block btn-lg"
-                onClick={() => {
-                  setError('');
-                  setView('teacher-login');
-                }}
-                style={{
-                  borderRadius: 12,
-                  fontWeight: 600,
-                  background: '#7c3aed',
-                  borderColor: '#7c3aed',
+                  width: 32,
+                  height: 32,
+                  borderRadius: 8,
+                  background: 'linear-gradient(135deg, #2563eb 0%, #60a5fa 100%)',
                   color: '#ffffff',
+                  fontWeight: 800,
+                  fontSize: 15,
                   display: 'flex',
-                  justifyContent: 'center',
                   alignItems: 'center',
-                  gap: 8,
+                  justifyContent: 'center',
                 }}
               >
-                Teacher Portal Login
-                <ArrowRight size={16} />
-              </button>
+                RE
+              </div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--navy-900)' }}>
+                RE:LEARN
+              </div>
+            </div>
+            <div style={{ fontSize: 11.5, color: 'var(--text-muted)' }}>Learn. Practice. Grow.</div>
+
+            {/* Mobile Animated Magic Cartoon */}
+            <div style={{ marginTop: 2 }}>
+              <MagicalCoderCartoon state={mascotState} />
             </div>
           </div>
-        </div>
-      )}
 
-      {/* VIEW 2: STUDENT LOGIN */}
-      {view === 'student-login' && (
-        <div
-          className="card"
-          style={{
-            width: '100%',
-            maxWidth: 440,
-            padding: '32px 30px',
-            borderRadius: 20,
-            background: '#0f172a',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
-            boxShadow: '0 25px 50px rgba(0, 0, 0, 0.5)',
-          }}
-        >
-          <button
-            type="button"
-            className="btn btn-ghost btn-sm"
-            onClick={() => setView('select-role')}
-            style={{ color: '#94a3b8', padding: '4px 8px', marginBottom: 16 }}
+          {/* Role Switcher (Student vs Faculty) */}
+          <div
+            style={{
+              display: 'flex',
+              background: '#ffffff',
+              borderRadius: 12,
+              padding: 4,
+              border: '1px solid var(--border)',
+              boxShadow: 'var(--shadow-sm)',
+              marginBottom: 'clamp(12px, 1.8vh, 18px)',
+            }}
           >
-            <ArrowLeft size={15} style={{ marginRight: 4 }} />
-            Back to Role Selection
-          </button>
+            <button
+              type="button"
+              onClick={() => {
+                setRole('student')
+                setError('')
+              }}
+              style={{
+                flex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 8,
+                padding: '8px 12px',
+                borderRadius: 9,
+                fontSize: 13,
+                fontWeight: role === 'student' ? 700 : 500,
+                background: role === 'student' ? 'var(--navy-900)' : 'transparent',
+                color: role === 'student' ? '#ffffff' : 'var(--text-soft)',
+                cursor: 'pointer',
+                transition: 'all 0.18s ease',
+              }}
+            >
+              <GraduationCap size={16} />
+              <span>Student Portal</span>
+            </button>
 
-          <form onSubmit={handleStudentLoginSubmit} className="stack gap">
-            {error && (
+            <button
+              type="button"
+              onClick={() => {
+                setRole('teacher')
+                setError('')
+              }}
+              style={{
+                flex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 8,
+                padding: '8px 12px',
+                borderRadius: 9,
+                fontSize: 13,
+                fontWeight: role === 'teacher' ? 700 : 500,
+                background: role === 'teacher' ? 'var(--navy-900)' : 'transparent',
+                color: role === 'teacher' ? '#ffffff' : 'var(--text-soft)',
+                cursor: 'pointer',
+                transition: 'all 0.18s ease',
+              }}
+            >
+              <Briefcase size={16} />
+              <span>Faculty Portal</span>
+            </button>
+          </div>
+
+          {/* Form Card (Medium, Comfortable Size) */}
+          <div
+            className="card"
+            style={{
+              padding: 'clamp(20px, 2.8vh, 28px) clamp(22px, 2.6vw, 30px)',
+              borderRadius: 20,
+              boxShadow: '0 8px 30px rgba(15,23,42,0.07)',
+              border: '1px solid var(--border)',
+              background: '#ffffff',
+            }}
+          >
+            {/* Card Header */}
+            <div style={{ marginBottom: 'clamp(12px, 1.8vh, 18px)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <h2
+                  style={{
+                    fontSize: 'clamp(19px, 2.2vw, 23px)',
+                    fontWeight: 800,
+                    color: 'var(--navy-900)',
+                    letterSpacing: '-0.025em',
+                  }}
+                >
+                  {role === 'student'
+                    ? studentMode === 'login'
+                      ? 'Welcome Back'
+                      : 'Create Student Account'
+                    : 'Faculty Portal Sign In'}
+                </h2>
+                {role === 'student' && (
+                  <span className="pill blue" style={{ fontSize: 11, padding: '3px 8px' }}>
+                    {studentMode === 'login' ? 'Login' : 'Register'}
+                  </span>
+                )}
+                {role === 'teacher' && (
+                  <span className="pill navy" style={{ fontSize: 11, padding: '3px 8px' }}>
+                    Faculty
+                  </span>
+                )}
+              </div>
+              <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 3 }}>
+                {role === 'student'
+                  ? studentMode === 'login'
+                    ? 'Continue your learning journey and solve coding problems.'
+                    : 'Fill in your academic profile to unlock personalized adaptive learning.'
+                  : 'Enter faculty credentials to manage student telemetry & assignments.'}
+              </p>
+            </div>
+
+            {/* Active Session Indicator (if already signed in) */}
+            {isAuthenticated && user && (
               <div
                 style={{
-                  background: '#fef2f2',
-                  color: '#dc2626',
-                  padding: '10px 14px',
-                  borderRadius: 10,
-                  fontSize: 13,
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 8,
+                  justifyContent: 'space-between',
+                  padding: '7px 11px',
+                  borderRadius: 10,
+                  background: 'rgba(37, 99, 235, 0.08)',
+                  border: '1px solid rgba(37, 99, 235, 0.22)',
+                  color: 'var(--navy-900)',
+                  fontSize: 12,
+                  marginBottom: 12,
                 }}
               >
-                <AlertCircle size={16} />
-                <span>{error}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, minWidth: 0 }}>
+                  <CheckCircle2 size={14} color="var(--primary)" style={{ flexShrink: 0 }} />
+                  <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    Signed in: <strong>{user?.name || user?.email}</strong> ({isTeacher ? 'Faculty' : 'Student'})
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => navigate(isTeacher ? '/teacher-dashboard' : '/dashboard', { replace: true })}
+                  style={{
+                    background: 'var(--primary)',
+                    color: '#ffffff',
+                    border: 'none',
+                    borderRadius: 6,
+                    padding: '3px 8px',
+                    fontSize: 11,
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 3,
+                    flexShrink: 0,
+                    marginLeft: 6,
+                  }}
+                >
+                  Dashboard <ArrowRight size={11} />
+                </button>
               </div>
             )}
 
-            <div>
-              <label className="field-label" style={{ color: '#cbd5e1', marginBottom: 6 }}>
-                Student Email Address
-              </label>
-              <div style={{ position: 'relative' }}>
-                <Mail
-                  size={16}
-                  style={{
-                    position: 'absolute',
-                    left: 12,
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    color: '#64748b',
-                  }}
-                />
-                <input
-                  type="email"
-                  className="input"
-                  required
-                  placeholder="student@gmail.com"
-                  value={studentLoginForm.email}
-                  onChange={(e) =>
-                    setStudentLoginForm({ ...studentLoginForm, email: e.target.value })
-                  }
-                  style={{
-                    paddingLeft: 38,
-                    background: '#1e293b',
-                    borderColor: '#334155',
-                    color: '#f8fafc',
-                  }}
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="field-label" style={{ color: '#cbd5e1', marginBottom: 6 }}>
-                Password
-              </label>
-              <div style={{ position: 'relative' }}>
-                <Lock
-                  size={16}
-                  style={{
-                    position: 'absolute',
-                    left: 12,
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    color: '#64748b',
-                  }}
-                />
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  className="input"
-                  required
-                  placeholder="Enter your password"
-                  value={studentLoginForm.password}
-                  onChange={(e) =>
-                    setStudentLoginForm({ ...studentLoginForm, password: e.target.value })
-                  }
-                  style={{
-                    paddingLeft: 38,
-                    paddingRight: 38,
-                    background: '#1e293b',
-                    borderColor: '#334155',
-                    color: '#f8fafc',
-                  }}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  style={{
-                    position: 'absolute',
-                    right: 10,
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    background: 'transparent',
-                    border: 'none',
-                    color: '#64748b',
-                    cursor: 'pointer',
-                    padding: 4,
-                  }}
-                >
-                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                </button>
-              </div>
-            </div>
-
-            <div
-              style={{
-                background: 'rgba(59, 130, 246, 0.08)',
-                padding: '8px 12px',
-                borderRadius: 8,
-                fontSize: 12,
-                color: '#93c5fd',
-              }}
-            >
-              💡 Demo Student Account: <strong>student@gmail.com</strong> / <strong>student@1</strong>
-            </div>
-
-            <button
-              type="submit"
-              className="btn btn-primary btn-lg btn-block"
-              disabled={loading}
-              style={{ marginTop: 6 }}
-            >
-              {loading ? 'Signing In...' : 'Sign In as Student'}
-            </button>
-
-            <div style={{ textAlign: 'center', marginTop: 10, fontSize: 13, color: '#94a3b8' }}>
-              Don't have a student account?{' '}
-              <button
-                type="button"
-                onClick={() => {
-                  setError('');
-                  setView('student-register');
-                }}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: '#60a5fa',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  padding: 0,
-                  textDecoration: 'underline',
-                }}
-              >
-                Register here
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
-
-      {/* VIEW 3: STUDENT REGISTRATION */}
-      {view === 'student-register' && (
-        <div
-          className="card"
-          style={{
-            width: '100%',
-            maxWidth: 620,
-            padding: '30px 32px',
-            borderRadius: 20,
-            background: '#0f172a',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
-            boxShadow: '0 25px 50px rgba(0, 0, 0, 0.5)',
-            maxHeight: '85vh',
-            overflowY: 'auto',
-          }}
-        >
-          <button
-            type="button"
-            className="btn btn-ghost btn-sm"
-            onClick={() => setView('select-role')}
-            style={{ color: '#94a3b8', padding: '4px 8px', marginBottom: 14 }}
-          >
-            <ArrowLeft size={15} style={{ marginRight: 4 }} />
-            Back to Role Selection
-          </button>
-
-          <form onSubmit={handleStudentRegisterSubmit} className="stack gap">
+            {/* Error & Success Messages */}
             {error && (
               <div
                 style={{
-                  background: '#fef2f2',
-                  color: '#dc2626',
-                  padding: '10px 14px',
-                  borderRadius: 10,
-                  fontSize: 13,
                   display: 'flex',
                   alignItems: 'center',
                   gap: 8,
+                  padding: '9px 12px',
+                  borderRadius: 10,
+                  background: '#fef2f2',
+                  border: '1px solid #fecaca',
+                  color: '#dc2626',
+                  fontSize: 12.5,
+                  marginBottom: 14,
+                  wordBreak: 'break-word',
                 }}
               >
-                <AlertCircle size={16} />
+                <AlertCircle size={16} style={{ flexShrink: 0 }} />
                 <span>{error}</span>
               </div>
             )}
@@ -642,426 +559,645 @@ export default function AuthPage() {
             {successMsg && (
               <div
                 style={{
-                  background: '#f0fdf4',
-                  color: '#16a34a',
-                  padding: '10px 14px',
-                  borderRadius: 10,
-                  fontSize: 13,
                   display: 'flex',
                   alignItems: 'center',
                   gap: 8,
+                  padding: '9px 12px',
+                  borderRadius: 10,
+                  background: '#f0fdf4',
+                  border: '1px solid #bbf7d0',
+                  color: '#16a34a',
+                  fontSize: 12.5,
+                  marginBottom: 14,
+                  wordBreak: 'break-word',
                 }}
               >
-                <CheckCircle2 size={16} />
+                <CheckCircle2 size={16} style={{ flexShrink: 0 }} />
                 <span>{successMsg}</span>
               </div>
             )}
 
-            {/* Section 1: Account Credentials */}
-            <div style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)', paddingBottom: 16 }}>
-              <div className="strong" style={{ fontSize: 14, color: '#93c5fd', marginBottom: 12 }}>
-                1. Account Credentials
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            {/* 1. STUDENT LOGIN FORM */}
+            {role === 'student' && studentMode === 'login' && (
+              <form onSubmit={handleStudentLoginSubmit} className="stack gap-sm">
                 <div>
-                  <label className="field-label" style={{ color: '#cbd5e1', fontSize: 12 }}>
+                  <label
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: 'var(--text-soft)',
+                      marginBottom: 5,
+                      display: 'block',
+                    }}
+                  >
+                    Email Address
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <Mail
+                      size={16}
+                      color="var(--text-muted)"
+                      style={{
+                        position: 'absolute',
+                        left: 14,
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                      }}
+                    />
+                    <input
+                      type="email"
+                      required
+                      placeholder="student@gmail.com"
+                      value={studentLoginForm.email}
+                      onFocus={() => setMascotState('focus-email')}
+                      onBlur={() => setMascotState('idle')}
+                      onChange={(e) =>
+                        setStudentLoginForm({ ...studentLoginForm, email: e.target.value })
+                      }
+                      className="input"
+                      style={{ paddingLeft: 40, padding: '10px 14px 10px 40px', fontSize: 13.5 }}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginBottom: 5,
+                    }}
+                  >
+                    <label style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-soft)' }}>
+                      Password
+                    </label>
+                    <a
+                      href="#forgot"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        alert('Default demo student credentials: student@gmail.com / student@1')
+                      }}
+                      style={{ fontSize: 12, color: 'var(--primary)', fontWeight: 600 }}
+                    >
+                      Forgot password?
+                    </a>
+                  </div>
+                  <div style={{ position: 'relative' }}>
+                    <Lock
+                      size={16}
+                      color="var(--text-muted)"
+                      style={{
+                        position: 'absolute',
+                        left: 14,
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                      }}
+                    />
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                      placeholder="••••••••"
+                      value={studentLoginForm.password}
+                      onFocus={() => setMascotState('focus-password')}
+                      onBlur={() => setMascotState('idle')}
+                      onChange={(e) => {
+                        setStudentLoginForm({ ...studentLoginForm, password: e.target.value })
+                        if (mascotState !== 'typing-password') {
+                          setMascotState('typing-password')
+                        }
+                      }}
+                      className="input"
+                      style={{ paddingLeft: 40, paddingRight: 40, padding: '10px 40px 10px 40px', fontSize: 13.5 }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      style={{
+                        position: 'absolute',
+                        right: 12,
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        color: 'var(--text-muted)',
+                      }}
+                    >
+                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginTop: 2,
+                  }}
+                >
+                  <label
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 7,
+                      fontSize: 12.5,
+                      color: 'var(--text-soft)',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                      style={{ accentColor: 'var(--primary)', borderRadius: 4 }}
+                    />
+                    Remember me
+                  </label>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  onMouseEnter={() => setMascotState('hover-submit')}
+                  onMouseLeave={() => setMascotState('idle')}
+                  className="btn btn-primary btn-block"
+                  style={{
+                    marginTop: 4,
+                    padding: '11px 18px',
+                    fontSize: 14,
+                    fontWeight: 700,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 8,
+                  }}
+                >
+                  {loading ? (
+                    <span>Signing In...</span>
+                  ) : (
+                    <>
+                      <span>Sign In</span>
+                      <ArrowRight size={16} />
+                    </>
+                  )}
+                </button>
+
+                {/* Demo Quick Fill Button */}
+                <div
+                  style={{
+                    background: 'var(--surface-alt)',
+                    borderRadius: 10,
+                    padding: '8px 12px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    fontSize: 12,
+                    border: '1px solid var(--border)',
+                    marginTop: 2,
+                  }}
+                >
+                  <span style={{ color: 'var(--text-muted)' }}>
+                    Demo Student: <strong>student@gmail.com</strong>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStudentLoginForm({ email: 'student@gmail.com', password: 'student@1' })
+                    }}
+                    style={{ color: 'var(--primary)', fontWeight: 700, cursor: 'pointer' }}
+                  >
+                    Auto-Fill
+                  </button>
+                </div>
+
+                <div
+                  style={{
+                    textAlign: 'center',
+                    marginTop: 6,
+                    fontSize: 12.5,
+                    color: 'var(--text-muted)',
+                  }}
+                >
+                  Don’t have an account?{' '}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStudentMode('register')
+                      setError('')
+                    }}
+                    style={{ color: 'var(--primary)', fontWeight: 700, cursor: 'pointer' }}
+                  >
+                    Register here
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {/* 2. STUDENT REGISTER FORM */}
+            {role === 'student' && studentMode === 'register' && (
+              <form
+                onSubmit={handleStudentRegisterSubmit}
+                className="stack gap-xs"
+                style={{ maxHeight: 'calc(100vh - 180px)', overflowY: 'auto', paddingRight: 4 }}
+              >
+                <div>
+                  <label
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 600,
+                      color: 'var(--text-soft)',
+                      marginBottom: 2,
+                      display: 'block',
+                    }}
+                  >
                     Full Name *
                   </label>
                   <input
                     type="text"
-                    className="input"
                     required
-                    placeholder="e.g. John Doe"
+                    placeholder="Alex Mercer"
                     value={registerForm.fullName}
                     onChange={(e) => setRegisterForm({ ...registerForm, fullName: e.target.value })}
-                    style={{ background: '#1e293b', borderColor: '#334155', color: '#f8fafc' }}
-                  />
-                </div>
-                <div>
-                  <label className="field-label" style={{ color: '#cbd5e1', fontSize: 12 }}>
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
                     className="input"
-                    required
-                    placeholder="john.doe@university.edu"
-                    value={registerForm.email}
-                    onChange={(e) => setRegisterForm({ ...registerForm, email: e.target.value })}
-                    style={{ background: '#1e293b', borderColor: '#334155', color: '#f8fafc' }}
-                  />
-                </div>
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 10 }}>
-                <div>
-                  <label className="field-label" style={{ color: '#cbd5e1', fontSize: 12 }}>
-                    Password (min. 6 chars) *
-                  </label>
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    className="input"
-                    required
-                    placeholder="••••••••"
-                    value={registerForm.password}
-                    onChange={(e) => setRegisterForm({ ...registerForm, password: e.target.value })}
-                    style={{ background: '#1e293b', borderColor: '#334155', color: '#f8fafc' }}
-                  />
-                </div>
-                <div>
-                  <label className="field-label" style={{ color: '#cbd5e1', fontSize: 12 }}>
-                    Confirm Password *
-                  </label>
-                  <input
-                    type={showConfirmPassword ? 'text' : 'password'}
-                    className="input"
-                    required
-                    placeholder="••••••••"
-                    value={registerForm.confirmPassword}
-                    onChange={(e) =>
-                      setRegisterForm({ ...registerForm, confirmPassword: e.target.value })
-                    }
-                    style={{ background: '#1e293b', borderColor: '#334155', color: '#f8fafc' }}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Section 2: Academic Information */}
-            <div style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)', paddingBottom: 16 }}>
-              <div className="strong" style={{ fontSize: 14, color: '#93c5fd', marginBottom: 12 }}>
-                2. Academic Information
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-                <div>
-                  <label className="field-label" style={{ color: '#cbd5e1', fontSize: 12 }}>
-                    Mobile Number *
-                  </label>
-                  <input
-                    type="tel"
-                    className="input"
-                    required
-                    placeholder="+1 (555) 000-0000"
-                    value={registerForm.mobile}
-                    onChange={(e) => setRegisterForm({ ...registerForm, mobile: e.target.value })}
-                    style={{ background: '#1e293b', borderColor: '#334155', color: '#f8fafc' }}
+                    style={{ padding: '7px 11px', fontSize: 12.5 }}
                   />
                 </div>
 
+                <div className="grid cols-2" style={{ gap: 8 }}>
+                  <div>
+                    <label
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 600,
+                        color: 'var(--text-soft)',
+                        marginBottom: 2,
+                        display: 'block',
+                      }}
+                    >
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="alex@college.edu"
+                      value={registerForm.email}
+                      onChange={(e) => setRegisterForm({ ...registerForm, email: e.target.value })}
+                      className="input"
+                      style={{ padding: '7px 11px', fontSize: 12.5 }}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 600,
+                        color: 'var(--text-soft)',
+                        marginBottom: 2,
+                        display: 'block',
+                      }}
+                    >
+                      Mobile *
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="+91 9876543210"
+                      value={registerForm.mobile}
+                      onChange={(e) => setRegisterForm({ ...registerForm, mobile: e.target.value })}
+                      className="input"
+                      style={{ padding: '7px 11px', fontSize: 12.5 }}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid cols-2" style={{ gap: 8 }}>
+                  <div>
+                    <label
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 600,
+                        color: 'var(--text-soft)',
+                        marginBottom: 2,
+                        display: 'block',
+                      }}
+                    >
+                      Password *
+                    </label>
+                    <input
+                      type="password"
+                      required
+                      placeholder="Min 6 chars"
+                      value={registerForm.password}
+                      onChange={(e) => setRegisterForm({ ...registerForm, password: e.target.value })}
+                      className="input"
+                      style={{ padding: '7px 11px', fontSize: 12.5 }}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 600,
+                        color: 'var(--text-soft)',
+                        marginBottom: 2,
+                        display: 'block',
+                      }}
+                    >
+                      Confirm *
+                    </label>
+                    <input
+                      type="password"
+                      required
+                      placeholder="Repeat password"
+                      value={registerForm.confirmPassword}
+                      onChange={(e) =>
+                        setRegisterForm({ ...registerForm, confirmPassword: e.target.value })
+                      }
+                      className="input"
+                      style={{ padding: '7px 11px', fontSize: 12.5 }}
+                    />
+                  </div>
+                </div>
+
                 <div>
-                  <label className="field-label" style={{ color: '#cbd5e1', fontSize: 12 }}>
-                    College / Institute Name *
+                  <label
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 600,
+                      color: 'var(--text-soft)',
+                      marginBottom: 2,
+                      display: 'block',
+                    }}
+                  >
+                    College / Institute *
                   </label>
                   <input
                     type="text"
-                    className="input"
                     required
-                    placeholder="e.g. Stanford University"
+                    placeholder="Institute of Engineering & Technology"
                     value={registerForm.college}
                     onChange={(e) => setRegisterForm({ ...registerForm, college: e.target.value })}
-                    style={{ background: '#1e293b', borderColor: '#334155', color: '#f8fafc' }}
+                    className="input"
+                    style={{ padding: '7px 11px', fontSize: 12.5 }}
                   />
                 </div>
-              </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 10 }}>
-                <div>
-                  <label className="field-label" style={{ color: '#cbd5e1', fontSize: 12 }}>
-                    Course / Degree *
-                  </label>
-                  <select
-                    className="select"
-                    value={registerForm.course}
-                    onChange={(e) => setRegisterForm({ ...registerForm, course: e.target.value })}
-                    style={{
-                      width: '100%',
-                      background: '#1e293b',
-                      borderColor: '#334155',
-                      color: '#f8fafc',
-                    }}
-                  >
-                    <option value="B.Tech / B.E.">B.Tech / B.E.</option>
-                    <option value="B.S. Computer Science">B.S. Computer Science</option>
-                    <option value="M.Tech / M.S.">M.Tech / M.S.</option>
-                    <option value="BCA">BCA</option>
-                    <option value="MCA">MCA</option>
-                    <option value="Diploma in Engineering">Diploma in Engineering</option>
-                  </select>
+                <div className="grid cols-2" style={{ gap: 8 }}>
+                  <div>
+                    <label
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 600,
+                        color: 'var(--text-soft)',
+                        marginBottom: 2,
+                        display: 'block',
+                      }}
+                    >
+                      Degree
+                    </label>
+                    <input
+                      type="text"
+                      value={registerForm.course}
+                      onChange={(e) => setRegisterForm({ ...registerForm, course: e.target.value })}
+                      className="input"
+                      style={{ padding: '7px 11px', fontSize: 12.5 }}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 600,
+                        color: 'var(--text-soft)',
+                        marginBottom: 2,
+                        display: 'block',
+                      }}
+                    >
+                      Branch
+                    </label>
+                    <input
+                      type="text"
+                      value={registerForm.branch}
+                      onChange={(e) => setRegisterForm({ ...registerForm, branch: e.target.value })}
+                      className="input"
+                      style={{ padding: '7px 11px', fontSize: 12.5 }}
+                    />
+                  </div>
                 </div>
 
                 <div>
-                  <label className="field-label" style={{ color: '#cbd5e1', fontSize: 12 }}>
-                    Branch / Major *
-                  </label>
-                  <select
-                    className="select"
-                    value={registerForm.branch}
-                    onChange={(e) => setRegisterForm({ ...registerForm, branch: e.target.value })}
+                  <label
                     style={{
-                      width: '100%',
-                      background: '#1e293b',
-                      borderColor: '#334155',
-                      color: '#f8fafc',
+                      fontSize: 12,
+                      fontWeight: 600,
+                      color: 'var(--text-soft)',
+                      marginBottom: 2,
+                      display: 'block',
                     }}
                   >
-                    <option value="Computer Science & Engineering">Computer Science & Engineering</option>
-                    <option value="Information Technology">Information Technology</option>
-                    <option value="Artificial Intelligence & ML">Artificial Intelligence & ML</option>
-                    <option value="Electronics & Communication">Electronics & Communication</option>
-                    <option value="Data Science & Engineering">Data Science & Engineering</option>
-                  </select>
+                    Year / Semester
+                  </label>
+                  <input
+                    type="text"
+                    value={registerForm.yearSemester}
+                    onChange={(e) =>
+                      setRegisterForm({ ...registerForm, yearSemester: e.target.value })
+                    }
+                    className="input"
+                    style={{ padding: '7px 11px', fontSize: 12.5 }}
+                  />
                 </div>
-              </div>
 
-              <div style={{ marginTop: 10 }}>
-                <label className="field-label" style={{ color: '#cbd5e1', fontSize: 12 }}>
-                  Current Year / Semester *
-                </label>
-                <select
-                  className="select"
-                  value={registerForm.yearSemester}
-                  onChange={(e) => setRegisterForm({ ...registerForm, yearSemester: e.target.value })}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="btn btn-primary btn-block"
+                  style={{ marginTop: 6, padding: '9px 16px', fontSize: 13.5 }}
+                >
+                  {loading ? 'Creating Account...' : 'Complete Registration'}
+                  {!loading && <ArrowRight size={15} />}
+                </button>
+
+                <div
                   style={{
-                    width: '100%',
-                    background: '#1e293b',
-                    borderColor: '#334155',
-                    color: '#f8fafc',
+                    textAlign: 'center',
+                    marginTop: 4,
+                    fontSize: 12,
+                    color: 'var(--text-muted)',
                   }}
                 >
-                  <option value="1st Year / 1st Semester">1st Year / 1st Semester</option>
-                  <option value="1st Year / 2nd Semester">1st Year / 2nd Semester</option>
-                  <option value="2nd Year / 3rd Semester">2nd Year / 3rd Semester</option>
-                  <option value="2nd Year / 4th Semester">2nd Year / 4th Semester</option>
-                  <option value="3rd Year / 5th Semester">3rd Year / 5th Semester</option>
-                  <option value="3rd Year / 6th Semester">3rd Year / 6th Semester</option>
-                  <option value="4th Year / 7th Semester">4th Year / 7th Semester</option>
-                  <option value="4th Year / 8th Semester">4th Year / 8th Semester</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Section 3: Skills & Interests */}
-            <div>
-              <label className="field-label" style={{ color: '#cbd5e1', fontSize: 12 }}>
-                Skills or Areas of Interest (Optional, comma-separated)
-              </label>
-              <input
-                type="text"
-                className="input"
-                placeholder="e.g. Python, C++, Dynamic Programming, Web Development"
-                value={registerForm.skills}
-                onChange={(e) => setRegisterForm({ ...registerForm, skills: e.target.value })}
-                style={{ background: '#1e293b', borderColor: '#334155', color: '#f8fafc' }}
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="btn btn-primary btn-lg btn-block"
-              disabled={loading}
-              style={{ marginTop: 10 }}
-            >
-              {loading ? 'Creating Student Account...' : 'Complete Registration & Enter Platform'}
-            </button>
-
-            <div style={{ textAlign: 'center', marginTop: 6, fontSize: 13, color: '#94a3b8' }}>
-              Already registered?{' '}
-              <button
-                type="button"
-                onClick={() => {
-                  setError('');
-                  setView('student-login');
-                }}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: '#60a5fa',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  padding: 0,
-                  textDecoration: 'underline',
-                }}
-              >
-                Sign In
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
-
-      {/* VIEW 4: TEACHER LOGIN (NO REGISTRATION) */}
-      {view === 'teacher-login' && (
-        <div
-          className="card"
-          style={{
-            width: '100%',
-            maxWidth: 440,
-            padding: '32px 30px',
-            borderRadius: 20,
-            background: '#0f172a',
-            border: '1.5px solid rgba(139, 92, 246, 0.4)',
-            boxShadow: '0 25px 50px rgba(0, 0, 0, 0.5)',
-          }}
-        >
-          <button
-            type="button"
-            className="btn btn-ghost btn-sm"
-            onClick={() => setView('select-role')}
-            style={{ color: '#94a3b8', padding: '4px 8px', marginBottom: 16 }}
-          >
-            <ArrowLeft size={15} style={{ marginRight: 4 }} />
-            Back to Role Selection
-          </button>
-
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              background: 'rgba(139, 92, 246, 0.12)',
-              padding: '6px 12px',
-              borderRadius: 8,
-              fontSize: 12,
-              color: '#c4b5fd',
-              marginBottom: 16,
-              border: '1px solid rgba(139, 92, 246, 0.25)',
-            }}
-          >
-            <ShieldCheck size={16} />
-            <span>Faculty Protected Portal • Elevated Permissions</span>
-          </div>
-
-          <form onSubmit={handleTeacherLoginSubmit} className="stack gap">
-            {error && (
-              <div
-                style={{
-                  background: '#fef2f2',
-                  color: '#dc2626',
-                  padding: '10px 14px',
-                  borderRadius: 10,
-                  fontSize: 13,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 8,
-                }}
-              >
-                <AlertCircle size={16} />
-                <span>{error}</span>
-              </div>
+                  Already registered?{' '}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStudentMode('login')
+                      setError('')
+                    }}
+                    style={{ color: 'var(--primary)', fontWeight: 700, cursor: 'pointer' }}
+                  >
+                    Sign In
+                  </button>
+                </div>
+              </form>
             )}
 
-            <div>
-              <label className="field-label" style={{ color: '#cbd5e1', marginBottom: 6 }}>
-                Faculty Email Address
-              </label>
-              <div style={{ position: 'relative' }}>
-                <Mail
-                  size={16}
-                  style={{
-                    position: 'absolute',
-                    left: 12,
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    color: '#64748b',
-                  }}
-                />
-                <input
-                  type="email"
-                  className="input"
-                  required
-                  placeholder="teacher@gmail.com"
-                  value={teacherLoginForm.email}
-                  onChange={(e) =>
-                    setTeacherLoginForm({ ...teacherLoginForm, email: e.target.value })
-                  }
-                  style={{
-                    paddingLeft: 38,
-                    background: '#1e293b',
-                    borderColor: '#334155',
-                    color: '#f8fafc',
-                  }}
-                />
-              </div>
-            </div>
+            {/* 3. TEACHER LOGIN FORM */}
+            {role === 'teacher' && (
+              <form onSubmit={handleTeacherLoginSubmit} className="stack gap-sm">
+                <div>
+                  <label
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: 'var(--text-soft)',
+                      marginBottom: 5,
+                      display: 'block',
+                    }}
+                  >
+                    Faculty Email
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <Mail
+                      size={16}
+                      color="var(--text-muted)"
+                      style={{
+                        position: 'absolute',
+                        left: 14,
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                      }}
+                    />
+                    <input
+                      type="email"
+                      required
+                      placeholder="teacher@gmail.com"
+                      value={teacherLoginForm.email}
+                      onChange={(e) =>
+                        setTeacherLoginForm({ ...teacherLoginForm, email: e.target.value })
+                      }
+                      className="input"
+                      style={{ paddingLeft: 40, padding: '10px 14px 10px 40px', fontSize: 13.5 }}
+                    />
+                  </div>
+                </div>
 
-            <div>
-              <label className="field-label" style={{ color: '#cbd5e1', marginBottom: 6 }}>
-                Teacher Password
-              </label>
-              <div style={{ position: 'relative' }}>
-                <Lock
-                  size={16}
+                <div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      marginBottom: 5,
+                    }}
+                  >
+                    <label style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-soft)' }}>
+                      Faculty Password
+                    </label>
+                  </div>
+                  <div style={{ position: 'relative' }}>
+                    <Lock
+                      size={16}
+                      color="var(--text-muted)"
+                      style={{
+                        position: 'absolute',
+                        left: 14,
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                      }}
+                    />
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                      placeholder="••••••••"
+                      value={teacherLoginForm.password}
+                      onChange={(e) =>
+                        setTeacherLoginForm({ ...teacherLoginForm, password: e.target.value })
+                      }
+                      className="input"
+                      style={{ paddingLeft: 40, paddingRight: 40, padding: '10px 40px 10px 40px', fontSize: 13.5 }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      style={{
+                        position: 'absolute',
+                        right: 12,
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        color: 'var(--text-muted)',
+                      }}
+                    >
+                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
+                </div>
+
+                <div
                   style={{
-                    position: 'absolute',
-                    left: 12,
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    color: '#64748b',
-                  }}
-                />
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  className="input"
-                  required
-                  placeholder="Enter teacher password"
-                  value={teacherLoginForm.password}
-                  onChange={(e) =>
-                    setTeacherLoginForm({ ...teacherLoginForm, password: e.target.value })
-                  }
-                  style={{
-                    paddingLeft: 38,
-                    paddingRight: 38,
-                    background: '#1e293b',
-                    borderColor: '#334155',
-                    color: '#f8fafc',
-                  }}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  style={{
-                    position: 'absolute',
-                    right: 10,
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    background: 'transparent',
-                    border: 'none',
-                    color: '#64748b',
-                    cursor: 'pointer',
-                    padding: 4,
+                    background: '#f8fafc',
+                    borderRadius: 9,
+                    padding: '8px 12px',
+                    fontSize: 12,
+                    color: 'var(--text-muted)',
+                    border: '1px solid var(--border)',
                   }}
                 >
-                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  <ShieldCheck
+                    size={14}
+                    color="var(--primary)"
+                    style={{ display: 'inline', marginRight: 6 }}
+                  />
+                  Faculty accounts are provisioned by institution administrators.
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="btn btn-primary btn-block"
+                  style={{
+                    marginTop: 4,
+                    padding: '11px 18px',
+                    fontSize: 14,
+                    fontWeight: 700,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 8,
+                  }}
+                >
+                  {loading ? 'Authenticating...' : 'Sign In to Faculty Portal'}
+                  {!loading && <ArrowRight size={16} />}
                 </button>
-              </div>
-            </div>
 
-            <button
-              type="submit"
-              className="btn btn-lg btn-block"
-              disabled={loading}
-              style={{
-                marginTop: 6,
-                background: '#7c3aed',
-                borderColor: '#7c3aed',
-                color: '#ffffff',
-                fontWeight: 600,
-              }}
-            >
-              {loading ? 'Authenticating...' : 'Sign In to Teacher Dashboard'}
-            </button>
-
-            <p
-              className="tiny muted"
-              style={{ textAlign: 'center', margin: '8px 0 0', lineHeight: 1.4 }}
-            >
-              Notice: Teacher registration cannot be performed online. If you need faculty access,
-              please contact your campus department administrator.
-            </p>
-          </form>
+                {/* Demo Quick Fill Button */}
+                <div
+                  style={{
+                    background: 'var(--surface-alt)',
+                    borderRadius: 10,
+                    padding: '8px 12px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    fontSize: 12,
+                    border: '1px solid var(--border)',
+                    marginTop: 2,
+                  }}
+                >
+                  <span style={{ color: 'var(--text-muted)' }}>
+                    Demo Faculty: <strong>teacher@gmail.com</strong>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setTeacherLoginForm({ email: 'teacher@gmail.com', password: 'teacher@1' })
+                    }}
+                    style={{ color: 'var(--primary)', fontWeight: 700, cursor: 'pointer' }}
+                  >
+                    Auto-Fill
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
         </div>
-      )}
+      </div>
     </div>
-  );
+  )
 }
