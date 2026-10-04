@@ -50,6 +50,51 @@ Requires Node 18+. No API keys, no network access, no database, no Firebase.
 
 ---
 
+## 👥 Team Collaboration & Git Workflow
+
+### For New Contributors (First-time clone)
+```bash
+git clone https://github.com/krishnaverse2/BNB26_Innovision_Internal_Round.git
+cd BNB26_Innovision_Internal_Round
+npm install
+npm run dev
+```
+
+### For Existing Contributors (Upgrading from the previous folder structure)
+If you previously cloned the repository and have existing local work:
+```bash
+# 1. Stash any uncommitted work safely
+git stash
+
+# 2. Pull the latest restructuring from main
+git pull origin main
+
+# 3. Restore your local work (Git will automatically map changes to the new file paths)
+git stash pop
+
+# 4. Install dependencies at the root level
+npm install
+
+# 5. Start the development server
+npm run dev
+```
+
+### Daily Workflow (Preventing conflicts before pushing)
+Before making commits and pushing your work:
+```bash
+# Always fetch and rebase latest changes first
+git pull --rebase origin main
+
+# Stage and commit your changes
+git add .
+git commit -m "Description of your feature or fix"
+
+# Push to GitHub
+git push origin main
+```
+
+---
+
 ## The demo flow
 
 Every step below is functional — there are no "coming soon" buttons in the journey.
