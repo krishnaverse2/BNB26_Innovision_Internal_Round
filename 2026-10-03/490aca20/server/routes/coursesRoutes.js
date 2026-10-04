@@ -318,7 +318,7 @@ coursesRouter.post('/:courseId/assessment/submit', optionalAuth, (req, res) => {
   }
 
   const studentId = req.user?.id || 'stu_alex123';
-  const studentName = req.user?.name || 'Alex Rivera';
+  const studentName = req.user?.name || 'Krishna Sonawane';
 
   // Run AI/ML Learning Analysis
   const analysis = analyzeTestPerformance(
@@ -364,7 +364,7 @@ coursesRouter.post('/analysis/generate-video', optionalAuth, (req, res) => {
     return res.status(400).json({ ok: false, error: 'Learning gap definition is required' });
   }
 
-  const studentName = req.user?.name || 'Alex Rivera';
+  const studentName = req.user?.name || 'Krishna Sonawane';
   const studentId = req.user?.id || 'stu_alex123';
 
   // Generate 10-Scene Lesson Script
@@ -451,7 +451,7 @@ coursesRouter.get('/lesson/:lessonId', optionalAuth, (req, res) => {
   const lesson = studentData.aiLessons?.find((l) => l.lessonId === lessonId);
   if (!lesson) {
     // Return sample/default lesson
-    const defaultLesson = generatePersonalizedLessonScript('Alex Rivera', 'Data Structures & Algorithms', {
+    const defaultLesson = generatePersonalizedLessonScript('Krishna Sonawane', 'Data Structures & Algorithms', {
       topic: 'Binary Search',
       concept: 'Pointer Movement',
       mistakes: [

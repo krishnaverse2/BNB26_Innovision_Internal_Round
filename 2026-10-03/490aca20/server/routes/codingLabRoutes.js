@@ -157,7 +157,7 @@ codingLabRouter.post('/submit', async (req, res) => {
     const submissions = readFile(SUBMISSIONS_FILE);
     const studentUser = req.user || {
       id: 'usr_student_01',
-      name: 'Alex Rivera',
+      name: 'Krishna Sonawane',
       email: 'student@gmail.com',
     };
 

@@ -1061,7 +1061,7 @@ export default function TeacherDashboard() {
                     1 Active Lesson
                   </div>
                   <div style={{ fontSize: 12, color: '#cbd5e1' }}>
-                    10-scene animated remedial video delivered to Alex Rivera
+                    10-scene animated remedial video delivered to Krishna Sonawane
                   </div>
                   <div style={{ fontSize: 11.5, color: '#10b981', marginTop: 6, fontWeight: 600 }}>
                     Re-evaluation: +45% accuracy gain

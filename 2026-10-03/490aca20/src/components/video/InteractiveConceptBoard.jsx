@@ -35,7 +35,7 @@ import {
 export default function InteractiveConceptBoard({
   sceneIndex = 0,
   sceneData = {},
-  studentName = 'Alex Rivera',
+  studentName = 'Krishna Sonawane',
   courseTitle = 'Data Structures & Algorithms',
   onPracticeAgain,
 }) {

@@ -212,62 +212,6 @@ export default function Profile() {
         </Card>
       </div>
 
-      <Card>
-        <CardHeader
-          icon={<Target size={18} />}
-          title="Tracked misconceptions"
-          subtitle="Status changes here the moment a stability check resolves a pattern"
-          actions={
-            <button
-              type="button"
-              className="btn btn-secondary btn-sm"
-              onClick={() => navigate('/dashboard')}
-            >
-              Back to dashboard
-              <ArrowRight size={15} />
-            </button>
-          }
-        />
-        <div className="data-list">
-          {tracked.map((entry) => (
-            <div className="data-row" key={entry.misconceptionId}>
-              <div style={{ flex: 1 }}>
-                <div className="data-row-title">{entry.misconception?.name}</div>
-                <div className="data-row-sub">
-                  First seen {entry.firstSeen}
-                  {entry.resolvedOn ? ` · resolved ${entry.resolvedOn}` : ''}
-                  {isResolved && entry.misconceptionId === PRIMARY_MISCONCEPTION_ID
-                    ? ' · resolved in this session'
-                    : ''}
-                </div>
-              </div>
-              <Pill tone="violet">{entry.confidence}% confidence</Pill>
-              <Pill tone={entry.status === 'resolved' ? 'stable' : 'attention'}>
-                {entry.status === 'resolved' ? '🟢 Resolved' : '🔴 Active'}
-              </Pill>
-            </div>
-          ))}
-        </div>
-        <div className="divider" />
-        <div className="row between wrap" style={{ gap: 12 }}>
-          <p className="tiny muted" style={{ maxWidth: '68ch', margin: 0 }}>
-            Profile data is synthetic demo content defined in
-            <span className="mono"> src/data/students.js</span>. Resetting clears the
-            saved journey in this browser and restores the starting profile.
-          </p>
-          <button
-            type="button"
-            className="btn btn-ghost btn-sm"
-            onClick={() => {
-              resetDemo()
-              navigate('/dashboard')
-            }}
-          >
-            <RotateCcw size={15} />
-            Reset demo profile
-          </button>
-        </div>
-      </Card>
     </div>
   )
 }

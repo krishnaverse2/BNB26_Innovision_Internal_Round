@@ -501,7 +501,7 @@ export default function PersonalizedVideoLesson() {
           <InteractiveConceptBoard
             sceneIndex={currentSceneIndex}
             sceneData={activeScene}
-            studentName="Alex Rivera"
+            studentName="Krishna Sonawane"
             courseTitle="Data Structures & Algorithms"
             onPracticeAgain={() => navigate(`/courses/${courseId || 'dsa'}/practice-again/gap-bs-01`)}
           />

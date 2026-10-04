@@ -30,7 +30,7 @@ const LAST_INITIALS = 'ABCDEFGHIJKLMNOPRSTVW'
 export const currentStudent = {
   id: 'stu-001',
   name: 'Alex',
-  fullName: 'Alex Rivera',
+  fullName: 'Krishna Sonawane',
   cohort: 'Intro to Python — Section B',
   avatarInitials: 'AR',
   streakDays: 7,

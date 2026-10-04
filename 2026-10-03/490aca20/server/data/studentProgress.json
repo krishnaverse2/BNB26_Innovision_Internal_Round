@@ -1,7 +1,7 @@
 {
   "stu_alex123": {
     "studentId": "stu_alex123",
-    "studentName": "Alex Rivera",
+    "studentName": "Krishna Sonawane",
     "courses": {
       "dsa": {
         "courseId": "dsa",
@@ -135,7 +135,7 @@
             "courseId": "dsa",
             "courseTitle": "Data Structures & Algorithms",
             "studentId": "stu_alex123",
-            "studentName": "Alex Rivera",
+            "studentName": "Krishna Sonawane",
             "perfectScore": true,
             "totalQuestions": 15,
             "correctCount": 15,
@@ -202,7 +202,7 @@
             "courseId": "dsa",
             "courseTitle": "Data Structures & Algorithms",
             "studentId": "stu_alex123",
-            "studentName": "Alex Rivera",
+            "studentName": "Krishna Sonawane",
             "perfectScore": false,
             "totalQuestions": 15,
             "correctCount": 12,
@@ -354,7 +354,7 @@
           {
             "lessonId": "lesson-fce155bf",
             "title": "Binary Search — Pointer Movement",
-            "subtitle": "Personalized AI Cognitive Remedy for Alex Rivera",
+            "subtitle": "Personalized AI Cognitive Remedy for Krishna Sonawane",
             "courseTitle": "Data Structures & Algorithms",
             "topic": "Binary Search",
             "concept": "Pointer Movement",
@@ -371,13 +371,13 @@
                 "title": "Personal Introduction",
                 "durationSec": 8,
                 "speaker": "AI Mentor",
-                "narration": "Hello Alex Rivera! We analyzed your assessment in Data Structures & Algorithms. You demonstrated good overall knowledge, but the AI detected a clear cognitive pattern: you made 3 mistakes specifically on Binary Search Pointer Movement. Let's master this concept step-by-step.",
+                "narration": "Hello Krishna Sonawane! We analyzed your assessment in Data Structures & Algorithms. You demonstrated good overall knowledge, but the AI detected a clear cognitive pattern: you made 3 mistakes specifically on Binary Search Pointer Movement. Let's master this concept step-by-step.",
                 "visualType": "intro-badge",
                 "visualData": {
                   "badge": "Cognitive Diagnostic Alert",
                   "topic": "Binary Search",
                   "concept": "Pointer Movement",
-                  "studentName": "Alex Rivera"
+                  "studentName": "Krishna Sonawane"
                 }
               },
               {
@@ -651,7 +651,7 @@
             "courseId": "dsa",
             "courseTitle": "Data Structures & Algorithms",
             "studentId": "usr_student_01",
-            "studentName": "Alex Rivera",
+            "studentName": "Krishna Sonawane",
             "perfectScore": false,
             "totalQuestions": 15,
             "correctCount": 2,
@@ -750,7 +750,7 @@
             "courseId": "dsa",
             "courseTitle": "Data Structures & Algorithms",
             "studentId": "usr_student_01",
-            "studentName": "Alex Rivera",
+            "studentName": "Krishna Sonawane",
             "perfectScore": false,
             "totalQuestions": 15,
             "correctCount": 0,
@@ -859,7 +859,7 @@
             "courseId": "dsa",
             "courseTitle": "Data Structures & Algorithms",
             "studentId": "usr_student_01",
-            "studentName": "Alex Rivera",
+            "studentName": "Krishna Sonawane",
             "perfectScore": false,
             "totalQuestions": 15,
             "correctCount": 1,
@@ -1063,7 +1063,7 @@
           {
             "lessonId": "lesson-5128f1ab",
             "title": "Binary Search — Pointer Movement",
-            "subtitle": "Personalized AI Cognitive Remedy for Alex Rivera",
+            "subtitle": "Personalized AI Cognitive Remedy for Krishna Sonawane",
             "courseTitle": "Data Structures & Algorithms",
             "topic": "Binary Search",
             "concept": "Pointer Movement",
@@ -1080,13 +1080,13 @@
                 "title": "Personal Introduction",
                 "durationSec": 8,
                 "speaker": "AI Mentor",
-                "narration": "Hello Alex Rivera! We analyzed your assessment in Data Structures & Algorithms. You demonstrated good overall knowledge, but the AI detected a clear cognitive pattern: you made 2 mistakes specifically on Binary Search Pointer Movement. Let's master this concept step-by-step.",
+                "narration": "Hello Krishna Sonawane! We analyzed your assessment in Data Structures & Algorithms. You demonstrated good overall knowledge, but the AI detected a clear cognitive pattern: you made 2 mistakes specifically on Binary Search Pointer Movement. Let's master this concept step-by-step.",
                 "visualType": "intro-badge",
                 "visualData": {
                   "badge": "Cognitive Diagnostic Alert",
                   "topic": "Binary Search",
                   "concept": "Pointer Movement",
-                  "studentName": "Alex Rivera"
+                  "studentName": "Krishna Sonawane"
                 }
               },
               {
@@ -1253,7 +1253,7 @@
           {
             "lessonId": "lesson-49e5b678",
             "title": "Binary Search — Pointer Movement",
-            "subtitle": "Personalized AI Cognitive Remedy for Alex Rivera",
+            "subtitle": "Personalized AI Cognitive Remedy for Krishna Sonawane",
             "courseTitle": "Data Structures & Algorithms",
             "topic": "Binary Search",
             "concept": "Pointer Movement",
@@ -1270,13 +1270,13 @@
                 "title": "Personal Introduction",
                 "durationSec": 8,
                 "speaker": "AI Mentor",
-                "narration": "Hello Alex Rivera! We analyzed your assessment in Data Structures & Algorithms. You demonstrated good overall knowledge, but the AI detected a clear cognitive pattern: you made 3 mistakes specifically on Binary Search Pointer Movement. Let's master this concept step-by-step.",
+                "narration": "Hello Krishna Sonawane! We analyzed your assessment in Data Structures & Algorithms. You demonstrated good overall knowledge, but the AI detected a clear cognitive pattern: you made 3 mistakes specifically on Binary Search Pointer Movement. Let's master this concept step-by-step.",
                 "visualType": "intro-badge",
                 "visualData": {
                   "badge": "Cognitive Diagnostic Alert",
                   "topic": "Binary Search",
                   "concept": "Pointer Movement",
-                  "studentName": "Alex Rivera"
+                  "studentName": "Krishna Sonawane"
                 }
               },
               {
@@ -1443,7 +1443,7 @@
           {
             "lessonId": "lesson-9d5ca084",
             "title": "Binary Search — Pointer Movement",
-            "subtitle": "Personalized AI Cognitive Remedy for Alex Rivera",
+            "subtitle": "Personalized AI Cognitive Remedy for Krishna Sonawane",
             "courseTitle": "Data Structures & Algorithms",
             "topic": "Binary Search",
             "concept": "Pointer Movement",
@@ -1460,13 +1460,13 @@
                 "title": "Welcome & Problem Breakdown",
                 "durationSec": 9,
                 "speaker": "AI Mentor (Indian English)",
-                "narration": "Hello Alex Rivera! Welcome. Let us understand Binary Search and pointer movement step-by-step. In your test, you understood searching well, but got stuck on deciding when to move low and high. Look at the animated array on your screen — let us fix this concept together right now.",
+                "narration": "Hello Krishna Sonawane! Welcome. Let us understand Binary Search and pointer movement step-by-step. In your test, you understood searching well, but got stuck on deciding when to move low and high. Look at the animated array on your screen — let us fix this concept together right now.",
                 "visualType": "intro-badge",
                 "visualData": {
                   "badge": "Cognitive Diagnostic Alert",
                   "topic": "Binary Search",
                   "concept": "Pointer Movement",
-                  "studentName": "Alex Rivera"
+                  "studentName": "Krishna Sonawane"
                 }
               },
               {
