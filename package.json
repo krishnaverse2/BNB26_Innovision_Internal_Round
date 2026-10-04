@@ -1,9 +1,25 @@
 {
-  "name": "bnb26-innovision-root",
+  "name": "relearn-prototype",
   "private": true,
+  "version": "0.1.0",
+  "type": "module",
   "scripts": {
-    "dev": "npm --prefix 2026-10-03/490aca20 run dev",
-    "build": "npm --prefix 2026-10-03/490aca20 run build",
-    "server": "npm --prefix 2026-10-03/490aca20 run server"
+    "dev": "vite",
+    "server": "node server/server.js",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "lucide-react": "^0.446.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "recharts": "^2.12.7"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.8"
   }
 }
