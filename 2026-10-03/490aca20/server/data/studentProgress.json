@@ -952,6 +952,105 @@
             ],
             "shouldGenerateVideo": true,
             "timestamp": "2026-10-03T21:33:43.929Z"
+          },
+          {
+            "assessmentId": "test-41b90f69",
+            "courseId": "dsa",
+            "courseTitle": "Data Structures & Algorithms",
+            "studentId": "usr_student_01",
+            "studentName": "Krishna Sonawane",
+            "perfectScore": false,
+            "totalQuestions": 15,
+            "correctCount": 2,
+            "incorrectCount": 13,
+            "score": 13,
+            "percentage": 13,
+            "timeTakenSec": 48,
+            "topicPerformance": [
+              {
+                "topic": "Binary Search",
+                "total": 5,
+                "correct": 1,
+                "incorrect": 4,
+                "accuracy": 20,
+                "status": "Weak"
+              },
+              {
+                "topic": "Arrays",
+                "total": 2,
+                "correct": 1,
+                "incorrect": 1,
+                "accuracy": 50,
+                "status": "Needs Improvement"
+              },
+              {
+                "topic": "Sorting",
+                "total": 2,
+                "correct": 0,
+                "incorrect": 2,
+                "accuracy": 0,
+                "status": "Weak"
+              },
+              {
+                "topic": "Linked Lists",
+                "total": 2,
+                "correct": 0,
+                "incorrect": 2,
+                "accuracy": 0,
+                "status": "Weak"
+              },
+              {
+                "topic": "Trees",
+                "total": 2,
+                "correct": 0,
+                "incorrect": 2,
+                "accuracy": 0,
+                "status": "Weak"
+              },
+              {
+                "topic": "Graphs",
+                "total": 2,
+                "correct": 0,
+                "incorrect": 2,
+                "accuracy": 0,
+                "status": "Weak"
+              }
+            ],
+            "learningGaps": [
+              {
+                "gapId": "gap-dc12ebd0",
+                "topic": "Binary Search",
+                "concept": "Pointer Movement",
+                "likelyProblem": "Student understands the basic search concept, but does not correctly understand when low and high should move.",
+                "reasoningExplanation": "The student answered multiple questions incorrectly regarding low = mid + 1 versus high = mid - 1, and the resulting infinite loop conditions when bounds fail to strictly shrink.",
+                "confidence": "High (94%)",
+                "relatedMistakeCount": 2,
+                "mistakes": [
+                  {
+                    "questionId": "FINAL-DSA-002",
+                    "topic": "Binary Search",
+                    "concept": "Pointer Movement",
+                    "question": "If arr = [10, 20, 30, 40, 50, 60] and target = 25, mid index is 2 (arr[2]=30). Since arr[mid] > target, what is the next pointer update?",
+                    "studentAnswer": "low = mid + 1",
+                    "correctAnswer": "high = mid - 1",
+                    "explanation": "Target is strictly smaller than arr[mid], so it can only exist in the left partition. High must be moved to mid - 1 (index 1).",
+                    "difficulty": "Medium"
+                  },
+                  {
+                    "questionId": "FINAL-DSA-003",
+                    "topic": "Binary Search",
+                    "concept": "Pointer Movement",
+                    "question": "Why does setting 'high = mid' instead of 'high = mid - 1' risk an infinite loop in a while(low <= high) binary search when target is missing?",
+                    "studentAnswer": "Because low will exceed array bounds",
+                    "correctAnswer": "Because high will never decrease below low when low equals mid",
+                    "explanation": "When low equals high, if arr[mid] > target and we set high = mid, high never decrements below low. The loop condition low <= high remains true indefinitely.",
+                    "difficulty": "Hard"
+                  }
+                ]
+              }
+            ],
+            "shouldGenerateVideo": true,
+            "timestamp": "2026-10-04T04:19:55.753Z"
           }
         ],
         "learningGaps": [
@@ -1052,6 +1151,37 @@
                 "concept": "Pointer Movement",
                 "question": "Why does setting 'high = mid' instead of 'high = mid - 1' risk an infinite loop in a while(low <= high) binary search when target is missing?",
                 "studentAnswer": "Because the array will be mutated",
+                "correctAnswer": "Because high will never decrease below low when low equals mid",
+                "explanation": "When low equals high, if arr[mid] > target and we set high = mid, high never decrements below low. The loop condition low <= high remains true indefinitely.",
+                "difficulty": "Hard"
+              }
+            ]
+          },
+          {
+            "gapId": "gap-dc12ebd0",
+            "topic": "Binary Search",
+            "concept": "Pointer Movement",
+            "likelyProblem": "Student understands the basic search concept, but does not correctly understand when low and high should move.",
+            "reasoningExplanation": "The student answered multiple questions incorrectly regarding low = mid + 1 versus high = mid - 1, and the resulting infinite loop conditions when bounds fail to strictly shrink.",
+            "confidence": "High (94%)",
+            "relatedMistakeCount": 2,
+            "mistakes": [
+              {
+                "questionId": "FINAL-DSA-002",
+                "topic": "Binary Search",
+                "concept": "Pointer Movement",
+                "question": "If arr = [10, 20, 30, 40, 50, 60] and target = 25, mid index is 2 (arr[2]=30). Since arr[mid] > target, what is the next pointer update?",
+                "studentAnswer": "low = mid + 1",
+                "correctAnswer": "high = mid - 1",
+                "explanation": "Target is strictly smaller than arr[mid], so it can only exist in the left partition. High must be moved to mid - 1 (index 1).",
+                "difficulty": "Medium"
+              },
+              {
+                "questionId": "FINAL-DSA-003",
+                "topic": "Binary Search",
+                "concept": "Pointer Movement",
+                "question": "Why does setting 'high = mid' instead of 'high = mid - 1' risk an infinite loop in a while(low <= high) binary search when target is missing?",
+                "studentAnswer": "Because low will exceed array bounds",
                 "correctAnswer": "Because high will never decrease below low when low equals mid",
                 "explanation": "When low equals high, if arr[mid] > target and we set high = mid, high never decrements below low. The loop condition low <= high remains true indefinitely.",
                 "difficulty": "Hard"
@@ -1442,6 +1572,196 @@
           },
           {
             "lessonId": "lesson-9d5ca084",
+            "title": "Binary Search — Pointer Movement",
+            "subtitle": "Personalized AI Cognitive Remedy for Krishna Sonawane",
+            "courseTitle": "Data Structures & Algorithms",
+            "topic": "Binary Search",
+            "concept": "Pointer Movement",
+            "whyGenerated": "You made 2 specific mistakes related to Pointer Movement in your assessment.",
+            "learningGoals": [
+              "Understand exactly when and why low pointer advances to mid + 1",
+              "Understand why high pointer decrements to mid - 1",
+              "Prevent catastrophic infinite loops when search range narrows",
+              "Master the sorted array invariant boundary proof"
+            ],
+            "scenes": [
+              {
+                "sceneNumber": 1,
+                "title": "Welcome & Problem Breakdown",
+                "durationSec": 9,
+                "speaker": "AI Mentor (Indian English)",
+                "narration": "Hello Krishna Sonawane! Welcome. Let us understand Binary Search and pointer movement step-by-step. In your test, you understood searching well, but got stuck on deciding when to move low and high. Look at the animated array on your screen — let us fix this concept together right now.",
+                "visualType": "intro-badge",
+                "visualData": {
+                  "badge": "Cognitive Diagnostic Alert",
+                  "topic": "Binary Search",
+                  "concept": "Pointer Movement",
+                  "studentName": "Krishna Sonawane"
+                }
+              },
+              {
+                "sceneNumber": 2,
+                "title": "The 3 Pointers Invariant",
+                "durationSec": 10,
+                "speaker": "AI Mentor (Indian English)",
+                "narration": "First, remember the golden rule: Binary Search only works on sorted arrays. We use three pointers: low, high, and mid. Low is at the start, high is at the end, and mid is calculated as low plus high minus low divided by two. Watch the elements on the screen.",
+                "visualType": "concept-diagram",
+                "visualData": {
+                  "array": [
+                    2,
+                    5,
+                    8,
+                    12,
+                    16,
+                    23,
+                    38,
+                    56,
+                    72,
+                    91
+                  ],
+                  "pointers": {
+                    "low": 0,
+                    "mid": 4,
+                    "high": 9
+                  },
+                  "rule": "Monotonic Order Invariant Required"
+                }
+              },
+              {
+                "sceneNumber": 3,
+                "title": "Live Animated Searching Simulation",
+                "durationSec": 14,
+                "speaker": "AI Mentor (Indian English)",
+                "narration": "Now watch the search animation carefully. Our target is 23. The middle element is 16. Since 16 is smaller than 23, the target cannot be anywhere in the left half! So we discard elements from index 0 to 4, and low moves directly to mid plus 1. Next, mid is 56 which is greater than 23, so high moves to mid minus 1. And boom! In just 3 steps, we found 23 at index 5!",
+                "visualType": "interactive-array-animation",
+                "visualData": {
+                  "array": [
+                    2,
+                    5,
+                    8,
+                    12,
+                    16,
+                    23,
+                    38,
+                    56,
+                    72,
+                    91
+                  ],
+                  "target": 23,
+                  "stepSequence": [
+                    {
+                      "low": 0,
+                      "high": 9,
+                      "mid": 4,
+                      "midVal": 16,
+                      "status": "arr[mid] < target"
+                    },
+                    {
+                      "low": 5,
+                      "high": 9,
+                      "mid": 7,
+                      "midVal": 56,
+                      "status": "arr[mid] > target"
+                    },
+                    {
+                      "low": 5,
+                      "high": 6,
+                      "mid": 5,
+                      "midVal": 23,
+                      "status": "Target Located at Index 5!"
+                    }
+                  ]
+                }
+              },
+              {
+                "sceneNumber": 4,
+                "title": "Your Specific Mistake: Infinite Loop Pitfall",
+                "durationSec": 12,
+                "speaker": "AI Mentor (Indian English)",
+                "narration": "Now, look at the mistake that happened in your test. When only two elements remain, say 4 and 7, low is 0 and high is 1. Mid evaluates to 0. If you write low equals mid, low stays at 0! It never moves forward! Look at the red warning on screen: the loop runs again and again, causing an infinite loop!",
+                "visualType": "mistake-diff",
+                "visualData": {
+                  "wrongCode": "// Your Pitfall:\nif (arr[mid] < target) {\n    low = mid; // ❌ Infinite loop when low == mid!\n}",
+                  "explanation": "Search space never shrinks when mid rounds down to low."
+                }
+              },
+              {
+                "sceneNumber": 5,
+                "title": "The Correct Reasoning & Invariant Proof",
+                "durationSec": 10,
+                "speaker": "AI Mentor (Indian English)",
+                "narration": "Here is the simple, powerful fix: we already checked arr[mid] and it was not 23. So mid is already ruled out! That is why we must always write low equals mid plus 1. This strictly shrinks the array by at least one element every single iteration, guaranteed!",
+                "visualType": "correct-reasoning",
+                "visualData": {
+                  "correctCode": "// The Ironclad Rule:\nif (arr[mid] < target) {\n    low = mid + 1; // ✅ Search space strictly decreases\n} else {\n    high = mid - 1; // ✅ Target is left of mid\n}"
+                }
+              },
+              {
+                "sceneNumber": 6,
+                "title": "Step-by-Step Code Walkthrough",
+                "durationSec": 12,
+                "speaker": "AI Mentor (Indian English)",
+                "narration": "Look at the standard code on screen. In while low less than or equal to high: calculate mid, check if arr[mid] equals target, if smaller do low equals mid plus 1, else high equals mid minus 1. Simple, clean, and bug-free.",
+                "visualType": "ide-code-viewer",
+                "visualData": {
+                  "language": "python",
+                  "code": "def binary_search(arr, target):\n    low, high = 0, len(arr) - 1\n    while low <= high:\n        mid = low + (high - low) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1  # Discard mid & left\n        else:\n            high = mid - 1 # Discard mid & right\n    return -1"
+                }
+              },
+              {
+                "sceneNumber": 7,
+                "title": "Common Traps & Edge Cases",
+                "durationSec": 10,
+                "speaker": "AI Mentor (Indian English)",
+                "narration": "Keep three important rules in mind: First, always use low plus high minus low by two to avoid integer overflow. Second, use low less than or equal to high so single elements are checked. And third, never write low equals mid.",
+                "visualType": "checklist-card",
+                "visualData": {
+                  "traps": [
+                    "Overflow trap: Always use low + (high - low) / 2",
+                    "Boundary trap: Use low <= high so single elements are tested",
+                    "Movement trap: Never write low = mid or high = mid"
+                  ]
+                }
+              },
+              {
+                "sceneNumber": 8,
+                "title": "Quick Practice Check on Screen",
+                "durationSec": 8,
+                "speaker": "AI Mentor (Indian English)",
+                "narration": "Now let us do a quick check on screen. If arr has elements 4 and 7, target is 7, and mid is 0. Where should low move? Select option B: low equals mid plus 1! Low moves to index 1, and target 7 is matched immediately!",
+                "visualType": "quick-practice-callout",
+                "visualData": {
+                  "question": "arr = [4, 7], target = 7. Next step?",
+                  "answer": "low = mid + 1 -> index 1 -> MATCH!"
+                }
+              },
+              {
+                "sceneNumber": 9,
+                "title": "Concept Synthesis: O(log N) Superpower",
+                "durationSec": 9,
+                "speaker": "AI Mentor (Indian English)",
+                "narration": "Because we divide the array in half every time, Binary Search has a time complexity of Big-O of log N. Even if you have 10 lakh elements — one million elements — it finds the answer in at most 20 comparisons! That is the power of logarithmic search.",
+                "visualType": "summary-badge",
+                "visualData": {
+                  "complexity": "Time: O(log N) | Space: O(1)",
+                  "masteryStatus": "Remediation Ready"
+                }
+              },
+              {
+                "sceneNumber": 10,
+                "title": "Recap & Next Step: Practice Again",
+                "durationSec": 7,
+                "speaker": "AI Mentor (Indian English)",
+                "narration": "Fantastic job! You now understand the complete pointer movement concept clearly. Now click 'Practice Again' below to solve the fresh targeted questions and prove your mastery. Let us practice!",
+                "visualType": "cta-action",
+                "visualData": {
+                  "action": "Practice Again"
+                }
+              }
+            ]
+          },
+          {
+            "lessonId": "lesson-33b6a107",
             "title": "Binary Search — Pointer Movement",
             "subtitle": "Personalized AI Cognitive Remedy for Krishna Sonawane",
             "courseTitle": "Data Structures & Algorithms",

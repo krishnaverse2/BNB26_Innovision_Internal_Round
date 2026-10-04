@@ -2489,7 +2489,7 @@ export default function TeacherDashboard() {
               <div className="stack" style={{ gap: 12, fontSize: 13.5 }}>
                 <div>
                   <div className="tiny muted">Name</div>
-                  <div style={{ color: '#f8fafc', fontWeight: 600 }}>{user?.name || 'Dr. Sarah Jenkins'}</div>
+                  <div style={{ color: '#f8fafc', fontWeight: 600 }}>{user?.name || 'Mr. Atul Kabra'}</div>
                 </div>
                 <div>
                   <div className="tiny muted">Faculty Email</div>
