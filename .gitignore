@@ -1,3 +1,7 @@
 node_modules
+dist
+dist-ssr
+*.local
 .DS_Store
 *.log
+BNB26_Innovision_Internal_Round/
