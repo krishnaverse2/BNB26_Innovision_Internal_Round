@@ -1,9 +1,0 @@
-{
-  "name": "relearn-wrapper",
-  "private": true,
-  "scripts": {
-    "dev": "npm --prefix 490aca20 run dev",
-    "build": "npm --prefix 490aca20 run build",
-    "server": "npm --prefix 490aca20 run server"
-  }
-}
