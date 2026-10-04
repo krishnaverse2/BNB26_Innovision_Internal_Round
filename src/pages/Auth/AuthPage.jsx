@@ -930,14 +930,75 @@ export default function AuthPage() {
                     College / Institute *
                   </label>
                   <input
-                    type="text"
-                    required
-                    placeholder="Institute of Engineering & Technology"
-                    value={registerForm.college}
-                    onChange={(e) => setRegisterForm({ ...registerForm, college: e.target.value })}
-                    className="input"
-                    style={{ padding: '7px 11px', fontSize: 12.5 }}
-                  />
+  type="text"
+  required
+  list="college-list"
+  placeholder="Start typing your college name..."
+  value={registerForm.college}
+  onChange={(e) =>
+    setRegisterForm({
+      ...registerForm,
+      college: e.target.value
+    })
+  }
+  className="input"
+  style={{ padding: '7px 11px', fontSize: 12.5 }}
+/>
+
+<datalist id="college-list">
+
+  {/* ===== PUNE COLLEGES ===== */}
+  <option value="College of Engineering Pune (COEP Technological University)" />
+  <option value="Vishwakarma Institute of Technology (VIT), Pune" />
+  <option value="Vishwakarma Institute of Information Technology (VIIT), Pune" />
+  <option value="Pimpri Chinchwad College of Engineering (PCCOE), Pune" />
+  <option value="MIT World Peace University, Pune" />
+  <option value="Pune Institute of Computer Technology, Pune" />
+  <option value="Sinhgad College of Engineering, Pune" />
+  <option value="Dr. D. Y. Patil Institute of Engineering and Technology, Pune" />
+  <option value="D. Y. Patil College of Engineering, Akurdi" />
+  <option value="AISSMS College of Engineering, Pune" />
+  <option value="Modern Education Society's College of Engineering, Pune" />
+  <option value="JSPM's Rajarshi Shahu College of Engineering, Pune" />
+  <option value="Bharati Vidyapeeth College of Engineering, Pune" />
+  <option value="Army Institute of Technology, Pune" />
+  <option value="Indira College of Engineering and Management, Pune" />
+
+  {/* ===== MUMBAI COLLEGES ===== */}
+  <option value="Veermata Jijabai Technological Institute (VJTI), Mumbai" />
+  <option value="Sardar Patel Institute of Technology (SPIT), Mumbai" />
+  <option value="Thadomal Shahani Engineering College (TSEC), Mumbai" />
+  <option value="Dwarkadas J. Sanghvi College of Engineering (DJSCE), Mumbai" />
+  <option value="K J Somaiya Institute of Technology, Mumbai" />
+  <option value="Vivekanand Education Society's Institute of Technology (VESIT), Mumbai" />
+  <option value="Thakur College of Engineering and Technology (TCET), Mumbai" />
+  <option value="Fr. Conceicao Rodrigues College of Engineering, Mumbai" />
+  <option value="M. H. Saboo Siddik College of Engineering, Mumbai" />
+  <option value="St. Francis Institute of Technology (SFIT), Mumbai" />
+  <option value="Vidyalankar Institute of Technology (VIT), Mumbai" />
+  <option value="SIES Graduate School of Technology, Mumbai" />
+  <option value="Rizvi College of Engineering, Mumbai" />
+  <option value="Atharva College of Engineering, Mumbai" />
+  <option value="Rajiv Gandhi Institute of Technology, Mumbai" />
+  <option value="Vasantdada Patil Pratishthan's College of Engineering and Visual Arts, Mumbai" />
+  <option value="Shri Bhagubhai Mafatlal Polytechnic and College of Engineering, Mumbai" />
+  <option value="Usha Mittal Institute of Technology, Mumbai" />
+  <option value="Institute of Chemical Technology (ICT), Mumbai" />
+
+  {/* ===== NAVI MUMBAI ===== */}
+  <option value="Fr. C. Rodrigues Institute of Technology (FCRIT), Vashi" />
+  <option value="Bharati Vidyapeeth College of Engineering, Navi Mumbai" />
+  <option value="Terna Engineering College, Navi Mumbai" />
+  <option value="SIES Graduate School of Technology, Nerul" />
+  <option value="Datta Meghe College of Engineering, Airoli" />
+  <option value="MGM's College of Engineering and Technology, Navi Mumbai" />
+  <option value="Lokmanya Tilak College of Engineering, Navi Mumbai" />
+  <option value="Pillai College of Engineering, New Panvel" />
+
+  {/* ===== OTHER ===== */}
+  <option value="Other" />
+
+</datalist>
                 </div>
 
                 <div className="grid cols-2" style={{ gap: 8 }}>
