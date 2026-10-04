@@ -241,7 +241,7 @@ export default function Dashboard() {
             {getGreeting()}, {studentName} 👋
           </h1>
           <p style={{ fontSize: 15, color: 'var(--text-muted)', marginTop: 4 }}>
-            Continue your learning journey and keep growing.
+            Continue learning and take every step toward becoming better.
           </p>
         </div>
 
@@ -355,7 +355,7 @@ export default function Dashboard() {
               <div>
                 <h3 className="card-title">Learning Overview</h3>
                 <div className="card-subtitle">
-                  Weekly distribution of theory, practice, and coding lab hours
+                  Weekly division of theoretical, practical, and coding hours
                 </div>
               </div>
             </div>
