@@ -145,5 +145,31 @@
     "predictAccuracy": 0,
     "recentActivity": "Account registered",
     "lastActive": "2026-10-03T19:49:23.228Z"
+  },
+  {
+    "userId": "usr_student_1791091541384",
+    "fullName": "Vaishnavi Vinod Ikhe",
+    "email": "ikhevaishnavi13@gmail.com",
+    "mobile": "+917775839886",
+    "college": "tssms Bscoer nrhe ,pune",
+    "course": "B.Tech / B.E.",
+    "branch": "Computer Science & Engineering",
+    "yearSemester": "2nd  Year",
+    "skills": [
+      "DSA",
+      "Python",
+      "React"
+    ],
+    "problemsAttempted": 0,
+    "problemsSolved": 0,
+    "submissionsCount": 0,
+    "acceptedSubmissions": 0,
+    "accuracy": 0,
+    "languageUsage": {},
+    "predictOutputAttempted": 0,
+    "predictOutputCorrect": 0,
+    "predictAccuracy": 0,
+    "recentActivity": "Account registered",
+    "lastActive": "2026-10-04T05:25:41.384Z"
   }
 ]

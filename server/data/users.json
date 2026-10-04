@@ -49,5 +49,13 @@
     "password": "krishna@1",
     "role": "student",
     "createdAt": "2026-10-03T19:49:23.228Z"
+  },
+  {
+    "id": "usr_student_1791091541384",
+    "name": "Vaishnavi Vinod Ikhe",
+    "email": "ikhevaishnavi13@gmail.com",
+    "password": "135790",
+    "role": "student",
+    "createdAt": "2026-10-04T05:25:41.384Z"
   }
 ]

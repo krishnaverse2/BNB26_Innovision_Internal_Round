@@ -1952,6 +1952,49 @@
           }
         ],
         "reEvaluations": []
+      },
+      "python": {
+        "courseId": "python",
+        "enrolled": true,
+        "progress": 0,
+        "practiceAccuracy": 0,
+        "completedQuestions": 0,
+        "totalQuestions": 0,
+        "currentModuleId": "mod-01",
+        "completedModuleIds": [],
+        "unlockedModuleIds": [
+          "mod-01"
+        ],
+        "topicMastery": [],
+        "questionAttempts": [],
+        "testResults": [],
+        "learningGaps": [],
+        "aiLessons": [],
+        "reEvaluations": []
+      }
+    }
+  },
+  "usr_student_1791091541384": {
+    "studentId": "usr_student_1791091541384",
+    "courses": {
+      "cn": {
+        "courseId": "cn",
+        "enrolled": true,
+        "progress": 0,
+        "practiceAccuracy": 0,
+        "completedQuestions": 0,
+        "totalQuestions": 0,
+        "currentModuleId": "mod-01",
+        "completedModuleIds": [],
+        "unlockedModuleIds": [
+          "mod-01"
+        ],
+        "topicMastery": [],
+        "questionAttempts": [],
+        "testResults": [],
+        "learningGaps": [],
+        "aiLessons": [],
+        "reEvaluations": []
       }
     }
   }
